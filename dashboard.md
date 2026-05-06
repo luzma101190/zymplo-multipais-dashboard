@@ -2,7 +2,7 @@
 
 > **Propósito:** vista comparativa de los 13 países del ecosistema Zymplo · estado de facturación electrónica + integración bancaria · marcando avance de alineación al monorepo `zymplo/` y Oracle ZMP.
 >
-> **Última actualización:** 2026-05-06 (post-sesión de provider abstraction + sync e2e + thin refactor) · ver `git log MULTIPAIS-DASHBOARD.md` para historial · cualquier dev puede actualizar via PR a `develop`.
+> **Última actualización:** 2026-05-06 (post-chain SIAT BO follow-ups #534-#537 · paridad full Bolivia mobile + bot vs MX) · ver `git log MULTIPAIS-DASHBOARD.md` para historial · cualquier dev puede actualizar via PR a `develop`.
 
 ## 📐 Convención
 
@@ -40,8 +40,8 @@
 | 🌐 **Componentes Compartidos** | Estado |
 |---|---|
 | `zymplo-api` proxy (cross-país gateway) | ✅ MX (cfdi + openfinance) + BR (nfse) + BO (openfinance-bo) · falta SIAT + DTE |
-| `zymplo-mobile` (Expo · React Native) | ✅ MX (CFDI + OF) + BR (NFS-e) · falta SIAT BO + DTE CL · falta OF multi-país |
-| `zymplo-langgraph` (WhatsApp bot) | ✅ MX (CFDI + OF Belvo) + BO (OF Prometeo · post #521) + BR (NFS-e) · falta `siat_tools` BO + `dte_tools` CL |
+| `zymplo-mobile` (Expo · React Native) | ✅ MX (CFDI completo) + BR (NFS-e) + BO (SIAT completo · setup/emit/history/detail/PdV/NC-ND/drafts) + OF multi-país MX/BO · falta DTE CL |
+| `zymplo-langgraph` (WhatsApp bot) | ✅ MX (CFDI + OF Belvo) + BR (NFS-e) + BO (SIAT 6 tools incluido NC/ND + OF Prometeo) · falta `dte_tools` CL |
 | Tablas Oracle ZMP genéricas (audit, notif, of) | ✅ creadas 2026-05-05 |
 | Service core `zymplo-openfinance-belvo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
 | Service core `zymplo-openfinance-prometeo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
@@ -136,7 +136,7 @@ Estado de cada país en los productos cross-cutting que consumen las APIs país-
 |---|---|---|
 | 🇲🇽 **México**     | ✅ CFDI emit/setup/history/preview/detail · OF connect/manual-match | ✅ `cfdi_tools.py` + `openfinance_tools.py` |
 | 🇧🇷 **Brasil**     | ✅ NFS-e emit/history/detail | ✅ `nfse_tools.py` |
-| 🇧🇴 **Bolivia**    | ❌ no integrado · faltan screens SIAT (emit/history/detail) + screens del thin BO OF | 🟡 parcial · OF integrado post #521 (multi-país MX+BO via paisCodi dispatch) · falta `siat_tools.py` para factura |
+| 🇧🇴 **Bolivia**    | ✅ SIAT setup (cert ADSIB upload) + emit/history/detail + PdV management + NC/ND emission + Drafts workflow (#534-#537) · OF Prometeo via openfinance.tsx multi-país (#525) | ✅ `siat_tools.py` 6 tools incluido emit/buscar/listar/anular factura + NC/ND (#526, #535) · `factura_tools.py` wrapper multi-país BR/MX/BO (#530) · OF dispatch multi-país MX+BO (#521) |
 | 🇨🇱 **Chile**      | ❌ no integrado · falta DTE (post #477 merge) + screens thin CL OF | ❌ no integrado · falta `dte_tools.py` |
 | 🇵🇾 Paraguay   | ❌ no integrado | ❌ no integrado |
 | 🇨🇴 Colombia   | ❌ no integrado | ❌ no integrado |
@@ -155,10 +155,13 @@ Las referencias a `MX_OF_LINK` en `openfinance_tools.py` y `openfinance_client.p
 Bonus en #521: el bot ahora dispatch automático según `paisCodi` · empresas BO (paisCodi=4) consultan `/api/v2/openfinance-bo/*` (Prometeo) · empresas MX (paisCodi=3) siguen `/api/v2/openfinance/*` (Belvo) · transparente.
 
 **TODO** (PRs futuros · prioridad alta):
-- Mobile · agregar screens SIAT BO (consumiendo `bolivia/zymplo-siat/` API)
-- Mobile · openfinance multi-país · soportar BO (consumir `bolivia/zymplo-openfinance-bo/`) además de MX
-- Langgraph · agregar `siat_tools.py` para BO factura · requiere proxy SIAT en `zymplo-api` primero (no existe módulo `siat`)
-- Langgraph · agregar `dte_tools.py` para CL post #477 merge
+- ~~Mobile · agregar screens SIAT BO~~ · ✅ cerrado #527 (emit/history/detail) + chain follow-ups #534-#537 (PdV/NC-ND/drafts/cert)
+- ~~Mobile · openfinance multi-país BO~~ · ✅ cerrado #525 (sub-view BoView en openfinance.tsx con paisCodi dispatch)
+- ~~Langgraph · agregar `siat_tools.py` para BO~~ · ✅ cerrado #526 (4 tools) + #535 (NC/ND · 6 tools total) · proxy `factura-bo` en zymplo-api ya existía
+- ~~Langgraph · wrapper multi-país facturas~~ · ✅ cerrado #530 (`factura_tools.py · erp_emitir_comprobante` auto-dispatch BR/MX/BO)
+- Langgraph · agregar `dte_tools.py` para CL post #477 merge (Chile DTE ya mergeó · siguiente paso)
+- DevOps · `EXPO_PUBLIC_SIAT_BO_SERVICE_TOKEN` en Doppler para que mobile cert upload funcione en QA (#537)
+- Future PR · endpoint multipart en proxy `zymplo-api/factura-bo` para destrabar mobile cert upload en producción (workaround actual: directo al thin con service-token)
 
 ---
 
