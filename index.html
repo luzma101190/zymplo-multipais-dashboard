@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zymplo · Dashboard Multi-país</title>
+  <meta name="description" content="Vista comparativa del estado de facturación electrónica + integración bancaria por país en el ecosistema Zymplo">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.1/github-markdown-light.min.css">
+  <style>
+    body {
+      box-sizing: border-box;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .header {
+      background: #0d1117;
+      color: #fff;
+      padding: 1rem 2rem;
+      margin: -2rem -2rem 2rem -2rem;
+      border-bottom: 3px solid #1f6feb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+    .header .meta {
+      font-size: 0.85rem;
+      color: #8b949e;
+    }
+    .header a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+    .header a:hover { text-decoration: underline; }
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+    }
+    .markdown-body table {
+      display: table;
+      width: 100%;
+    }
+    .loader {
+      text-align: center;
+      padding: 4rem;
+      color: #6e7681;
+    }
+    .error {
+      background: #ffebe9;
+      border: 1px solid #ff8182;
+      padding: 1rem;
+      border-radius: 6px;
+      color: #cf222e;
+    }
+    @media (max-width: 768px) {
+      body { padding: 1rem; }
+      .header { margin: -1rem -1rem 1rem -1rem; padding: 1rem; }
+      .header h1 { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌎 Zymplo · Dashboard Multi-país</h1>
+    <div class="meta">
+      <a href="https://github.com/zymplo-inc/zymplo/blob/develop/MULTIPAIS-DASHBOARD.md" target="_blank" rel="noopener">📝 editar en GitHub</a>
+      &nbsp;·&nbsp;
+      <span id="last-updated">cargando…</span>
+    </div>
+  </div>
+  <article id="content" class="markdown-body">
+    <div class="loader">Cargando dashboard…</div>
+  </article>
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+  <script>
+    (async function () {
+      const target = document.getElementById('content');
+      const meta = document.getElementById('last-updated');
+      try {
+        const res = await fetch('./dashboard.md', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const md = await res.text();
+        target.innerHTML = marked.parse(md);
+        const lastModified = res.headers.get('last-modified');
+        if (lastModified) {
+          const d = new Date(lastModified);
+          meta.textContent = 'última actualización: ' + d.toLocaleString('es-PY', {
+            timeZone: 'America/Asuncion',
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          });
+        } else {
+          meta.textContent = '';
+        }
+      } catch (err) {
+        target.innerHTML = '<div class="error"><strong>Error cargando el dashboard:</strong> ' + err.message + '</div>';
+      }
+    })();
+  </script>
+</body>
+</html>

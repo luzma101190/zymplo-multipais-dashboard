@@ -1,0 +1,255 @@
+# 🌎 Zymplo · Dashboard Multi-país
+
+> **Propósito:** vista comparativa de los 13 países del ecosistema Zymplo · estado de facturación electrónica + integración bancaria · marcando avance de alineación al monorepo `zymplo/` y Oracle ZMP.
+>
+> **Última actualización:** 2026-05-06 · ver `git log MULTIPAIS-DASHBOARD.md` para historial · cualquier dev puede actualizar via PR a `develop`.
+
+## 📐 Convención
+
+- ✅ done (alineado al monorepo + Oracle ZMP + tests verdes en QA)
+- 🟡 partial (parcial: code escrito o test pasa, pero falta alguno de: monorepo / Oracle ZMP / certificación / deploy)
+- 🧪 listo en test externo (funciona en repo del dueño, **falta migrar al monorepo zymplo + Oracle ZMP**)
+- ⏳ en proceso
+- ⏸️ pausado
+- ❌ pending / no iniciado
+- `?` requires audit
+
+> **Nota importante:** "Listo" en el sheet legacy del equipo significa **🧪 listo en test externo** — el código funciona en su repo origen, pero todavía no está en el monorepo zymplo ni persiste en Oracle ZMP. La migración al monorepo es un trabajo separado por país.
+
+---
+
+## 📈 Vista global ejecutiva
+
+| País | Dueño | Facturación E. (estado) | OF Bancaria (provider · estado) | Alineación monorepo |
+|---|---|---|---|---|
+| 🇧🇷 **Brasil**     | Martín Rolón     | 🧪 NFS-e listo                       | 🧪 Pluggy listo (Docu+Swagger)        | 🟡 zymplo-nfse en monorepo · audit |
+| 🇵🇾 **Paraguay**   | Liz Villasanti   | 🧪 DNIT listo (Zymplo Fact. E.)      | ⏸️ En pausa (80% docu) · pending CO   | ❌ no en monorepo |
+| 🇲🇽 **México**     | Luz Espínola     | 🟡 CFDI listo (Facturama) · F0       | 🟡 Belvo F0 (Docu+Swagger)            | 🟡 mexico/zymplo-cfdi + zymplo-openfinance |
+| 🇺🇸 **EEUU**       | Andrea Amarilla  | 🧪 UBL listo (no envía a regulador)  | ⏳ Akoya en proceso                   | ❌ no en monorepo |
+| 🇨🇴 **Colombia**   | Liz Villasanti   | 🧪 DIAN listo (falta cert real)      | 🧪 Belvo listo (Docu+Swagger)         | ❌ no en monorepo |
+| 🇪🇸 **España**     | Francisco Villalba | 🧪 listo (falta cert real)         | 🧪 listo                              | ❌ no en monorepo |
+| 🇦🇷 **Argentina**  | Gadiel Muñoz     | 🧪 listo (falta cert real)           | 🧪 listo                              | ❌ no en monorepo |
+| 🇵🇪 **Perú**       | Alberto Mendez   | 🧪 listo (falta cert real)           | 🧪 Belvo listo                        | ❌ no en monorepo |
+| 🇪🇨 **Ecuador**    | Orlando          | 🧪 listo (falta cert real)           | 🧪 kushkipagos listo                  | ❌ no en monorepo |
+| 🇨🇱 **Chile**      | Martín Rolón     | 🧪 listo · PR #477 (PostgreSQL ❌)   | ⏳ En proceso                         | ⏳ PR #477 abierto · refactor a Oracle pendiente |
+| 🇺🇾 **Uruguay**    | Orlando Dure     | 🧪 listo (falta cert real)           | ❌ no iniciado                        | ❌ no en monorepo |
+| 🇧🇴 **Bolivia**    | Luz Espínola     | 🟡 SIAT F0 cerrado 2026-05-05        | 🟡 Prometeo F0                        | 🟡 bolivia/zymplo-siat + zymplo-openfinance-bo |
+| 🇨🇷 **Costa Rica** | Alberto Mendez   | ⏳ en proceso                        | ❌ no iniciado                        | ❌ no en monorepo |
+
+| 🌐 **Componentes Compartidos** | Estado |
+|---|---|
+| Tablas Oracle ZMP genéricas (audit, notif, of) | ✅ creadas 2026-05-05 |
+| Service core `zymplo-openfinance-belvo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
+| Service core `zymplo-openfinance-prometeo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
+| Provider abstraction · contract neutral entre cores | ✅ #493-#497 (2026-05-06) |
+| Thins MX/CL/BO provider-agnostic vía `OF_CORE_BASE_URL` | ✅ #494-#495 (2026-05-06) |
+| Service core `zymplo-openfinance-pluggy` | ❌ Fase 3 (cuando entre BR al monorepo) |
+| Service core `zymplo-openfinance-akoya` | ❌ Fase 4+ (cuando entre EEUU) |
+| Service core `zymplo-openfinance-kushkipagos` | ❌ Fase 4+ (cuando entre Ecuador) |
+| Governance (arch-guard CI · CLAUDE.md por país · backlog) | ❌ Fase 4 |
+
+---
+
+## 🧾 Detalle · Facturación Electrónica
+
+| País | Autoridad fiscal | Estado en repo origen | Repo/Stack origen actual | En monorepo zymplo | Tablas Oracle ZMP | Cert. real | Deploy QA | Deploy Prod |
+|---|---|---|---|---|---|---|---|---|
+| 🇧🇷 Brasil     | Receita Federal · NFS-e | 🧪 listo | `brasil/zymplo-nfse/` (en monorepo) | 🟡 sí · falta audit Oracle | ? audit | ❌ | ? | ❌ |
+| 🇵🇾 Paraguay   | DNIT/SIFEN              | 🧪 listo en "Zymplo Facturación Electrónica" | externo al monorepo (otro producto) | ❌ | ❌ | 🧪 ya certif probable | ? | 🟡 productivo? |
+| 🇲🇽 México     | SAT · CFDI 4.0          | 🟡 F0  | `mexico/zymplo-cfdi/` (Facturama PAC) | 🟡 sí · F0 | ✅ MX_CFDI_HISTORICO + MX_CSD_VAULT + MX_EMPR_FISCAL | ❌ | ✅ | ❌ |
+| 🇺🇸 EEUU       | (UBL std · sin regulador) | 🧪 listo | externo al monorepo | ❌ | ❌ | N/A | ? | ❌ |
+| 🇨🇴 Colombia   | DIAN                    | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
+| 🇪🇸 España     | AEAT                    | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
+| 🇦🇷 Argentina  | AFIP · FCE              | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
+| 🇵🇪 Perú       | SUNAT · CPE             | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
+| 🇪🇨 Ecuador    | SRI                     | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
+| 🇨🇱 Chile      | SII · DTE               | 🧪 listo · PR #477 con security checks fail | `chile/zymplo-dte/` (PostgreSQL local 🚫) | 🟡 PR abierto · NO en Oracle | ❌ (usa PostgreSQL local) | ❌ falta cert + RUT chileno | ❌ | ❌ |
+| 🇺🇾 Uruguay    | DGI                     | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
+| 🇧🇴 Bolivia    | SIN · SIAT              | 🟡 F0 cerrado | `bolivia/zymplo-siat/` | 🟡 sí · F0 cerrado 2026-05-05 | ✅ BO_SIAT_FACTURA + 4 más | ❌ | 🟡 PR #469 fix port | ❌ |
+| 🇨🇷 Costa Rica | DGT                     | ⏳ en proceso | externo al monorepo | ❌ | ❌ | ❌ | ? | ❌ |
+
+---
+
+## 🏦 Detalle · Open Finance / Integración bancaria
+
+| País | Provider | Cobertura del provider | Estado en repo origen | Service core en monorepo | Alineado a `ZMP_OF_*` | Falta para alineación |
+|---|---|---|---|---|---|---|
+| 🇧🇷 Brasil     | **Pluggy**       | BR | 🧪 listo (Docu+Swagger)       | ❌ `zymplo-openfinance-pluggy` (Fase 3) | ❌ | crear core + thin BR |
+| 🇵🇾 Paraguay   | (pending CO)     | ?  | ⏸️ pausado · 80% docu         | depends on provider                     | ❌ | confirmar provider · arrancar |
+| 🇲🇽 México     | **Belvo**        | LatAm + 6 países | 🟡 listo F0 (Docu+Swagger) | ❌ `zymplo-openfinance-belvo` (Fase 1) | ❌ | extraer core · refactor MX a thin |
+| 🇺🇸 EEUU       | **Akoya**        | EEUU | ⏳ en proceso                | ❌ `zymplo-openfinance-akoya` (Fase 4+) | ❌ | finalizar test · service core futuro |
+| 🇨🇴 Colombia   | **Belvo**        | sí (Belvo CO) | 🧪 listo (Docu+Swagger) | depends Fase 1                          | ❌ | thin CO post Fase 1 |
+| 🇪🇸 España     | (no Belvo)       | ?  | 🧪 listo                      | ?                                       | ❌ | confirmar provider |
+| 🇦🇷 Argentina  | (Belvo? local?)  | Belvo no cubre AR plenamente | 🧪 listo | ?                                       | ❌ | confirmar provider |
+| 🇵🇪 Perú       | **Belvo**        | sí (Belvo PE) | 🧪 listo               | depends Fase 1                          | ❌ | thin PE post Fase 1 |
+| 🇪🇨 Ecuador    | **kushkipagos**  | EC | 🧪 listo                       | ❌ `zymplo-openfinance-kushkipagos` (Fase 4+) | ❌ | service core futuro |
+| 🇨🇱 Chile      | **Belvo**        | sí (Belvo CL) | ⏳ en proceso          | depends Fase 1                          | ❌ | thin CL post Fase 1 |
+| 🇺🇾 Uruguay    | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
+| 🇧🇴 Bolivia    | **Prometeo**     | BO/PY/UY/AR/PE/CL | 🟡 F0 cerrado    | ❌ `zymplo-openfinance-prometeo` (Fase 1) | ❌ | extraer core · refactor BO a thin |
+| 🇨🇷 Costa Rica | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
+
+> **Nota providers cross-país:** Belvo cubre MX/CO/CL/PE/BR (parcial) · Prometeo cubre BO/PY/UY/AR/PE/CL · Pluggy cubre BR (más amplio) · Akoya cubre EEUU · kushkipagos cubre Ecuador. **Cada provider = un service core compartido** en raíz del monorepo.
+
+---
+
+## 🔁 Provider matrix · validación e2e cross-swap
+
+Post serie provider-abstraction (#493-#498), cada thin país-específico puede apuntar a cualquier core (Belvo o Prometeo) cambiando solo `OF_CORE_BASE_URL` · sin tocar código. **Smoke tests local 2026-05-06**:
+
+| Thin | Default | Cross-swap | E2e validado |
+|---|---|---|---|
+| 🇲🇽 MX (`mexico/zymplo-openfinance`) | → Belvo (`:3010`) | → Prometeo (`:3011`) | ✅ ambas direcciones · `country=MEX, provider={belvo,prometeo}` persistido |
+| 🇧🇴 BO (`bolivia/zymplo-openfinance-bo`) | → Prometeo (`:3011`) | → Belvo (`:3010`) | ✅ ambas direcciones · `country=BOL, provider={prometeo,belvo}` persistido |
+| 🇨🇱 CL (`chile/zymplo-openfinance`) | → Belvo (`:3010`) | → Prometeo (`:3011`) | ⏳ código provider-agnostic mergeado · pendiente smoke local |
+
+**Cómo cambiar de provider en runtime** (un solo file):
+
+```bash
+# Bolivia → Belvo en lugar de Prometeo (ej. si Prometeo está caído)
+# bolivia/zymplo-openfinance-bo/.env
+OF_PROVIDER=belvo
+OF_CORE_BASE_URL=http://core-belvo:3010
+OF_CORE_AUTH_TOKEN=<token-belvo-core>
+```
+
+**Caveats observados** en smoke con mock data:
+
+- Catálogo de instituciones del provider mock no siempre cubre el país objetivo (ej. Belvo mock no tiene BOL · Prometeo mock no tiene MEX). En producción cada provider real tiene cobertura propia · ver columna "Cobertura del provider" arriba.
+- POST /links + GET /links + GET /accounts funcionan correctamente en cross-swap · la persistencia ZMP_OF_LINK discrimina por `(country, provider)` correctamente.
+
+**Webhooks NO son provider-agnostic** (intencional · `POST /webhooks/belvo` y `POST /webhooks/prometeo` son rutas separadas con firmas distintas). Cada provider tiene su propia ruta y secret HMAC.
+
+---
+
+## 🎯 Plan de alineación al monorepo (lo que falta para cerrar todo)
+
+Para cada país que está 🧪 (listo en test externo), el trabajo es:
+
+```
+1. Crear estructura en monorepo:
+   - <country>/zymplo-<servicio>/  (factura electrónica país-específica)
+   - <country>/zymplo-openfinance/ (thin adapter cross-provider)
+
+2. Migrar código del repo origen al monorepo siguiendo patrón:
+   - mexico/zymplo-cfdi/ y bolivia/zymplo-siat/ son los referentes
+   - chile/zymplo-dte/ después del refactor F1 también será referente
+
+3. Convertir migrations DB a Oracle ZMP idempotentes:
+   - <COUNTRY>_<SERVICE>_FACTURA / _CERT_VAULT / _etc en zmp.<>
+   - NO PostgreSQL/MySQL aislado · NO replicar SKN
+
+4. Wirear repo a Oracle ATP (con in-memory fallback)
+
+5. Adoptar service core OF compartido por provider (Belvo/Prometeo/Pluggy/Akoya/kushkipagos)
+
+6. Doppler + deploy QA workflow
+
+7. Tests verdes
+8. Certificación real (cuando aplique)
+9. Deploy Prod
+```
+
+---
+
+## 🌐 Componentes técnicos genéricos (zymplo monorepo)
+
+### Tablas Oracle ZMP
+
+| Tabla | Estado | Uso |
+|---|---|---|
+| `ZMP_TRAN` | ✅ existente · extendida 2026-05-05 (+3 cols: cuf, cfdi_uuid, belvo_tx_id) | cashflow universal · conciliación bidireccional |
+| `ZMP_AUDIT_LOG` | ✅ creada 2026-05-05 | audit cross-país (country, service) |
+| `ZMP_NOTIFICATION` | ✅ creada · ⚠️ 2 indexes secundarios pendientes (Oracle no soporta WHERE) | notifs cross-país (country, service) |
+| `ZMP_OF_LINK` | ✅ creada 2026-05-05 | links OF cross-país, cross-provider |
+| `ZMP_OF_ACCOUNT` | ✅ creada 2026-05-05 | cuentas OF cross-país, cross-provider |
+| `ZMP_OF_TRANSACTION` | ✅ creada 2026-05-05 | transactions OF cross-país, cross-provider |
+| `ZMP_OF_LINK_CRED_VAULT` | ✅ creada 2026-05-05 | creds AES-256-GCM (providers session-based) |
+| `MX_CFDI_HISTORICO`, `MX_CSD_VAULT`, `MX_EMPR_FISCAL` | ✅ existentes | facturación MX |
+| `BO_SIAT_FACTURA`, `BO_SIAT_PUNTO_VENTA`, `BO_SIAT_CUFD_CACHE`, `BO_SIAT_CERT_VAULT`, `BO_SIAT_EVENTO_SIG` | ✅ creadas 2026-05-05 | facturación BO |
+| `SKN.CLIE_MAES`, `SKN.COME_EMPR`, `SKN.SEGU_USER` | ✅ legacy · read-only | clientes/empresas/usuarios cross-país |
+
+### Microservicios compartidos
+
+| Servicio | Provider | Países que lo usarán | Estado |
+|---|---|---|---|
+| `zymplo-openfinance-belvo` | Belvo | MX, CO, PE, CL, (BR partial), futuros | ✅ código + deploy infra · DevOps pendiente |
+| `zymplo-openfinance-prometeo` | Prometeo | BO, PY, UY, AR, PE, CL | ✅ código + deploy infra · DevOps pendiente |
+| `zymplo-openfinance-pluggy` | Pluggy | BR | ❌ F3 (cuando entre BR al monorepo) |
+| `zymplo-openfinance-akoya` | Akoya | EEUU | ❌ F4+ (cuando entre EEUU) |
+| `zymplo-openfinance-kushkipagos` | kushkipagos | EC | ❌ F4+ (cuando entre Ecuador) |
+
+---
+
+## 🛣️ Roadmap por fases
+
+| Fase | Qué | Cuándo | Estado |
+|---|---|---|---|
+| **F0** | Migrations Oracle ZMP base + Bolivia SIAT cerrado | 2026-05-05 | ✅ cerrado hoy |
+| **F1** | Service core compartido OF Belvo + Prometeo + thin adapters MX/BO | esta semana / próxima | ⏳ |
+| **F2** | Chile DTE F0 mergeable (security fix) + F1 refactor a Oracle ZMP | post-F1 | ⏳ |
+| **F3** | Brasil al monorepo · service core Pluggy · alineación NFS-e a Oracle | post-F2 | ⏳ |
+| **F4** | Governance (arch-guard CI · CLAUDE.md por país · backlog) | paralelo | ⏳ |
+| **F5** | **Migración masiva** · alinear los 🧪 al monorepo (CO/PE/AR/EC/UY/EEUU/ES/PY/CR) | ola por ola post F4 | ⏳ |
+| **F6** | Sumar país nuevo no listado (template repetible) | cuando entren | N/A |
+
+### Orden de migración masiva sugerido (Fase 5)
+
+Priorización por:
+1. **Provider en común** (los que usan Belvo se benefician primero del core)
+2. **Cobertura de mercado**
+3. **Estado del cert real** (más cerca de prod = más prioridad)
+
+| Wave | Países | Provider OF | Razón |
+|---|---|---|---|
+| 5.1 | 🇨🇴 CO, 🇵🇪 PE, 🇨🇱 CL | Belvo | core ya extraído (F1) · solo agregar thin adapter |
+| 5.2 | 🇦🇷 AR, 🇺🇾 UY | Prometeo (probable) | core ya extraído |
+| 5.3 | 🇧🇷 BR | Pluggy | crear core (F3) |
+| 5.4 | 🇪🇸 ES, 🇪🇨 EC | varios (kushkipagos para EC) | crear cores (F4+) |
+| 5.5 | 🇺🇸 EEUU, 🇵🇾 PY, 🇨🇷 CR | varios | misceláneos · uno a uno |
+
+---
+
+## 📋 Checklist · alinear país existente al monorepo
+
+Cuando llegue el turno de migrar un país que está 🧪 al monorepo:
+
+### Facturación electrónica
+- [ ] Identificar repo origen donde vive el código actual
+- [ ] Crear `<country>/zymplo-<servicio>/` en monorepo (ver convención naming según autoridad fiscal)
+- [ ] Copiar/migrar código siguiendo patrón `mexico/zymplo-cfdi/` o `bolivia/zymplo-siat/`
+- [ ] Reescribir migrations DB en `zymplo-api/migrations/<fecha>_<country>_<servicio>_*.sql` para Oracle ZMP
+- [ ] Vault certificados con Fernet o AES-256-GCM (NO plain text)
+- [ ] Wirear repos contra Oracle ATP (`db.withConnection`) con in-memory fallback
+- [ ] Tests unit verdes (mismo nivel que MX/BO)
+- [ ] CLAUDE.md del subproyecto (regla "datos van a Oracle ZMP")
+- [ ] Doppler config QA + prod
+- [ ] Deploy QA workflow + smoke test
+- [ ] Marcar 🟡 → ✅ en este dashboard
+
+### Open Finance
+- [ ] Identificar provider del país (Belvo/Prometeo/Pluggy/Akoya/kushkipagos/etc)
+- [ ] Si el service core del provider NO existe aún en monorepo → crear primero (F1/F3/F4+)
+- [ ] Crear `<country>/zymplo-openfinance/` thin adapter
+- [ ] Adapter invoca service core con `country=<XXX>` · provider implícito
+- [ ] Wirear contra `ZMP_OF_*` (genérica · ya existe)
+- [ ] Compliance regulador local (CNBV/SBIF/SBS/SFC/etc)
+- [ ] Tests verdes
+- [ ] Deploy QA + prod
+- [ ] Marcar en dashboard
+
+### Operacional / mobile
+- [ ] Integración a la app mobile (mostrar facturas + cuentas bancarias)
+- [ ] Integración WhatsApp bot (per Luz: pendiente para todos los países hoy)
+- [ ] Documentación end-user (si aplica)
+
+---
+
+## 📝 Cómo se actualiza este dashboard
+
+1. **Cambio de estado** (✅/🟡/🧪/⏳/❌): edit-this-md, PR a `develop`, descripción del avance
+2. **Sumar país nuevo**: agregar fila en las tablas + entrada en provider mapping
+3. **Migrar país de 🧪 a 🟡 a ✅**: actualizar las 3 columnas correspondientes (Estado / Tablas Oracle ZMP / monorepo)
+4. **Cambio de fase del roadmap**: edit la sección de fases con nueva fecha y estado
+5. **Cambio de dueño**: actualizar columna Dueño en vista global
+
+**¿Por qué Markdown y no HTML interactivo?** Versionable en git · GitHub renderiza tablas y checkboxes nativamente · cualquier dev lo actualiza via PR · diff claro de qué cambió y cuándo. Si después se quiere visualización fancy, agregamos un script Python/Node que genere HTML desde este `.md`.

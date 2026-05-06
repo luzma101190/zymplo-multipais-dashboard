@@ -1,0 +1,16 @@
+# Cloudflare Pages headers · zymplo-multipais.kuarahytech.com.py
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+
+# Cache breve para el .md · cambios al dashboard se reflejan en <1 min sin invalidación manual
+/dashboard.md
+  Cache-Control: public, max-age=60, must-revalidate
+
+# Cache moderado para el index · estable, raramente cambia
+/index.html
+  Cache-Control: public, max-age=300, must-revalidate
+
+# Security headers básicos · todos los assets
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
