@@ -41,7 +41,7 @@
 |---|---|
 | `zymplo-api` proxy (cross-país gateway) | ✅ MX (cfdi + openfinance) + BR (nfse) + BO (openfinance-bo) · falta SIAT + DTE |
 | `zymplo-mobile` (Expo · React Native) | ✅ MX (CFDI + OF) + BR (NFS-e) · falta SIAT BO + DTE CL · falta OF multi-país |
-| `zymplo-langgraph` (WhatsApp bot) | ✅ MX (cfdi + OF) + BR (NFS-e) · ⚠️ OF refs `MX_OF_LINK` obsoleta · falta `siat_tools` + `dte_tools` |
+| `zymplo-langgraph` (WhatsApp bot) | ✅ MX (CFDI + OF Belvo) + BO (OF Prometeo · post #521) + BR (NFS-e) · falta `siat_tools` BO + `dte_tools` CL |
 | Tablas Oracle ZMP genéricas (audit, notif, of) | ✅ creadas 2026-05-05 |
 | Service core `zymplo-openfinance-belvo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
 | Service core `zymplo-openfinance-prometeo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
@@ -136,7 +136,7 @@ Estado de cada país en los productos cross-cutting que consumen las APIs país-
 |---|---|---|
 | 🇲🇽 **México**     | ✅ CFDI emit/setup/history/preview/detail · OF connect/manual-match | ✅ `cfdi_tools.py` + `openfinance_tools.py` |
 | 🇧🇷 **Brasil**     | ✅ NFS-e emit/history/detail | ✅ `nfse_tools.py` |
-| 🇧🇴 **Bolivia**    | ❌ no integrado · faltan screens SIAT (emit/history/detail) + screens del thin BO OF | ❌ no integrado · falta `siat_tools.py` + ajustar `openfinance_tools.py` para multi-provider (BO usa Prometeo) |
+| 🇧🇴 **Bolivia**    | ❌ no integrado · faltan screens SIAT (emit/history/detail) + screens del thin BO OF | 🟡 parcial · OF integrado post #521 (multi-país MX+BO via paisCodi dispatch) · falta `siat_tools.py` para factura |
 | 🇨🇱 **Chile**      | ❌ no integrado · falta DTE (post #477 merge) + screens thin CL OF | ❌ no integrado · falta `dte_tools.py` |
 | 🇵🇾 Paraguay   | ❌ no integrado | ❌ no integrado |
 | 🇨🇴 Colombia   | ❌ no integrado | ❌ no integrado |
@@ -148,15 +148,17 @@ Estado de cada país en los productos cross-cutting que consumen las APIs país-
 | 🇺🇸 EEUU       | ❌ no integrado | ❌ no integrado |
 | 🇨🇷 Costa Rica | ❌ no integrado | ❌ no integrado |
 
-### ⚠️ Bug detectado en langgraph · OF refs a tabla obsoleta
+### ✅ Resolved · langgraph OF migrado a multi-país (#521)
 
-`zymplo-langgraph/src/tools/openfinance_tools.py` y `utils/openfinance_client.py` referencian la tabla **`MX_OF_LINK`** que fue **dropeada en #481** (reemplazada por `ZMP_OF_LINK` con discriminator `(country, provider)`). El bot probablemente está roto en cualquier query OF · pendiente fixear como item separado.
+Las referencias a `MX_OF_LINK` en `openfinance_tools.py` y `openfinance_client.py` eran solo **comments doc desactualizados** (no queries SQL · el bot llama via httpx al proxy `zymplo-api`, no a Oracle directo). Comentarios actualizados a `zmp_of_link` post #521.
+
+Bonus en #521: el bot ahora dispatch automático según `paisCodi` · empresas BO (paisCodi=4) consultan `/api/v2/openfinance-bo/*` (Prometeo) · empresas MX (paisCodi=3) siguen `/api/v2/openfinance/*` (Belvo) · transparente.
 
 **TODO** (PRs futuros · prioridad alta):
-- Fix langgraph · migrar refs `MX_OF_LINK` → `ZMP_OF_LINK` con `country='MEX' + provider='belvo'` filter
 - Mobile · agregar screens SIAT BO (consumiendo `bolivia/zymplo-siat/` API)
 - Mobile · openfinance multi-país · soportar BO (consumir `bolivia/zymplo-openfinance-bo/`) además de MX
-- Langgraph · agregar `siat_tools.py` para BO factura
+- Langgraph · agregar `siat_tools.py` para BO factura · requiere proxy SIAT en `zymplo-api` primero (no existe módulo `siat`)
+- Langgraph · agregar `dte_tools.py` para CL post #477 merge
 
 ---
 
