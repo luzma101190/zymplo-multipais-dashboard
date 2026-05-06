@@ -221,6 +221,41 @@ Para cada país que está 🧪 (listo en test externo), el trabajo es:
 
 ---
 
+## 🔗 API Docs (Swagger UI · entornos QA)
+
+Cada thin/servicio país-específico expone su OpenAPI 3 en `/api-docs` con "Try it out" listo. **Solo en QA** (en prod los Swagger UI quedan deshabilitados por convención `OF_DEV_HEADERS_ENABLED=false` · ver memoria `feedback_dev_headers_security_prod`).
+
+| País | Servicio | Standard | Swagger UI |
+|---|---|---|---|
+| 🇲🇽 México   | CFDI (Facturama PAC)        | CFDI 4.0 | https://cfdi-mx-qa.zymplo.com/api-docs/ |
+| 🇲🇽 México   | Open Finance (Belvo · thin) | OF MX    | https://openfinance-mx-qa.zymplo.com/api-docs/ |
+| 🇧🇴 Bolivia  | Facturación (SIAT/SIN)      | SIAT     | https://facturacion-bolivia-qa.zymplo.com/api-docs/ |
+| 🇧🇴 Bolivia  | Open Finance (Prometeo · thin) | OF BO  | https://openfinance-bo-qa.zymplo.com/api-docs/ |
+| 🇧🇷 Brasil   | NFS-e (Receita Federal)     | NFS-e    | TBD · `nfse-qa.zymplo.com` no expone Swagger todavía (servicio pre-monorepo) |
+| 🇨🇱 Chile    | Open Finance (Belvo · thin) | OF CL    | TBD · falta deploy QA (PR #495 / DevOps) |
+
+### Cores compartidos (multi-país · sin Swagger UI público)
+
+Los service core (`zymplo-openfinance-belvo`, `zymplo-openfinance-prometeo`) son consumidos solo por los thins por service name interno · no exponen Swagger público. Para inspeccionar request/response del core, usar el thin del país correspondiente.
+
+### Cómo testear desde Swagger UI · auth dev shortcut
+
+Cada thin con `OF_DEV_HEADERS_ENABLED=true` (solo QA · jamás prod) expone:
+
+```bash
+GET /auth/dev/info
+# devuelve x-of-service-token + x-empresa-id listos para pegar en
+# el modal "Authorize" de Swagger UI · sin pedir nada a admin
+```
+
+Ejemplo BO:
+```bash
+curl https://openfinance-bo-qa.zymplo.com/auth/dev/info
+# → { "headers": { "x-of-service-token": "...", "x-empresa-id": "1" }, ... }
+```
+
+---
+
 ## 🛣️ Roadmap por fases
 
 | Fase | Qué | Cuándo | Estado |
