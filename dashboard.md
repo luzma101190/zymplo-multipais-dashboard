@@ -2,7 +2,7 @@
 
 > **Propósito:** vista comparativa de los 13 países del ecosistema Zymplo · estado de facturación electrónica + integración bancaria · marcando avance de alineación al monorepo `zymplo/` y Oracle ZMP.
 >
-> **Última actualización:** 2026-05-06 · ver `git log MULTIPAIS-DASHBOARD.md` para historial · cualquier dev puede actualizar via PR a `develop`.
+> **Última actualización:** 2026-05-06 (post-sesión de provider abstraction + sync e2e + thin refactor) · ver `git log MULTIPAIS-DASHBOARD.md` para historial · cualquier dev puede actualizar via PR a `develop`.
 
 ## 📐 Convención
 
@@ -24,7 +24,7 @@
 |---|---|---|---|---|
 | 🇧🇷 **Brasil**     | Martín Rolón     | 🧪 NFS-e listo                       | 🧪 Pluggy listo (Docu+Swagger)        | 🟡 zymplo-nfse en monorepo · audit |
 | 🇵🇾 **Paraguay**   | Liz Villasanti   | 🧪 DNIT listo (Zymplo Fact. E.)      | ⏸️ En pausa (80% docu) · pending CO   | ❌ no en monorepo |
-| 🇲🇽 **México**     | Luz Espínola     | 🟡 CFDI listo (Facturama) · F0       | 🟡 Belvo F0 (Docu+Swagger)            | 🟡 mexico/zymplo-cfdi + zymplo-openfinance |
+| 🇲🇽 **México**     | Luz Espínola     | 🟡 CFDI F0 (Facturama) · falta cert prod | ✅ Belvo · thin + core + sync + smoke e2e validado · falta creds prod | ✅ mexico/zymplo-cfdi + zymplo-openfinance (thin) |
 | 🇺🇸 **EEUU**       | Andrea Amarilla  | 🧪 UBL listo (no envía a regulador)  | ⏳ Akoya en proceso                   | ❌ no en monorepo |
 | 🇨🇴 **Colombia**   | Liz Villasanti   | 🧪 DIAN listo (falta cert real)      | 🧪 Belvo listo (Docu+Swagger)         | ❌ no en monorepo |
 | 🇪🇸 **España**     | Francisco Villalba | 🧪 listo (falta cert real)         | 🧪 listo                              | ❌ no en monorepo |
@@ -33,7 +33,7 @@
 | 🇪🇨 **Ecuador**    | Orlando          | 🧪 listo (falta cert real)           | 🧪 kushkipagos listo                  | ❌ no en monorepo |
 | 🇨🇱 **Chile**      | Martín Rolón     | 🧪 listo · PR #477 (PostgreSQL ❌)   | ⏳ En proceso                         | ⏳ PR #477 abierto · refactor a Oracle pendiente |
 | 🇺🇾 **Uruguay**    | Orlando Dure     | 🧪 listo (falta cert real)           | ❌ no iniciado                        | ❌ no en monorepo |
-| 🇧🇴 **Bolivia**    | Luz Espínola     | 🟡 SIAT F0 cerrado 2026-05-05        | 🟡 Prometeo F0                        | 🟡 bolivia/zymplo-siat + zymplo-openfinance-bo |
+| 🇧🇴 **Bolivia**    | Luz Espínola     | 🟡 SIAT F0 cerrado 2026-05-05 · falta cert ADSIB prod | ✅ Prometeo · thin + core + auto-relogin + sync + smoke e2e validado · falta creds prod | ✅ bolivia/zymplo-siat + zymplo-openfinance-bo (thin) |
 | 🇨🇷 **Costa Rica** | Alberto Mendez   | ⏳ en proceso                        | ❌ no iniciado                        | ❌ no en monorepo |
 
 | 🌐 **Componentes Compartidos** | Estado |
@@ -56,7 +56,7 @@
 |---|---|---|---|---|---|---|---|---|
 | 🇧🇷 Brasil     | Receita Federal · NFS-e | 🧪 listo | `brasil/zymplo-nfse/` (en monorepo) | 🟡 sí · falta audit Oracle | ? audit | ❌ | ? | ❌ |
 | 🇵🇾 Paraguay   | DNIT/SIFEN              | 🧪 listo en "Zymplo Facturación Electrónica" | externo al monorepo (otro producto) | ❌ | ❌ | 🧪 ya certif probable | ? | 🟡 productivo? |
-| 🇲🇽 México     | SAT · CFDI 4.0          | 🟡 F0  | `mexico/zymplo-cfdi/` (Facturama PAC) | 🟡 sí · F0 | ✅ MX_CFDI_HISTORICO + MX_CSD_VAULT + MX_EMPR_FISCAL | ❌ | ✅ | ❌ |
+| 🇲🇽 México     | SAT · CFDI 4.0          | 🟡 F0  | `mexico/zymplo-cfdi/` (Facturama PAC) | ✅ sí · F0 cerrado | ✅ MX_CFDI_HISTORICO + MX_CSD_VAULT + MX_EMPR_FISCAL | ❌ falta cert prod | ✅ | ❌ |
 | 🇺🇸 EEUU       | (UBL std · sin regulador) | 🧪 listo | externo al monorepo | ❌ | ❌ | N/A | ? | ❌ |
 | 🇨🇴 Colombia   | DIAN                    | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
 | 🇪🇸 España     | AEAT                    | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
@@ -65,7 +65,7 @@
 | 🇪🇨 Ecuador    | SRI                     | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
 | 🇨🇱 Chile      | SII · DTE               | 🧪 listo · PR #477 con security checks fail | `chile/zymplo-dte/` (PostgreSQL local 🚫) | 🟡 PR abierto · NO en Oracle | ❌ (usa PostgreSQL local) | ❌ falta cert + RUT chileno | ❌ | ❌ |
 | 🇺🇾 Uruguay    | DGI                     | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
-| 🇧🇴 Bolivia    | SIN · SIAT              | 🟡 F0 cerrado | `bolivia/zymplo-siat/` | 🟡 sí · F0 cerrado 2026-05-05 | ✅ BO_SIAT_FACTURA + 4 más | ❌ | 🟡 PR #469 fix port | ❌ |
+| 🇧🇴 Bolivia    | SIN · SIAT              | 🟡 F0 cerrado · KUDE redesign · GET PDF fix | `bolivia/zymplo-siat/` | ✅ sí · F0 + features post-F2 | ✅ BO_SIAT_FACTURA + 4 más + ensanche cufd_codigo_control | ❌ falta cert ADSIB prod | ✅ | ❌ |
 | 🇨🇷 Costa Rica | DGT                     | ⏳ en proceso | externo al monorepo | ❌ | ❌ | ❌ | ? | ❌ |
 
 ---
@@ -76,16 +76,16 @@
 |---|---|---|---|---|---|---|
 | 🇧🇷 Brasil     | **Pluggy**       | BR | 🧪 listo (Docu+Swagger)       | ❌ `zymplo-openfinance-pluggy` (Fase 3) | ❌ | crear core + thin BR |
 | 🇵🇾 Paraguay   | (pending CO)     | ?  | ⏸️ pausado · 80% docu         | depends on provider                     | ❌ | confirmar provider · arrancar |
-| 🇲🇽 México     | **Belvo**        | LatAm + 6 países | 🟡 listo F0 (Docu+Swagger) | ❌ `zymplo-openfinance-belvo` (Fase 1) | ❌ | extraer core · refactor MX a thin |
+| 🇲🇽 México     | **Belvo**        | LatAm + 6 países | ✅ thin provider-agnostic + sync endpoint + smoke e2e | ✅ `zymplo-openfinance-belvo` (deployed QA) | ✅ ZMP_OF_LINK/ACCOUNT/TX | falta creds Belvo prod + deploy prod |
 | 🇺🇸 EEUU       | **Akoya**        | EEUU | ⏳ en proceso                | ❌ `zymplo-openfinance-akoya` (Fase 4+) | ❌ | finalizar test · service core futuro |
 | 🇨🇴 Colombia   | **Belvo**        | sí (Belvo CO) | 🧪 listo (Docu+Swagger) | depends Fase 1                          | ❌ | thin CO post Fase 1 |
 | 🇪🇸 España     | (no Belvo)       | ?  | 🧪 listo                      | ?                                       | ❌ | confirmar provider |
 | 🇦🇷 Argentina  | (Belvo? local?)  | Belvo no cubre AR plenamente | 🧪 listo | ?                                       | ❌ | confirmar provider |
 | 🇵🇪 Perú       | **Belvo**        | sí (Belvo PE) | 🧪 listo               | depends Fase 1                          | ❌ | thin PE post Fase 1 |
 | 🇪🇨 Ecuador    | **kushkipagos**  | EC | 🧪 listo                       | ❌ `zymplo-openfinance-kushkipagos` (Fase 4+) | ❌ | service core futuro |
-| 🇨🇱 Chile      | **Belvo**        | sí (Belvo CL) | ⏳ en proceso          | depends Fase 1                          | ❌ | thin CL post Fase 1 |
+| 🇨🇱 Chile      | **Belvo**        | sí (Belvo CL) | ✅ thin provider-agnostic (#487 + #495) | ✅ usa core Belvo compartido | ✅ ZMP_OF_LINK/ACCOUNT/TX | falta deploy QA + creds prod |
 | 🇺🇾 Uruguay    | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
-| 🇧🇴 Bolivia    | **Prometeo**     | BO/PY/UY/AR/PE/CL | 🟡 F0 cerrado    | ❌ `zymplo-openfinance-prometeo` (Fase 1) | ❌ | extraer core · refactor BO a thin |
+| 🇧🇴 Bolivia    | **Prometeo**     | BO/PY/UY/AR/PE/CL | ✅ thin + auto-relogin + cred vault AES + sync + smoke e2e | ✅ `zymplo-openfinance-prometeo` (deployed QA) | ✅ ZMP_OF_LINK/ACCOUNT/TX/CRED_VAULT | falta API key Prometeo real + creds prod |
 | 🇨🇷 Costa Rica | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
 
 > **Nota providers cross-país:** Belvo cubre MX/CO/CL/PE/BR (parcial) · Prometeo cubre BO/PY/UY/AR/PE/CL · Pluggy cubre BR (más amplio) · Akoya cubre EEUU · kushkipagos cubre Ecuador. **Cada provider = un service core compartido** en raíz del monorepo.
