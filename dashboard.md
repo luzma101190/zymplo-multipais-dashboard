@@ -33,7 +33,7 @@
 | 🇪🇸 **España**     | Francisco Villalba | 🧪 listo (falta cert real)         | 🧪 listo                              | ❌ no en monorepo |
 | 🇦🇷 **Argentina**  | Gadiel Muñoz     | 🧪 listo (falta cert real)           | 🟡 thin Prometeo AR en monorepo (#592) · falta deploy QA + smoke e2e | ⏳ argentina/zymplo-openfinance-ar (post #592) · AFIP aún externo |
 | 🇵🇪 **Perú**       | Alberto Mendez   | 🧪 listo (falta cert real)           | 🟡 thin Belvo PE en monorepo (#590) · falta deploy QA + smoke e2e | ⏳ peru/zymplo-openfinance-pe (post #590) · SUNAT aún externo |
-| 🇪🇨 **Ecuador**    | Orlando          | 🧪 listo (falta cert real)           | 🧪 kushkipagos listo                  | ❌ no en monorepo |
+| 🇪🇨 **Ecuador**    | Orlando / Martín R. / Luz E. | 🟢 zymplo-sri F0-F4 (#643 mergeado · F4 wireup #647) · 6 tipos comprobante · 33 tests verdes · 11 tablas EC_SRI_* aplicadas en ZMP@dbautdesa02 · paisCodi=31 canónico SKN.COME_PAIS · 3 mobile screens (sri-history/emit/detail) · langgraph factura_tools dispatch · falta cert real BCE + deploy QA | 🟢 thin Prometeo · `ecuador/zymplo-openfinance-ec` (#648) + `zymplo-api/src/modules/openfinance-ec/` · 5 providers EC sandbox (Pichincha · Intermatico) · paridad AR/UY/BR · falta deploy QA público | ✅ ecuador/zymplo-sri + ecuador/zymplo-openfinance-ec + zymplo-api modules sri-ec + openfinance-ec + mobile (sri-* + useSriEc/useOpenFinanceEc futuro) + langgraph (sri_client) |
 | 🇨🇱 **Chile**      | Martín Rolón / Luz E. | 🟢 DTE F0+F4 (#559/#562/#564/#566) + mobile chain (#580/#582/#584/#586) + langgraph dte_tools (#578) + **F7.1-F7.3b cross-country (#572/#576/#577/#583)** · F8.1 zymplo-api proxy (#581) · **#623 preview endpoint** · **#629 SII catálogos vendoreados** (Tipos DTE · Códigos Referencia) · **#631 audit endpoint** · paridad estructural full · QA-ready · falta cert SII prod (~$25 USD E-CertChile) | 🟢 Belvo · thin + paridad MX/BO (#573) + recon DTE↔Belvo (#569) + mobile screen (#586) · E2E VM validado · falta deploy QA público (Victor handoff #570) | ✅ chile/zymplo-dte + chile/zymplo-openfinance · Oracle ZMP (cl_dte_*, ZMP_OF_*, TRAN_DTE_ID) |
 | 🇺🇾 **Uruguay**    | Orlando Dure     | 🧪 listo (falta cert real)           | 🟡 thin Prometeo UY en monorepo (#593) · falta deploy QA + smoke e2e | ⏳ uruguay/zymplo-openfinance-uy (post #593) · DGI aún externo |
 | 🇧🇴 **Bolivia**    | Luz Espínola     | 🟢 SIAT F0 + F7.4b structural (#588) + #595 wireup · **#622 preview endpoint** · **#628 SIN catálogos vendoreados** (c_MetodoPago · c_TipoEmision) · **🎯 E2E confirmado 2026-05-07** (API → Service → Oracle: CUF persistido en `zmp.bo_siat_factura` row 21 + audit log entry) · QA-ready · falta cert ADSIB prod + deploy prod | 🟡 **multi-bank direct** (pivot 2026-05-07 · Prometeo NO cubre BO · verificado en doc oficial · ASFI sin Open Banking) · 3 adapters scaffolded `src/banks/{bmsc,bnb,bcp}/` · 🥇 BMSC API portal abierto · ⏳ BNB/BCP contacto comercial · 0 E2E aún · ver `bolivia/zymplo-openfinance-bo/docs/DIRECT-BANK-STRATEGY.md` | ✅ bolivia/zymplo-siat + zymplo-openfinance-bo (thin · multi-bank stubs) |
@@ -117,7 +117,7 @@ Tabla de features estructurales cross-country alineadas en MX/BO/CL/BR. Cada ✓
 | 🇪🇸 España     | AEAT                    | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
 | 🇦🇷 Argentina  | AFIP · FCE              | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
 | 🇵🇪 Perú       | SUNAT · CPE             | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
-| 🇪🇨 Ecuador    | SRI                     | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
+| 🇪🇨 Ecuador    | SRI                     | 🟢 F0-F4 (#643 + #647) · 33 tests verdes · 6 tipos comprobante · 11 tablas ZMP.EC_SRI_* aplicadas + paisCodi=31 canónico SKN.COME_PAIS | `ecuador/zymplo-sri/` (en monorepo) | ✅ module hexagonal en `zymplo-api/src/modules/sri-ec/` (#643) + 3 mobile screens (sri-history/emit/detail) (#647) + langgraph factura_tools dispatch + sri_client (#647) | ✅ schema ZMP.EC_SRI_* (11 tablas) aplicado · INSERT SKN.COME_PAIS Ecuador (codi=31) | ❌ falta cert real BCE (~USD 30) | ✅ workflow + Dockerfile + deploy.sh · pendiente DNS/cert/runner label DevOps | ❌ |
 | 🇨🇱 Chile      | SII · DTE               | 🟢 QA-ready · F0+F4 chain cerrado (anular #559 · NC/ND #562 · drafts #564 · catálogos #566) | `chile/zymplo-dte/` (Oracle ZMP) | ✅ sí · cl_dte_* tables · paridad MX CFDI | ✅ Oracle ZMP · TRAN_DTE_ID | ❌ falta cert SII prod (~$25 USD E-CertChile · Martín) | ✅ smoke 41/41 OK | ❌ |
 | 🇺🇾 Uruguay    | DGI                     | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
 | 🇧🇴 Bolivia    | SIN · SIAT              | 🟢 QA-ready · KUDE redesign · GET PDF fix | `bolivia/zymplo-siat/` | ✅ sí · F0 + features post-F2 | ✅ BO_SIAT_FACTURA + 4 más + ensanche cufd_codigo_control | ❌ falta cert ADSIB prod | ✅ | ❌ |
@@ -137,7 +137,8 @@ Tabla de features estructurales cross-country alineadas en MX/BO/CL/BR. Cada ✓
 | 🇪🇸 España     | (no Belvo)       | ?  | 🧪 listo                      | ?                                       | ❌ | confirmar provider |
 | 🇦🇷 Argentina  | (Belvo? local?)  | Belvo no cubre AR plenamente | 🧪 listo | ?                                       | ❌ | confirmar provider |
 | 🇵🇪 Perú       | **Belvo**        | sí (Belvo PE) | 🧪 listo               | depends Fase 1                          | ❌ | thin PE post Fase 1 |
-| 🇪🇨 Ecuador    | **kushkipagos**  | EC | 🧪 listo                       | ❌ `zymplo-openfinance-kushkipagos` (Fase 4+) | ❌ | service core futuro |
+| 🇪🇨 Ecuador    | **Prometeo** (post URL fix #646) | EC | 🟢 thin EC en monorepo (#648) · reusa core compartido · 5 providers sandbox | ✅ `zymplo-openfinance-prometeo` (compartido AR/UY/EC) · `ecuador/zymplo-openfinance-ec` (thin) · `zymplo-api/modules/openfinance-ec/*` | ❌ deploy QA pendiente | DevOps subdomain `openfinance-ec-qa.zymplo.com` + Doppler envvars |
+| 🇪🇨 Ecuador (alt)  | kushkipagos      | EC | 🧪 listo (no en monorepo)      | ❌ `zymplo-openfinance-kushkipagos` (Fase 4+ · si Prometeo coverage no escala) | ❌ | service core futuro |
 | 🇨🇱 Chile      | **Belvo**        | sí (Belvo CL) | 🟢 thin + paridad MX/BO endpoints (#573) + recon DTE↔Belvo (#569) + extraFields fix (#571) · E2E validado VM (5 links persistidos) | ✅ usa core Belvo compartido (mismas creds workspace que MX) | ✅ ZMP_OF_LINK/ACCOUNT/TX + TRAN_DTE_ID | deploy QA público (Victor handoff #570 · ~1h DevOps) · plan Belvo prod confirmar |
 | 🇺🇾 Uruguay    | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
 | 🇧🇴 Bolivia    | **Multi-bank direct** (pivot 2026-05-07) | BO | 🟡 scaffolding · 3 adapters stub · 0 E2E aún | ✅ `bolivia/zymplo-openfinance-bo/src/banks/` (BMSC + BNB + BCP) · NO core compartido · cada bank tiene su propio adapter directo | ⏳ ZMP_OF_LINK con `link_provider IN ('bmsc','bnb','bcp_bo')` · 0 rows aún | sandbox creds 3 bancos · sales calls BNB/BCP · BMSC self-service signup |
@@ -345,6 +346,7 @@ curl https://openfinance-bo-qa.zymplo.com/auth/dev/info
 | **F16** (backlog) | 🇧🇴 BO BMSC E2E real · sandbox signup + auth flow + tests + 1 link real persistido en ZMP_OF_LINK con provider='bmsc' | TBD | ⏳ apisupport@bancomercantil.com |
 | **F17** (backlog) | 🇧🇴 BO BNB integration · sales call + sandbox + adapter | TBD | ⏳ contacto comercial BNB |
 | **F18** (backlog) | 🇧🇴 BO BCP integration · sales call + sandbox + adapter | TBD | ⏳ contacto comercial BCP |
+| **F19** | 🇪🇨 EC F4 chain · SKN.COME_PAIS Ecuador (codi=31) + paisCodi.ts/factura_tools/sri_client + 3 mobile screens + OF EC thin Prometeo + zymplo-api openfinance-ec module | 2026-05-07 | ✅ master data + #647 + #648 |
 | **F13** | 🇧🇷 BR NFS-e Phase 1 · A1 ZMP migrations + B1 drafts mobile + B2 setup mobile + Cancelamento inline reconocido | 2026-05-07 | ✅ #641 (A1 aplicado en dbautdesa02 · sin PR · DBA op directo) |
 | **F14** (backlog) | 🇧🇷 BR NFS-e Phase 2 · A2 cutover ZMP (DBA-coordinated) + B3b Substituição backend (LC 175/2020 rebill flow per-município) + B4 Substituição mobile | TBD | ⏳ pendiente DBA + research Receita Federal |
 
@@ -360,7 +362,8 @@ Priorización por:
 | 5.1 | 🇨🇴 CO, 🇵🇪 PE, 🇨🇱 CL | Belvo | core ya extraído (F1) · solo agregar thin adapter |
 | 5.2 | 🇦🇷 AR, 🇺🇾 UY | Prometeo (probable) | core ya extraído |
 | 5.3 | 🇧🇷 BR | **Belvo OFDA** (#618 thin · #635 api · #636 bot · #638 mobile · #639 webhook) | stack 8 PRs cerrado · paridad cross-pillar (api/bot/mobile/core) · falta DevOps deploy + Belvo dashboard callback |
-| 5.4 | 🇪🇸 ES, 🇪🇨 EC | varios (kushkipagos para EC) | crear cores (F4+) |
+| 5.4 | 🇪🇸 ES | varios | crear cores (F4+) |
+| 5.4-EC | 🇪🇨 EC | **Prometeo** (#648 thin · post URL fix #646) | core compartido reusado · paridad AR/UY · falta DevOps deploy |
 | 5.5 | 🇺🇸 EEUU, 🇵🇾 PY, 🇨🇷 CR | varios | misceláneos · uno a uno |
 
 ---
