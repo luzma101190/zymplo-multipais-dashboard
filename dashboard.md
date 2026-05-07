@@ -2,7 +2,7 @@
 
 > **Propósito:** vista comparativa de los 13 países del ecosistema Zymplo · estado de facturación electrónica + integración bancaria · marcando avance de alineación al monorepo `zymplo/` y Oracle ZMP.
 >
-> **Última actualización:** 2026-05-06 (canonicalization paisCodi → SKN.COME_PAIS · MX=25, BO=28, CL=30 oficialmente · ver memoria `reference_pais_codi_canonical.md`) · ver `git log MULTIPAIS-DASHBOARD.md` para historial · cualquier dev puede actualizar via PR a `develop`.
+> **Última actualización:** 2026-05-06 noche · **paridad full mobile cross-país MX=BO=CL** (drafts + NC/ND + OF Belvo via thin) · expansion OF a CO/PE (#589 #590 Belvo) + AR/UY (#592 #593 Prometeo) · CFDI/SIAT XSD validators wireup (#587 #588 #594) · ver `git log MULTIPAIS-DASHBOARD.md` para historial · cualquier dev puede actualizar via PR a `develop`.
 
 > **`paisCodi` canonical** · ley = `SKN.COME_PAIS` (Oracle ATP · 30 filas con CHILE recién agregado). Mobile usa `constants/paisCodi.ts` · langgraph usa `src/utils/pais_codi.py`. NO hardcodear magic numbers · usar `PAIS_CODI.MEXICO` (= 25), `PAIS_CODI.BOLIVIA` (= 28), `PAIS_CODI.CHILE` (= 30).
 
@@ -27,23 +27,23 @@
 |---|---|---|---|---|
 | 🇧🇷 **Brasil**     | Martín Rolón     | 🧪 NFS-e listo                       | 🧪 Pluggy listo (Docu+Swagger)        | 🟡 zymplo-nfse en monorepo · audit |
 | 🇵🇾 **Paraguay**   | Liz Villasanti   | 🧪 DNIT listo (Zymplo Fact. E.)      | ⏸️ En pausa (80% docu) · pending CO   | ❌ no en monorepo |
-| 🇲🇽 **México**     | Luz Espínola     | 🟢 CFDI F0 (Facturama) · QA-ready · falta cert SAT prod + deploy prod | 🟢 Belvo · thin + core + sync + smoke e2e · falta acuerdo comercial Belvo prod + deploy prod | ✅ mexico/zymplo-cfdi + zymplo-openfinance (thin) |
+| 🇲🇽 **México**     | Luz Espínola     | 🟢 CFDI F0 + drafts + NC/ND mobile (PR-MMX1 #591) · F7.4b XSD validators (#587) + RFC homoclave (#585) · QA-ready · falta cert SAT prod + deploy prod | 🟢 Belvo · thin + core + sync + smoke e2e · falta acuerdo comercial Belvo prod + deploy prod | ✅ mexico/zymplo-cfdi + zymplo-openfinance (thin) |
 | 🇺🇸 **EEUU**       | Andrea Amarilla  | 🧪 UBL listo (no envía a regulador)  | ⏳ Akoya en proceso                   | ❌ no en monorepo |
-| 🇨🇴 **Colombia**   | Liz Villasanti   | 🧪 DIAN listo (falta cert real)      | 🧪 Belvo listo (Docu+Swagger)         | ❌ no en monorepo |
+| 🇨🇴 **Colombia**   | Liz Villasanti   | 🧪 DIAN listo (falta cert real)      | 🟡 thin Belvo CO en monorepo (#589) · falta deploy QA + smoke e2e | ⏳ colombia/zymplo-openfinance-co (post #589) · DIAN aún externo |
 | 🇪🇸 **España**     | Francisco Villalba | 🧪 listo (falta cert real)         | 🧪 listo                              | ❌ no en monorepo |
-| 🇦🇷 **Argentina**  | Gadiel Muñoz     | 🧪 listo (falta cert real)           | 🧪 listo                              | ❌ no en monorepo |
-| 🇵🇪 **Perú**       | Alberto Mendez   | 🧪 listo (falta cert real)           | 🧪 Belvo listo                        | ❌ no en monorepo |
+| 🇦🇷 **Argentina**  | Gadiel Muñoz     | 🧪 listo (falta cert real)           | 🟡 thin Prometeo AR en monorepo (#592) · falta deploy QA + smoke e2e | ⏳ argentina/zymplo-openfinance-ar (post #592) · AFIP aún externo |
+| 🇵🇪 **Perú**       | Alberto Mendez   | 🧪 listo (falta cert real)           | 🟡 thin Belvo PE en monorepo (#590) · falta deploy QA + smoke e2e | ⏳ peru/zymplo-openfinance-pe (post #590) · SUNAT aún externo |
 | 🇪🇨 **Ecuador**    | Orlando          | 🧪 listo (falta cert real)           | 🧪 kushkipagos listo                  | ❌ no en monorepo |
-| 🇨🇱 **Chile**      | Martín Rolón     | 🧪 listo · PR #477 (PostgreSQL ❌)   | 🟡 thin Belvo en monorepo (#487 + #495) · falta deploy QA + smoke e2e | ⏳ PR #477 abierto · refactor a Oracle pendiente |
-| 🇺🇾 **Uruguay**    | Orlando Dure     | 🧪 listo (falta cert real)           | ❌ no iniciado                        | ❌ no en monorepo |
-| 🇧🇴 **Bolivia**    | Luz Espínola     | 🟢 SIAT F0 cerrado 2026-05-05 · QA-ready · falta cert ADSIB prod + deploy prod | 🟢 Prometeo · thin + core + auto-relogin + sync + smoke e2e · falta acuerdo comercial Prometeo prod + deploy prod | ✅ bolivia/zymplo-siat + zymplo-openfinance-bo (thin) |
+| 🇨🇱 **Chile**      | Martín Rolón     | 🟢 DTE F0+F4 chain cerrado (#559/#562/#564/#566) + mobile chain (PR-MCL1/2/3/4 #580/#582/#584/#586) + bot langgraph dte_tools (#578) · QA-ready · falta cert SII prod (~$25 USD E-CertChile) | 🟢 Belvo · thin + paridad MX/BO endpoints (#573) + recon DTE↔Belvo (#569) + mobile screen openfinance-cl (#586) · E2E validado en VM · falta deploy QA público (Victor #570 handoff) | ✅ chile/zymplo-dte + chile/zymplo-openfinance · Oracle ZMP (cl_dte_*, ZMP_OF_*, TRAN_DTE_ID) |
+| 🇺🇾 **Uruguay**    | Orlando Dure     | 🧪 listo (falta cert real)           | 🟡 thin Prometeo UY en monorepo (#593) · falta deploy QA + smoke e2e | ⏳ uruguay/zymplo-openfinance-uy (post #593) · DGI aún externo |
+| 🇧🇴 **Bolivia**    | Luz Espínola     | 🟢 SIAT F0 cerrado 2026-05-05 + F7.4b XSD validator (#588) · QA-ready · falta cert ADSIB prod + deploy prod | 🟢 Prometeo · thin + core + auto-relogin + sync + smoke e2e · falta acuerdo comercial Prometeo prod + deploy prod | ✅ bolivia/zymplo-siat + zymplo-openfinance-bo (thin) |
 | 🇨🇷 **Costa Rica** | Alberto Mendez   | ⏳ en proceso                        | ❌ no iniciado                        | ❌ no en monorepo |
 
 | 🌐 **Componentes Compartidos** | Estado |
 |---|---|
 | `zymplo-api` proxy (cross-país gateway) | ✅ MX (cfdi + openfinance) + BR (nfse) + BO (openfinance-bo) · falta SIAT + DTE |
-| `zymplo-mobile` (Expo · React Native) | ✅ MX (CFDI + OF) + BR (NFS-e) · falta SIAT BO + DTE CL · falta OF multi-país |
-| `zymplo-langgraph` (WhatsApp bot) | ✅ MX (CFDI + OF Belvo) + BO (OF Prometeo · post #521) + BR (NFS-e) · falta `siat_tools` BO + `dte_tools` CL |
+| `zymplo-mobile` (Expo · React Native) | ✅ MX (CFDI completo) + BR (NFS-e) + BO (SIAT completo · setup/emit/history/detail/PdV/NC-ND/drafts) + OF multi-país MX/BO · falta DTE CL |
+| `zymplo-langgraph` (WhatsApp bot) | ✅ MX (CFDI + OF Belvo) + BR (NFS-e) + BO (SIAT 6 tools incluido NC/ND + OF Prometeo) · falta `dte_tools` CL |
 | Tablas Oracle ZMP genéricas (audit, notif, of) | ✅ creadas 2026-05-05 |
 | Service core `zymplo-openfinance-belvo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
 | Service core `zymplo-openfinance-prometeo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
@@ -53,6 +53,17 @@
 | Service core `zymplo-openfinance-akoya` | ❌ Fase 4+ (cuando entre EEUU) |
 | Service core `zymplo-openfinance-kushkipagos` | ❌ Fase 4+ (cuando entre Ecuador) |
 | Governance (arch-guard CI · CLAUDE.md por país · backlog) | ❌ Fase 4 |
+
+## 🎯 Paridad mobile cross-país (post 2026-05-06)
+
+| País | Setup | Emit | History | Detail | Drafts | Nota | OF |
+|---|---|---|---|---|---|---|---|
+| 🇲🇽 MX | ✅ | ✅ | ✅ | ✅ | ✅ #591 | ✅ #591 | ✅ |
+| 🇧🇴 BO | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 🇨🇱 CL | ✅ | ✅ | ✅ | ✅ | ✅ #584 | ✅ #584 | ✅ #586 |
+| 🇧🇷 BR | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | N/A |
+
+3 países (MX/BO/CL) con feature parity completa: setup cert · emit factura · history paginado · drilldown · drafts (BORRADOR workflow) · NC/ND emission · OF banking. Brasil pendiente migración cuando NFS-e entre al monorepo.
 
 ---
 
@@ -69,7 +80,7 @@
 | 🇦🇷 Argentina  | AFIP · FCE              | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
 | 🇵🇪 Perú       | SUNAT · CPE             | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
 | 🇪🇨 Ecuador    | SRI                     | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
-| 🇨🇱 Chile      | SII · DTE               | 🧪 listo · PR #477 con security checks fail | `chile/zymplo-dte/` (PostgreSQL local 🚫) | 🟡 PR abierto · NO en Oracle | ❌ (usa PostgreSQL local) | ❌ falta cert + RUT chileno | ❌ | ❌ |
+| 🇨🇱 Chile      | SII · DTE               | 🟢 QA-ready · F0+F4 chain cerrado (anular #559 · NC/ND #562 · drafts #564 · catálogos #566) | `chile/zymplo-dte/` (Oracle ZMP) | ✅ sí · cl_dte_* tables · paridad MX CFDI | ✅ Oracle ZMP · TRAN_DTE_ID | ❌ falta cert SII prod (~$25 USD E-CertChile · Martín) | ✅ smoke 41/41 OK | ❌ |
 | 🇺🇾 Uruguay    | DGI                     | 🧪 listo | externo al monorepo | ❌ | ❌ | ❌ falta cert real | ? | ❌ |
 | 🇧🇴 Bolivia    | SIN · SIAT              | 🟢 QA-ready · KUDE redesign · GET PDF fix | `bolivia/zymplo-siat/` | ✅ sí · F0 + features post-F2 | ✅ BO_SIAT_FACTURA + 4 más + ensanche cufd_codigo_control | ❌ falta cert ADSIB prod | ✅ | ❌ |
 | 🇨🇷 Costa Rica | DGT                     | ⏳ en proceso | externo al monorepo | ❌ | ❌ | ❌ | ? | ❌ |
@@ -89,7 +100,7 @@
 | 🇦🇷 Argentina  | (Belvo? local?)  | Belvo no cubre AR plenamente | 🧪 listo | ?                                       | ❌ | confirmar provider |
 | 🇵🇪 Perú       | **Belvo**        | sí (Belvo PE) | 🧪 listo               | depends Fase 1                          | ❌ | thin PE post Fase 1 |
 | 🇪🇨 Ecuador    | **kushkipagos**  | EC | 🧪 listo                       | ❌ `zymplo-openfinance-kushkipagos` (Fase 4+) | ❌ | service core futuro |
-| 🇨🇱 Chile      | **Belvo**        | sí (Belvo CL) | 🟡 thin provider-agnostic (#487 + #495) | ✅ usa core Belvo compartido | ✅ ZMP_OF_LINK/ACCOUNT/TX | falta deploy QA + smoke e2e + creds prod |
+| 🇨🇱 Chile      | **Belvo**        | sí (Belvo CL) | 🟢 thin + paridad MX/BO endpoints (#573) + recon DTE↔Belvo (#569) + extraFields fix (#571) · E2E validado VM (5 links persistidos) | ✅ usa core Belvo compartido (mismas creds workspace que MX) | ✅ ZMP_OF_LINK/ACCOUNT/TX + TRAN_DTE_ID | deploy QA público (Victor handoff #570 · ~1h DevOps) · plan Belvo prod confirmar |
 | 🇺🇾 Uruguay    | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
 | 🇧🇴 Bolivia    | **Prometeo**     | BO/PY/UY/AR/PE/CL | 🟢 thin + auto-relogin + cred vault AES + sync + smoke e2e (QA-ready) | ✅ `zymplo-openfinance-prometeo` (deployed QA) | ✅ ZMP_OF_LINK/ACCOUNT/TX/CRED_VAULT | API key Prometeo prod + acuerdo comercial + deploy prod |
 | 🇨🇷 Costa Rica | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
@@ -136,10 +147,10 @@ Estado de cada país en los productos cross-cutting que consumen las APIs país-
 
 | País | Mobile App (screens) | WhatsApp Bot (tools) |
 |---|---|---|
-| 🇲🇽 **México**     | ✅ CFDI emit/setup/history/preview/detail · OF connect/manual-match | ✅ `cfdi_tools.py` + `openfinance_tools.py` |
+| 🇲🇽 **México**     | ✅ FULL · CFDI setup + emit + history + detail + drafts + NC/ND (PR-MMX1 #591) · OF connect/manual-match | ✅ `cfdi_tools.py` + `openfinance_tools.py` |
 | 🇧🇷 **Brasil**     | ✅ NFS-e emit/history/detail | ✅ `nfse_tools.py` |
-| 🇧🇴 **Bolivia**    | ❌ no integrado · faltan screens SIAT (emit/history/detail) + screens del thin BO OF | 🟡 parcial · OF integrado post #521 (multi-país MX+BO via paisCodi dispatch) · falta `siat_tools.py` para factura |
-| 🇨🇱 **Chile**      | ❌ no integrado · falta DTE (post #477 merge) + screens thin CL OF | ❌ no integrado · falta `dte_tools.py` |
+| 🇧🇴 **Bolivia**    | ✅ FULL · SIAT setup + emit + history + detail + PdV + NC/ND + Drafts (#534-#537) · OF Prometeo (#525) | ✅ `siat_tools.py` 6 tools (emit/buscar/listar/anular + NC/ND #526 #535) · `factura_tools.py` wrapper multi-país (#530) · OF dispatch multi-país (#521) |
+| 🇨🇱 **Chile**      | ✅ FULL · DTE setup + emit + history + detail + drafts + NC/ND (PR-MCL1/2/3 #580/#582/#584) · OF Belvo screen (PR-MCL4 #586) | ✅ `dte_tools.py` 6 tools (paridad SIAT BO) + dispatch en `factura_tools.py` para CL (#578) |
 | 🇵🇾 Paraguay   | ❌ no integrado | ❌ no integrado |
 | 🇨🇴 Colombia   | ❌ no integrado | ❌ no integrado |
 | 🇵🇪 Perú       | ❌ no integrado | ❌ no integrado |
@@ -154,13 +165,21 @@ Estado de cada país en los productos cross-cutting que consumen las APIs país-
 
 Las referencias a `MX_OF_LINK` en `openfinance_tools.py` y `openfinance_client.py` eran solo **comments doc desactualizados** (no queries SQL · el bot llama via httpx al proxy `zymplo-api`, no a Oracle directo). Comentarios actualizados a `zmp_of_link` post #521.
 
-Bonus en #521: el bot ahora dispatch automático según `paisCodi` · empresas BO (paisCodi=4) consultan `/api/v2/openfinance-bo/*` (Prometeo) · empresas MX (paisCodi=3) siguen `/api/v2/openfinance/*` (Belvo) · transparente.
+Bonus en #521: el bot ahora dispatch automático según `paisCodi` (canonical SKN.COME_PAIS post #550) · empresas BO (paisCodi=28) consultan `/api/v2/openfinance-bo/*` (Prometeo) · empresas MX (paisCodi=25) siguen `/api/v2/openfinance/*` (Belvo) · futuro CL (paisCodi=30) consultará `/api/v2/openfinance-cl/*` · transparente.
 
 **TODO** (PRs futuros · prioridad alta):
-- Mobile · agregar screens SIAT BO (consumiendo `bolivia/zymplo-siat/` API)
-- Mobile · openfinance multi-país · soportar BO (consumir `bolivia/zymplo-openfinance-bo/`) además de MX
-- Langgraph · agregar `siat_tools.py` para BO factura · requiere proxy SIAT en `zymplo-api` primero (no existe módulo `siat`)
-- Langgraph · agregar `dte_tools.py` para CL post #477 merge
+- ~~Mobile · agregar screens SIAT BO~~ · ✅ cerrado #527 (emit/history/detail) + chain follow-ups #534-#537 (PdV/NC-ND/drafts/cert)
+- ~~Mobile · openfinance multi-país BO~~ · ✅ cerrado #525 (sub-view BoView en openfinance.tsx con paisCodi dispatch)
+- ~~Langgraph · agregar `siat_tools.py` para BO~~ · ✅ cerrado #526 (4 tools) + #535 (NC/ND · 6 tools total) · proxy `factura-bo` en zymplo-api ya existía
+- ~~Langgraph · wrapper multi-país facturas~~ · ✅ cerrado #530 (`factura_tools.py · erp_emitir_comprobante` auto-dispatch BR/MX/BO)
+- ~~Langgraph · agregar `dte_tools.py` para CL~~ · ✅ cerrado #578 (6 tools + dispatch en factura_tools.py)
+- ~~Mobile · agregar screens dte-* + openfinance-cl~~ · ✅ cerrado chain mobile CL #580/#582/#584/#586 + paridad MX drafts/nota #591
+- Future PR · proxy multipart en zymplo-api `/api/v2/dte-cl/cargar-cert` (mientras tanto · workaround directo al thin)
+- Future PR · `EXPO_PUBLIC_DTE_CL_SERVICE_TOKEN` en Doppler para cert upload mobile en QA
+- DevOps · deploy QA público thin Chile OF (URL `openfinance-cl-qa.zymplo.com` + nginx + Doppler) · ver `chile/zymplo-openfinance/deploy/CHECKLIST.md` · backend mergeado y E2E validado en VM (5 links persistidos)
+- DevOps · `EXPO_PUBLIC_SIAT_BO_SERVICE_TOKEN` en Doppler para que mobile cert upload funcione en QA (#537)
+- Future PR · endpoint multipart en proxy `zymplo-api/factura-bo` para destrabar mobile cert upload en producción (workaround actual: directo al thin con service-token)
+- Future migration · agregar `emi_empresa_id` FK a `cl_dte_emisor` para que `RunAllReconciliationService` CL auto-resuelva mapping (hoy caller-side via `pairs` array)
 
 ---
 
@@ -234,7 +253,8 @@ Cada thin/servicio país-específico expone su OpenAPI 3 en `/api-docs` con "Try
 | 🇧🇴 Bolivia  | Facturación (SIAT/SIN)      | SIAT     | https://facturacion-bolivia-qa.zymplo.com/api-docs/ |
 | 🇧🇴 Bolivia  | Open Finance (Prometeo · thin) | OF BO  | https://openfinance-bo-qa.zymplo.com/api-docs/ |
 | 🇧🇷 Brasil   | NFS-e (Receita Federal)     | NFS-e    | TBD · `nfse-qa.zymplo.com` no expone Swagger todavía (servicio pre-monorepo) |
-| 🇨🇱 Chile    | Open Finance (Belvo · thin) | OF CL    | TBD · falta deploy QA (PR #495 / DevOps) |
+| 🇨🇱 Chile    | DTE SII                     | DTE      | TBD · falta deploy QA público (backend QA-ready post chain CL1-CL4 · Victor handoff) |
+| 🇨🇱 Chile    | Open Finance (Belvo · thin) | OF CL    | TBD · falta deploy QA público (Victor handoff via `chile/zymplo-openfinance/deploy/CHECKLIST.md` · validado E2E en VM 2026-05-06) |
 
 ### Cores compartidos (multi-país · sin Swagger UI público)
 
@@ -264,8 +284,12 @@ curl https://openfinance-bo-qa.zymplo.com/auth/dev/info
 |---|---|---|---|
 | **F0** | Migrations Oracle ZMP base + Bolivia SIAT cerrado | 2026-05-05 | ✅ cerrado hoy |
 | **F1** | Service core compartido OF Belvo + Prometeo + thin adapters MX/BO | esta semana / próxima | ⏳ |
-| **F2** | Chile DTE F0 mergeable (security fix) + F1 refactor a Oracle ZMP | post-F1 | ⏳ |
+| **F2** | Chile DTE Oracle ZMP + paridad MX/BO (anular/NC-ND/drafts/catálogos/recon Belvo) | 2026-05-06 | ✅ cerrado · chain #559/#562/#564/#566/#569/#570/#571/#573 |
+| **F2.5** | Mobile + bot paridad full MX/BO/CL · drafts + NC/ND + OF cross-país | 2026-05-06 | ✅ cerrado · #578/#580/#582/#584/#586/#591 |
+| **F2.6** | XSD validators MX CFDI 4.0 + BO SIAT estructural · pre-PAC failsafe | 2026-05-06 | ✅ cerrado · #587/#588 |
 | **F3** | Brasil al monorepo · service core Pluggy · alineación NFS-e a Oracle | post-F2 | ⏳ |
+| **F3.1** | Wave 5.1 OF · CO + PE thin adapters Belvo (post-CL pattern) | 2026-05-06 | ✅ thin code · #589 #590 · falta deploy QA + smoke + screens mobile |
+| **F3.2** | Wave 5.2 OF · AR + UY thin adapters Prometeo | 2026-05-06 | ✅ thin code · #592 #593 · falta deploy QA + smoke + screens mobile |
 | **F4** | Governance (arch-guard CI · CLAUDE.md por país · backlog) | paralelo | ⏳ |
 | **F5** | **Migración masiva** · alinear los 🧪 al monorepo (CO/PE/AR/EC/UY/EEUU/ES/PY/CR) | ola por ola post F4 | ⏳ |
 | **F6** | Sumar país nuevo no listado (template repetible) | cuando entren | N/A |
