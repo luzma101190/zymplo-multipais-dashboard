@@ -2,7 +2,7 @@
 
 > **Propósito:** vista comparativa de los 13 países del ecosistema Zymplo · estado de facturación electrónica + integración bancaria · marcando avance de alineación al monorepo `zymplo/` y Oracle ZMP.
 >
-> **Última actualización:** 2026-05-07 madrugada · **🎯 PARIDAD ESTRUCTURAL 100% lograda · 4 países alineados (MX · BO · CL · BR)** · cadenas A/B/C cerradas (preview cross-country + Brasil catch-up + catálogos vendoreados) + Brasil normalize completo (B1-B3 + B-i/B-ii/B-iii/B-iv/B-v) + CL audit endpoint #631 + BR structural validator #632 + **🇧🇷 BR Open Finance stack cerrado** (zymplo-api openfinance-br #635 · core webhook HISTORICAL_UPDATE #639 · langgraph BR+CL OF tools #636 · mobile widget Belvo OFDA #638) + **🇧🇷 BR NFS-e Phase 1 mobile cerrado** (drafts + setup mobile #641 · Cancelamento inline en detail · A1 ZMP.BR_NFSE_* migrations aplicadas en dbautdesa02 2026-05-07) · **paridad mobile 4 países 100% structural** · **🇧🇴 BO OF pivot a multi-bank direct** (Prometeo NO cubre BO · scaffolding 3 adapters BMSC/BNB/BCP en `src/banks/`) · **E2E facturación BO SIAT confirmado** (API → Service → Oracle ZMP trinity verificada 2026-05-07 03:30 UTC · CUF persistido en `zmp.bo_siat_factura` + audit en `zmp.zmp_audit_log`) · ver `git log MULTIPAIS-DASHBOARD.md` para historial.
+> **Última actualización:** 2026-05-07 madrugada · **🎯 PARIDAD ESTRUCTURAL 100% lograda · 4 países alineados (MX · BO · CL · BR)** · cadenas A/B/C cerradas (preview cross-country + Brasil catch-up + catálogos vendoreados) + Brasil normalize completo (B1-B3 + B-i/B-ii/B-iii/B-iv/B-v) + CL audit endpoint #631 + BR structural validator #632 + **🇧🇷 BR Open Finance stack cerrado** (zymplo-api openfinance-br #635 · core webhook HISTORICAL_UPDATE #639 · langgraph BR+CL OF tools #636 · mobile widget Belvo OFDA #638) + **🇧🇷 BR NFS-e Phase 1 mobile cerrado** (drafts + setup mobile #641 · Cancelamento inline en detail · A1 ZMP.BR_NFSE_* migrations aplicadas en dbautdesa02 2026-05-07) · **paridad mobile 4 países 100% structural** · **🇧🇴 BO sin OF bancaria** (ASFI sin Open Banking · ningún aggregator LatAm cubre BO · servicio thin retirado · empresa BO solo usa SIAT facturación) · **E2E facturación BO SIAT confirmado** (API → Service → Oracle ZMP trinity verificada 2026-05-07 03:30 UTC · CUF persistido en `zmp.bo_siat_factura` + audit en `zmp.zmp_audit_log`) · ver `git log MULTIPAIS-DASHBOARD.md` para historial.
 
 > **`paisCodi` canonical** · ley = `SKN.COME_PAIS` (Oracle ATP · 30 filas con CHILE recién agregado). Mobile usa `constants/paisCodi.ts` · langgraph usa `src/utils/pais_codi.py`. NO hardcodear magic numbers · usar `PAIS_CODI.MEXICO` (= 25), `PAIS_CODI.BOLIVIA` (= 28), `PAIS_CODI.CHILE` (= 30).
 
@@ -36,14 +36,14 @@
 | 🇪🇨 **Ecuador**    | Orlando / Martín R. / Luz E. | 🟢 zymplo-sri F0-F4 (#643 mergeado · F4 wireup #647) · 6 tipos comprobante · 33 tests verdes · 11 tablas EC_SRI_* aplicadas en ZMP@dbautdesa02 · paisCodi=31 canónico SKN.COME_PAIS · 3 mobile screens (sri-history/emit/detail) · langgraph factura_tools dispatch · falta cert real BCE + deploy QA | 🟢 thin Prometeo · `ecuador/zymplo-openfinance-ec` (#648) + `zymplo-api/src/modules/openfinance-ec/` · 5 providers EC sandbox (Pichincha · Intermatico) · paridad AR/UY/BR · falta deploy QA público | ✅ ecuador/zymplo-sri + ecuador/zymplo-openfinance-ec + zymplo-api modules sri-ec + openfinance-ec + mobile (sri-* + useSriEc/useOpenFinanceEc futuro) + langgraph (sri_client) |
 | 🇨🇱 **Chile**      | Martín Rolón / Luz E. | 🟢 DTE F0+F4 (#559/#562/#564/#566) + mobile chain (#580/#582/#584/#586) + langgraph dte_tools (#578) + **F7.1-F7.3b cross-country (#572/#576/#577/#583)** · F8.1 zymplo-api proxy (#581) · **#623 preview endpoint** · **#629 SII catálogos vendoreados** (Tipos DTE · Códigos Referencia) · **#631 audit endpoint** · paridad estructural full · QA-ready · falta cert SII prod (~$25 USD E-CertChile) | 🟢 Belvo · thin + paridad MX/BO (#573) + recon DTE↔Belvo (#569) + mobile screen (#586) · E2E VM validado · falta deploy QA público (Victor handoff #570) | ✅ chile/zymplo-dte + chile/zymplo-openfinance · Oracle ZMP (cl_dte_*, ZMP_OF_*, TRAN_DTE_ID) |
 | 🇺🇾 **Uruguay**    | Orlando Dure     | 🧪 listo (falta cert real)           | 🟡 thin Prometeo UY en monorepo (#593) · falta deploy QA + smoke e2e | ⏳ uruguay/zymplo-openfinance-uy (post #593) · DGI aún externo |
-| 🇧🇴 **Bolivia**    | Luz Espínola     | 🟢 SIAT F0 + F7.4b structural (#588) + #595 wireup · **#622 preview endpoint** · **#628 SIN catálogos vendoreados** (c_MetodoPago · c_TipoEmision) · **🎯 E2E confirmado 2026-05-07** (API → Service → Oracle: CUF persistido en `zmp.bo_siat_factura` row 21 + audit log entry) · QA-ready · falta cert ADSIB prod + deploy prod | 🟡 **multi-bank direct** (pivot 2026-05-07 · Prometeo NO cubre BO · verificado en doc oficial · ASFI sin Open Banking) · 3 adapters scaffolded `src/banks/{bmsc,bnb,bcp}/` · 🥇 BMSC API portal abierto · ⏳ BNB/BCP contacto comercial · 0 E2E aún · ver `bolivia/zymplo-openfinance-bo/docs/DIRECT-BANK-STRATEGY.md` | ✅ bolivia/zymplo-siat + zymplo-openfinance-bo (thin · multi-bank stubs) |
+| 🇧🇴 **Bolivia**    | Luz Espínola     | 🟢 SIAT F0 + F7.4b structural (#588) + #595 wireup · **#622 preview endpoint** · **#628 SIN catálogos vendoreados** (c_MetodoPago · c_TipoEmision) · **🎯 E2E confirmado 2026-05-07** (API → Service → Oracle: CUF persistido en `zmp.bo_siat_factura` row 21 + audit log entry) · QA-ready · falta cert ADSIB prod + deploy prod | ❌ **NO DISPONIBLE** · Bolivia no tiene integración bancaria viable · **ASFI no ha pasado ley de Open Banking** (sin mandato regulatorio · ningún aggregator LatAm cubre BO · verificado 2026-05-07: Belvo ❌ · Prometeo ❌ · Pluggy ❌ · Salt Edge ❌ · Plaid/Tink/TrueLayer ❌). Adapters scaffolded a `src/banks/{bmsc,bnb,bcp}/` quedan como backlog reactivo · activar solo si algún banco grande BO confirma sandbox real (BMSC #1 candidato · sin compromiso) | ✅ bolivia/zymplo-siat (facturación) · ❌ OF deprecado por falta de cobertura |
 | 🇨🇷 **Costa Rica** | Alberto Mendez   | ⏳ en proceso                        | ❌ no iniciado                        | ❌ no en monorepo |
 
 | 🌐 **Componentes Compartidos** | Estado |
 |---|---|
 | `zymplo-api` proxy (cross-país gateway) | ✅ MX (cfdi + openfinance) + BR (nfse + **openfinance-br #635**) + BO (openfinance-bo + factura-bo) + **CL (DTE post #581)** · cierra paridad 4 países |
 | `zymplo-mobile` (Expo · React Native) | ✅ MX/BO/CL/BR paridad OF (setup · emit · history · detail · drafts · NC/ND · OF) + BR widget Belvo OFDA mobile cerrado (#638 · `useOpenFinanceBr` + `OpenFinanceBrView` con `expo-web-browser` + `WebBrowser.openAuthSessionAsync`) · paridad mobile 4 países cerrada |
-| `zymplo-langgraph` (WhatsApp bot) | ✅ MX (CFDI + OF Belvo) + BR (NFS-e + **OF Belvo OFDA #636**) + BO (SIAT 6 tools · OF marcado en `_COUNTRY_TO_PROXY_PATH` pero **upstream Prometeo NO cubre BO** · pivot a multi-bank pending) + **CL (dte_tools 6 tools post #578 + OF Belvo #636)** · paridad OF cobre MX/CL/BR · BO en transición |
+| `zymplo-langgraph` (WhatsApp bot) | ✅ MX (CFDI + OF Belvo) + BR (NFS-e + **OF Belvo OFDA #636**) + BO (SIAT 6 tools · **sin OF bancaria** · BO sin cobertura aggregator) + **CL (dte_tools 6 tools post #578 + OF Belvo #636)** · paridad OF en MX/CL/BR · BO solo facturación |
 | Tablas Oracle ZMP genéricas (audit, notif, of) | ✅ creadas 2026-05-05 |
 | Service core `zymplo-openfinance-belvo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
 | Service core `zymplo-openfinance-prometeo` | ✅ código + deploy infra · runtime DevOps pendiente (#58277) |
@@ -141,11 +141,10 @@ Tabla de features estructurales cross-country alineadas en MX/BO/CL/BR. Cada ✓
 | 🇪🇨 Ecuador (alt)  | kushkipagos      | EC | 🧪 listo (no en monorepo)      | ❌ `zymplo-openfinance-kushkipagos` (Fase 4+ · si Prometeo coverage no escala) | ❌ | service core futuro |
 | 🇨🇱 Chile      | **Belvo**        | sí (Belvo CL) | 🟢 thin + paridad MX/BO endpoints (#573) + recon DTE↔Belvo (#569) + extraFields fix (#571) · E2E validado VM (5 links persistidos) | ✅ usa core Belvo compartido (mismas creds workspace que MX) | ✅ ZMP_OF_LINK/ACCOUNT/TX + TRAN_DTE_ID | deploy QA público (Victor handoff #570 · ~1h DevOps) · plan Belvo prod confirmar |
 | 🇺🇾 Uruguay    | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
-| 🇧🇴 Bolivia    | **Multi-bank direct** (pivot 2026-05-07) | BO | 🟡 scaffolding · 3 adapters stub · 0 E2E aún | ✅ `bolivia/zymplo-openfinance-bo/src/banks/` (BMSC + BNB + BCP) · NO core compartido · cada bank tiene su propio adapter directo | ⏳ ZMP_OF_LINK con `link_provider IN ('bmsc','bnb','bcp_bo')` · 0 rows aún | sandbox creds 3 bancos · sales calls BNB/BCP · BMSC self-service signup |
-| ~~🇧🇴 Bolivia~~ (deprecated) | ~~Prometeo~~ | ❌ NO cubre BO · verificado 2026-05-07 | Prometeo doc oficial: 10 países · sin BO · stack BO/Prometeo era false positive | service `zymplo-openfinance-prometeo` se queda activo para AR/UY/PY/CL · solo deprecado para BO | n/a | n/a |
+| 🇧🇴 Bolivia    | ❌ **SIN cobertura aggregator** | BO | ❌ **NO DISPONIBLE** · ASFI no ha pasado ley de Open Banking · ningún aggregator LatAm tiene BO en su catálogo · verificado 2026-05-07: Belvo/Prometeo/Pluggy/Salt Edge/Plaid/Tink/TrueLayer · todos ❌ | scaffolds en `bolivia/zymplo-openfinance-bo/src/banks/` (BMSC + BNB + BCP) quedan como **backlog reactivo** · NO se activan hasta confirmar sandbox real con algún banco BO grande | n/a · 0 rows persistidas en `ZMP_OF_LINK` con country=BOL · esperado | (1) ASFI lanza Open Banking regulado · (2) algún aggregator agrega BO al catálogo · (3) BMSC/BNB/BCP confirman sandbox API y firmamos NDA |
 | 🇨🇷 Costa Rica | (no iniciado)    | ?  | ❌                            | ❌                                       | ❌ | arrancar |
 
-> **Nota providers cross-país:** Belvo cubre MX/CO/CL/PE/BR (sandbox cubre BR completo · prod a confirmar con Martín) · Prometeo cubre BO/PY/UY/AR/PE/CL · Pluggy queda como fallback BR si Belvo no escala (no en monorepo todavía) · Akoya cubre EEUU · kushkipagos cubre Ecuador. **Cada provider = un service core compartido** en raíz del monorepo.
+> **Nota providers cross-país:** Belvo cubre MX/CO/CL/PE/BR (sandbox cubre BR completo · prod a confirmar con Martín) · Prometeo cubre PY/UY/AR/PE/CL/EC (verificado 2026-05-07 · BO NO está) · Pluggy queda como fallback BR si Belvo no escala (no en monorepo todavía) · Akoya cubre EEUU · kushkipagos cubre Ecuador. **Cada provider = un service core compartido** en raíz del monorepo.
 
 ---
 
@@ -156,7 +155,7 @@ Post serie provider-abstraction (#493-#498), cada thin país-específico puede a
 | Thin | Default | Cross-swap | E2e validado |
 |---|---|---|---|
 | 🇲🇽 MX (`mexico/zymplo-openfinance`) | → Belvo (`:3010`) | → Prometeo (`:3011`) | ✅ ambas direcciones · `country=MEX, provider={belvo,prometeo}` persistido |
-| 🇧🇴 BO (`bolivia/zymplo-openfinance-bo`) | ⏳ direct-bank (BMSC/BNB/BCP) post-creds | n/a (Prometeo no cubre BO · verificado) | 🟡 scaffolding F1 · pivot 2026-05-07 · ver `docs/DIRECT-BANK-STRATEGY.md` |
+| 🇧🇴 BO (`bolivia/zymplo-openfinance-bo`) | ❌ **NO DISPONIBLE** · ningún aggregator cubre BO · ASFI sin Open Banking | n/a (Prometeo no cubre BO · verificado) | ❌ scaffolds quedan como backlog reactivo · NO activos · ver `docs/DIRECT-BANK-STRATEGY.md` |
 | 🇨🇱 CL (`chile/zymplo-openfinance`) | → Belvo (`:3010`) | → Prometeo (`:3011`) | ✅ E2E validado VM 2026-05-06 · 5 links persistidos en `zmp_of_link` con `country=CHL, provider=belvo` (incluido soft-delete · tested via #569 + #571 + #573) |
 
 **Cómo cambiar de provider en runtime** (un solo file):
@@ -171,7 +170,7 @@ OF_CORE_AUTH_TOKEN=<token-belvo-core>
 
 **Caveats observados** en smoke con mock data:
 
-- Catálogo de instituciones del provider mock no siempre cubre el país objetivo (ej. Belvo mock no tiene BOL · Prometeo mock no tiene MEX). En producción cada provider real tiene cobertura propia · ver columna "Cobertura del provider" arriba.
+- Catálogo de instituciones del provider mock no siempre cubre el país objetivo (ej. Prometeo mock no tiene MEX). En producción cada provider real tiene cobertura propia · ver columna "Cobertura del provider" arriba. **Bolivia es caso especial: ningún aggregator cubre BO · no hay path OF disponible**.
 - POST /links + GET /links + GET /accounts funcionan correctamente en cross-swap · la persistencia ZMP_OF_LINK discrimina por `(country, provider)` correctamente.
 
 **Webhooks NO son provider-agnostic** (intencional · `POST /webhooks/belvo` y `POST /webhooks/prometeo` son rutas separadas con firmas distintas). Cada provider tiene su propia ruta y secret HMAC.
@@ -189,7 +188,7 @@ Estado de cada país en los productos cross-cutting que consumen las APIs país-
 |---|---|---|
 | 🇲🇽 **México**     | ✅ FULL · CFDI setup + emit + history + detail + drafts + NC/ND (PR-MMX1 #591) · OF connect/manual-match | ✅ `cfdi_tools.py` + `openfinance_tools.py` |
 | 🇧🇷 **Brasil**     | ✅ NFS-e emit/history/detail | ✅ `nfse_tools.py` |
-| 🇧🇴 **Bolivia**    | ✅ FULL · SIAT setup + emit + history + detail + PdV + NC/ND + Drafts (#534-#537) · OF Prometeo (#525) | ✅ `siat_tools.py` 6 tools (emit/buscar/listar/anular + NC/ND #526 #535) · `factura_tools.py` wrapper multi-país (#530) · OF dispatch multi-país (#521) |
+| 🇧🇴 **Bolivia**    | ✅ FULL · SIAT setup + emit + history + detail + PdV + NC/ND + Drafts (#534-#537) · **OF bancaria N/A** (sin cobertura aggregator) | ✅ `siat_tools.py` 6 tools (emit/buscar/listar/anular + NC/ND #526 #535) · `factura_tools.py` wrapper multi-país (#530) · **sin OF dispatch** |
 | 🇨🇱 **Chile**      | ✅ FULL · DTE setup + emit + history + detail + drafts + NC/ND (PR-MCL1/2/3 #580/#582/#584) · OF Belvo screen (PR-MCL4 #586) | ✅ `dte_tools.py` 6 tools (paridad SIAT BO) + dispatch en `factura_tools.py` para CL (#578) |
 | 🇵🇾 Paraguay   | ❌ no integrado | ❌ no integrado |
 | 🇨🇴 Colombia   | ❌ no integrado | ❌ no integrado |
@@ -205,7 +204,7 @@ Estado de cada país en los productos cross-cutting que consumen las APIs país-
 
 Las referencias a `MX_OF_LINK` en `openfinance_tools.py` y `openfinance_client.py` eran solo **comments doc desactualizados** (no queries SQL · el bot llama via httpx al proxy `zymplo-api`, no a Oracle directo). Comentarios actualizados a `zmp_of_link` post #521.
 
-Bonus en #521: el bot ahora dispatch automático según `paisCodi` (canonical SKN.COME_PAIS post #550) · empresas BO (paisCodi=28) consultan `/api/v2/openfinance-bo/*` (Prometeo) · empresas MX (paisCodi=25) siguen `/api/v2/openfinance/*` (Belvo) · futuro CL (paisCodi=30) consultará `/api/v2/openfinance-cl/*` · transparente.
+Bonus en #521: el bot ahora dispatch automático según `paisCodi` (canonical SKN.COME_PAIS post #550) · empresas MX (paisCodi=25) consultan `/api/v2/openfinance/*` (Belvo) · CL (paisCodi=30) `/api/v2/openfinance-cl/*` (Belvo) · BR (paisCodi=2) `/api/v2/openfinance-br/*` (Belvo OFDA) · empresas BO (paisCodi=28) reciben mensaje informativo de que OF bancaria no está disponible (ningún aggregator cubre BO).
 
 **TODO** (PRs futuros · prioridad alta):
 - ~~Mobile · agregar screens SIAT BO~~ · ✅ cerrado #527 (emit/history/detail) + chain follow-ups #534-#537 (PdV/NC-ND/drafts/cert)
@@ -275,7 +274,7 @@ Para cada país que está 🧪 (listo en test externo), el trabajo es:
 | Servicio | Provider | Países que lo usarán | Estado |
 |---|---|---|---|
 | `zymplo-openfinance-belvo` | Belvo | MX, CO, PE, CL, **BR (PRs #618 + #635 + #638 + #639)**, futuros | ✅ código + deploy infra + HISTORICAL_UPDATE webhook handler (#639 · BR OFDA observability) · DevOps pendiente |
-| `zymplo-openfinance-prometeo` | Prometeo | BO, PY, UY, AR, PE, CL | ✅ código + deploy infra · DevOps pendiente |
+| `zymplo-openfinance-prometeo` | Prometeo | PY, UY, AR, PE, CL, EC (BO NO · sin cobertura) | ✅ código + deploy infra · DevOps pendiente |
 | `zymplo-openfinance-pluggy` | Pluggy | BR (fallback) | ❌ no aplica F1 · BR usa Belvo (PR #618) · Pluggy queda como fallback si Belvo no escala |
 | `zymplo-openfinance-akoya` | Akoya | EEUU | ❌ F4+ (cuando entre EEUU) |
 | `zymplo-openfinance-kushkipagos` | kushkipagos | EC | ❌ F4+ (cuando entre Ecuador) |
@@ -291,7 +290,7 @@ Cada thin/servicio país-específico expone su OpenAPI 3 en `/api-docs` con "Try
 | 🇲🇽 México   | CFDI (Facturama PAC)        | CFDI 4.0 | https://cfdi-mx-qa.zymplo.com/api-docs/ |
 | 🇲🇽 México   | Open Finance (Belvo · thin) | OF MX    | https://openfinance-mx-qa.zymplo.com/api-docs/ |
 | 🇧🇴 Bolivia  | Facturación (SIAT/SIN)      | SIAT     | https://facturacion-bolivia-qa.zymplo.com/api-docs/ |
-| 🇧🇴 Bolivia  | Open Finance (Prometeo · thin) | OF BO  | https://openfinance-bo-qa.zymplo.com/api-docs/ |
+| 🇧🇴 Bolivia  | ❌ Open Finance N/A | -      | sin cobertura aggregator · servicio thin queda solo como scaffolding histórico |
 | 🇧🇷 Brasil   | NFS-e (Receita Federal)     | NFS-e    | TBD · `nfse-qa.zymplo.com` no expone Swagger todavía (audit Oracle ZMP pendiente) |
 | 🇧🇷 Brasil   | Open Finance (Belvo OFDA · thin) | OF BR · widget    | TBD · `openfinance-br-qa.zymplo.com` falta deploy QA público + Belvo dashboard callback config (PRs #618 + #635 + #636 + #638 + #639 mergeados · DevOps via `brasil/zymplo-openfinance-br/deploy/CHECKLIST.md`) |
 | 🇨🇱 Chile    | DTE SII                     | DTE      | TBD · falta deploy QA público (backend QA-ready post chain CL1-CL4 · Victor handoff) |
@@ -324,7 +323,7 @@ curl https://openfinance-bo-qa.zymplo.com/auth/dev/info
 | Fase | Qué | Cuándo | Estado |
 |---|---|---|---|
 | **F0** | Migrations Oracle ZMP base + Bolivia SIAT cerrado | 2026-05-05 | ✅ cerrado hoy |
-| **F1** | Service core compartido OF Belvo + Prometeo + thin adapters MX/BO | esta semana / próxima | ⏳ |
+| **F1** | Service core compartido OF Belvo + Prometeo + thin adapters MX/BO | esta semana / próxima | ⏳ histórico · BO thin retirado 2026-05-07 (Prometeo no cubre BO) |
 | **F2** | Chile DTE Oracle ZMP + paridad MX/BO (anular/NC-ND/drafts/catálogos/recon Belvo) | 2026-05-06 | ✅ cerrado · chain #559/#562/#564/#566/#569/#570/#571/#573 |
 | **F2.5** | Mobile + bot paridad full MX/BO/CL · drafts + NC/ND + OF cross-país | 2026-05-06 | ✅ cerrado · #578/#580/#582/#584/#586/#591 |
 | **F2.6** | XSD validators MX CFDI 4.0 + BO SIAT estructural · pre-PAC failsafe | 2026-05-06 | ✅ cerrado · #587/#588 |
@@ -342,10 +341,10 @@ curl https://openfinance-bo-qa.zymplo.com/auth/dev/info
 | **F10.1** | **Cadena C** · cross-country catálogos vendoreados (espejo Brasil nativo) MX+BO+CL | 2026-05-07 | ✅ #627 #628 #629 |
 | **F11** | Cierre paridad 100% · CL audit endpoint + BR structural validator | 2026-05-07 | ✅ #631 #632 |
 | **F12** | 🇧🇷 BR Open Finance stack completo · zymplo-api proxy + langgraph bot tools + mobile widget Belvo OFDA + core webhook HISTORICAL_UPDATE | 2026-05-07 | ✅ #635 #636 #638 #639 |
-| **F15** | 🇧🇴 BO Open Finance pivot · multi-bank direct scaffolding (BMSC + BNB + BCP) · Prometeo deprecated for BO | 2026-05-07 | ✅ scaffolding F1 · sandbox creds 3 bancos pendientes (F2-F4) |
-| **F16** (backlog) | 🇧🇴 BO BMSC E2E real · sandbox signup + auth flow + tests + 1 link real persistido en ZMP_OF_LINK con provider='bmsc' | TBD | ⏳ apisupport@bancomercantil.com |
-| **F17** (backlog) | 🇧🇴 BO BNB integration · sales call + sandbox + adapter | TBD | ⏳ contacto comercial BNB |
-| **F18** (backlog) | 🇧🇴 BO BCP integration · sales call + sandbox + adapter | TBD | ⏳ contacto comercial BCP |
+| **F15** | 🇧🇴 BO OF retirado · servicio thin BO/Prometeo deprecado (false positive · Prometeo no cubre BO) · scaffolding multi-bank (BMSC/BNB/BCP) queda como backlog reactivo sin compromiso · empresa BO solo usa SIAT facturación | 2026-05-07 | ✅ servicio retirado · backlog reactivo |
+| **F16** (backlog reactivo) | 🇧🇴 BO BMSC E2E real · solo si BMSC confirma sandbox real (NO compromiso de Zymplo · solo si llega oportunidad) · sandbox signup + auth flow + tests + 1 link real persistido | sin ETA · reactive | ASFI Open Banking regulation OR BMSC outreach response |
+| **F17** (backlog reactivo) | 🇧🇴 BO BNB integration · solo si BNB confirma sandbox via sales call (NO compromiso) · adapter post-creds | sin ETA · reactive | sales call respondido + sandbox creds |
+| **F18** (backlog reactivo) | 🇧🇴 BO BCP integration · solo si BCP confirma self-service developer signup (NO compromiso) · adapter post-creds | sin ETA · reactive | bcp.com.bo/Desarrollo response |
 | **F19** | 🇪🇨 EC F4 chain · SKN.COME_PAIS Ecuador (codi=31) + paisCodi.ts/factura_tools/sri_client + 3 mobile screens + OF EC thin Prometeo + zymplo-api openfinance-ec module | 2026-05-07 | ✅ master data + #647 + #648 |
 | **F13** | 🇧🇷 BR NFS-e Phase 1 · A1 ZMP migrations + B1 drafts mobile + B2 setup mobile + Cancelamento inline reconocido | 2026-05-07 | ✅ #641 (A1 aplicado en dbautdesa02 · sin PR · DBA op directo) |
 | **F14** (backlog) | 🇧🇷 BR NFS-e Phase 2 · A2 cutover ZMP (DBA-coordinated) + B3b Substituição backend (LC 175/2020 rebill flow per-município) + B4 Substituição mobile | TBD | ⏳ pendiente DBA + research Receita Federal |
