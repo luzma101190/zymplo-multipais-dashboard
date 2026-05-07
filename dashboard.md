@@ -117,7 +117,7 @@ Post serie provider-abstraction (#493-#498), cada thin país-específico puede a
 |---|---|---|---|
 | 🇲🇽 MX (`mexico/zymplo-openfinance`) | → Belvo (`:3010`) | → Prometeo (`:3011`) | ✅ ambas direcciones · `country=MEX, provider={belvo,prometeo}` persistido |
 | 🇧🇴 BO (`bolivia/zymplo-openfinance-bo`) | → Prometeo (`:3011`) | → Belvo (`:3010`) | ✅ ambas direcciones · `country=BOL, provider={prometeo,belvo}` persistido |
-| 🇨🇱 CL (`chile/zymplo-openfinance`) | → Belvo (`:3010`) | → Prometeo (`:3011`) | ⏳ código provider-agnostic mergeado · pendiente smoke local |
+| 🇨🇱 CL (`chile/zymplo-openfinance`) | → Belvo (`:3010`) | → Prometeo (`:3011`) | ✅ E2E validado VM 2026-05-06 · 5 links persistidos en `zmp_of_link` con `country=CHL, provider=belvo` (incluido soft-delete · tested via #569 + #571 + #573) |
 
 **Cómo cambiar de provider en runtime** (un solo file):
 
