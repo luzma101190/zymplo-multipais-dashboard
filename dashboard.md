@@ -2,7 +2,7 @@
 
 > **Propósito:** vista comparativa de los 13 países del ecosistema Zymplo · estado de facturación electrónica + integración bancaria · marcando avance de alineación al monorepo `zymplo/` y Oracle ZMP.
 >
-> **Última actualización:** 2026-05-07 madrugada · **🎯 PARIDAD ESTRUCTURAL 100% lograda · 4 países alineados (MX · BO · CL · BR)** · cadenas A/B/C cerradas (preview cross-country + Brasil catch-up + catálogos vendoreados) + Brasil normalize completo (B1-B3 + B-i/B-ii/B-iii/B-iv/B-v) + CL audit endpoint #631 + BR structural validator #632 + **🇧🇷 BR Open Finance stack cerrado** (zymplo-api openfinance-br #635 · core webhook HISTORICAL_UPDATE #639 · langgraph BR+CL OF tools #636 · mobile widget Belvo OFDA #638) + **🇧🇷 BR NFS-e Phase 1 mobile cerrado** (drafts + setup mobile #641 · A1 ZMP.BR_NFSE_* migrations aplicadas en dbautdesa02 2026-05-07) · **E2E facturación BO SIAT confirmado** (API → Service → Oracle ZMP trinity verificada 2026-05-07 03:30 UTC · CUF persistido en `zmp.bo_siat_factura` + audit en `zmp.zmp_audit_log`) · ver `git log MULTIPAIS-DASHBOARD.md` para historial.
+> **Última actualización:** 2026-05-07 madrugada · **🎯 PARIDAD ESTRUCTURAL 100% lograda · 4 países alineados (MX · BO · CL · BR)** · cadenas A/B/C cerradas (preview cross-country + Brasil catch-up + catálogos vendoreados) + Brasil normalize completo (B1-B3 + B-i/B-ii/B-iii/B-iv/B-v) + CL audit endpoint #631 + BR structural validator #632 + **🇧🇷 BR Open Finance stack cerrado** (zymplo-api openfinance-br #635 · core webhook HISTORICAL_UPDATE #639 · langgraph BR+CL OF tools #636 · mobile widget Belvo OFDA #638) + **🇧🇷 BR NFS-e Phase 1 mobile cerrado** (drafts + setup mobile #641 · Cancelamento inline en detail · A1 ZMP.BR_NFSE_* migrations aplicadas en dbautdesa02 2026-05-07) · **paridad mobile 4 países 100% structural** · **E2E facturación BO SIAT confirmado** (API → Service → Oracle ZMP trinity verificada 2026-05-07 03:30 UTC · CUF persistido en `zmp.bo_siat_factura` + audit en `zmp.zmp_audit_log`) · ver `git log MULTIPAIS-DASHBOARD.md` para historial.
 
 > **`paisCodi` canonical** · ley = `SKN.COME_PAIS` (Oracle ATP · 30 filas con CHILE recién agregado). Mobile usa `constants/paisCodi.ts` · langgraph usa `src/utils/pais_codi.py`. NO hardcodear magic numbers · usar `PAIS_CODI.MEXICO` (= 25), `PAIS_CODI.BOLIVIA` (= 28), `PAIS_CODI.CHILE` (= 30).
 
@@ -61,9 +61,12 @@
 | 🇲🇽 MX | ✅ | ✅ | ✅ | ✅ | ✅ #591 | ✅ #591 | ✅ |
 | 🇧🇴 BO | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 🇨🇱 CL | ✅ | ✅ | ✅ | ✅ | ✅ #584 | ✅ #584 | ✅ #586 |
-| 🇧🇷 BR | ✅ #641 | ✅ | ✅ | ✅ | ✅ #641 | ❌ Phase 2 | ✅ widget Belvo OFDA #638 (read-only views + WebBrowser.openAuthSessionAsync) |
+| 🇧🇷 BR | ✅ #641 | ✅ | ✅ | ✅ | ✅ #641 | ✅ Cancelamento inline en `nfse-detail/[id].tsx` (motivo ≥10 chars · paridad regulatoria BR · ver nota *) | ✅ widget Belvo OFDA #638 (read-only views + WebBrowser.openAuthSessionAsync) |
 
-3 países (MX/BO/CL) con feature parity completa: setup cert · emit factura · history paginado · drilldown · drafts (BORRADOR workflow) · NC/ND emission · OF banking. Brasil avanzó OF stack completo (8 PRs cerrados) + NFS-e drafts + setup mobile (#641) · falta solo Nota mobile (Phase 2 · backend Substituição/Cancelamento Receita Federal pendiente).
+3 países (MX/BO/CL) con feature parity completa: setup cert · emit factura · history paginado · drilldown · drafts (BORRADOR workflow) · NC/ND emission · OF banking. Brasil avanzó OF stack completo (8 PRs cerrados) + NFS-e drafts + setup + Cancelamento inline (#641) · **paridad mobile 4 países cerrada estructuralmente**.
+
+> ***Nota BR · "Nota" pattern es distinto a MX/CL/BO**: NFS-e Brasil no tiene NC/ND fiscal tradicional · usa **Cancelamento** (anular · implementado inline en detail screen) y **Substituição** (rebill emitiendo NFS-e nueva que referencia la original · backlog Phase 3 · cada município tiene variaciones LC 175/2020). Para paridad funcional cross-país, Cancelamento cumple la función de "anular factura emitida con motivo" que MX hace via NC tipo 03 y CL via NC referencia=1.
+
 
 ---
 
@@ -337,7 +340,8 @@ curl https://openfinance-bo-qa.zymplo.com/auth/dev/info
 | **F10.1** | **Cadena C** · cross-country catálogos vendoreados (espejo Brasil nativo) MX+BO+CL | 2026-05-07 | ✅ #627 #628 #629 |
 | **F11** | Cierre paridad 100% · CL audit endpoint + BR structural validator | 2026-05-07 | ✅ #631 #632 |
 | **F12** | 🇧🇷 BR Open Finance stack completo · zymplo-api proxy + langgraph bot tools + mobile widget Belvo OFDA + core webhook HISTORICAL_UPDATE | 2026-05-07 | ✅ #635 #636 #638 #639 |
-| **F13** | 🇧🇷 BR NFS-e Phase 1 · A1 ZMP migrations + B1 drafts mobile + B2 setup mobile | 2026-05-07 | ✅ #641 (A1 aplicado en dbautdesa02 · sin PR · DBA op directo) |
+| **F13** | 🇧🇷 BR NFS-e Phase 1 · A1 ZMP migrations + B1 drafts mobile + B2 setup mobile + Cancelamento inline reconocido | 2026-05-07 | ✅ #641 (A1 aplicado en dbautdesa02 · sin PR · DBA op directo) |
+| **F14** (backlog) | 🇧🇷 BR NFS-e Phase 2 · A2 cutover ZMP (DBA-coordinated) + B3b Substituição backend (LC 175/2020 rebill flow per-município) + B4 Substituição mobile | TBD | ⏳ pendiente DBA + research Receita Federal |
 
 ### Orden de migración masiva sugerido (Fase 5)
 
