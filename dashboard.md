@@ -2,7 +2,7 @@
 
 > **Propósito:** vista comparativa de los 13 países del ecosistema Zymplo · estado de facturación electrónica + integración bancaria · marcando avance de alineación al monorepo `zymplo/` y Oracle ZMP.
 >
-> **Última actualización:** 2026-05-07 madrugada · **🎯 PARIDAD ESTRUCTURAL 100% lograda · 4 países alineados (MX · BO · CL · BR)** · cadenas A/B/C cerradas (preview cross-country + Brasil catch-up + catálogos vendoreados) + Brasil normalize completo (B1-B3 + B-i/B-ii/B-iii/B-iv/B-v) + CL audit endpoint #631 + BR structural validator #632 + **🇧🇷 BR Open Finance stack cerrado** (zymplo-api openfinance-br #635 · core webhook HISTORICAL_UPDATE #639 · langgraph BR+CL OF tools #636 · mobile widget Belvo OFDA #638) · **E2E facturación BO SIAT confirmado** (API → Service → Oracle ZMP trinity verificada 2026-05-07 03:30 UTC · CUF persistido en `zmp.bo_siat_factura` + audit en `zmp.zmp_audit_log`) · ver `git log MULTIPAIS-DASHBOARD.md` para historial.
+> **Última actualización:** 2026-05-07 madrugada · **🎯 PARIDAD ESTRUCTURAL 100% lograda · 4 países alineados (MX · BO · CL · BR)** · cadenas A/B/C cerradas (preview cross-country + Brasil catch-up + catálogos vendoreados) + Brasil normalize completo (B1-B3 + B-i/B-ii/B-iii/B-iv/B-v) + CL audit endpoint #631 + BR structural validator #632 + **🇧🇷 BR Open Finance stack cerrado** (zymplo-api openfinance-br #635 · core webhook HISTORICAL_UPDATE #639 · langgraph BR+CL OF tools #636 · mobile widget Belvo OFDA #638) + **🇧🇷 BR NFS-e Phase 1 mobile cerrado** (drafts + setup mobile #641 · A1 ZMP.BR_NFSE_* migrations aplicadas en dbautdesa02 2026-05-07) · **E2E facturación BO SIAT confirmado** (API → Service → Oracle ZMP trinity verificada 2026-05-07 03:30 UTC · CUF persistido en `zmp.bo_siat_factura` + audit en `zmp.zmp_audit_log`) · ver `git log MULTIPAIS-DASHBOARD.md` para historial.
 
 > **`paisCodi` canonical** · ley = `SKN.COME_PAIS` (Oracle ATP · 30 filas con CHILE recién agregado). Mobile usa `constants/paisCodi.ts` · langgraph usa `src/utils/pais_codi.py`. NO hardcodear magic numbers · usar `PAIS_CODI.MEXICO` (= 25), `PAIS_CODI.BOLIVIA` (= 28), `PAIS_CODI.CHILE` (= 30).
 
@@ -61,9 +61,9 @@
 | 🇲🇽 MX | ✅ | ✅ | ✅ | ✅ | ✅ #591 | ✅ #591 | ✅ |
 | 🇧🇴 BO | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 🇨🇱 CL | ✅ | ✅ | ✅ | ✅ | ✅ #584 | ✅ #584 | ✅ #586 |
-| 🇧🇷 BR | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ widget Belvo OFDA #638 (read-only views + WebBrowser.openAuthSessionAsync) |
+| 🇧🇷 BR | ✅ #641 | ✅ | ✅ | ✅ | ✅ #641 | ❌ Phase 2 | ✅ widget Belvo OFDA #638 (read-only views + WebBrowser.openAuthSessionAsync) |
 
-3 países (MX/BO/CL) con feature parity completa: setup cert · emit factura · history paginado · drilldown · drafts (BORRADOR workflow) · NC/ND emission · OF banking. Brasil avanzó OF (thin Belvo PR #618 · paridad backend con MX/CL) · NFS-e mobile/drafts/NC sigue pendiente del audit Oracle ZMP.
+3 países (MX/BO/CL) con feature parity completa: setup cert · emit factura · history paginado · drilldown · drafts (BORRADOR workflow) · NC/ND emission · OF banking. Brasil avanzó OF stack completo (8 PRs cerrados) + NFS-e drafts + setup mobile (#641) · falta solo Nota mobile (Phase 2 · backend Substituição/Cancelamento Receita Federal pendiente).
 
 ---
 
@@ -106,7 +106,7 @@ Tabla de features estructurales cross-country alineadas en MX/BO/CL/BR. Cada ✓
 
 | País | Autoridad fiscal | Estado en repo origen | Repo/Stack origen actual | En monorepo zymplo | Tablas Oracle ZMP | Cert. real | Deploy QA | Deploy Prod |
 |---|---|---|---|---|---|---|---|---|
-| 🇧🇷 Brasil     | Receita Federal · NFS-e | 🧪 listo | `brasil/zymplo-nfse/` (en monorepo) | 🟡 sí · falta audit Oracle | ? audit | ❌ | ? | ❌ |
+| 🇧🇷 Brasil     | Receita Federal · NFS-e | 🟢 monorepo full · paridad B1-B5 + drafts mobile + setup mobile | `brasil/zymplo-nfse/` (en monorepo) | ✅ sí · 4 tablas `ZMP.BR_NFSE_*` aplicadas a `dbautdesa02_high` 2026-05-07 (cutover code B4+ pendiente DBA · service aún usa FISC_NFSE_*) | ✅ `BR_NFSE_EMPR/CERT/DOCU/EVEN` (vacías · post-migration) | ⏳ cert ICP-Brasil sandbox QA TBD | 🟡 backend QA-ready · DevOps subdomain pendiente | ❌ |
 | 🇵🇾 Paraguay   | DNIT/SIFEN              | 🧪 listo en "Zymplo Facturación Electrónica" | externo al monorepo (otro producto) | ❌ | ❌ | 🧪 ya certif probable | ? | 🟡 productivo? |
 | 🇲🇽 México     | SAT · CFDI 4.0          | 🟢 QA-ready  | `mexico/zymplo-cfdi/` (Facturama PAC) | ✅ sí · F0 cerrado | ✅ MX_CFDI_HISTORICO + MX_CSD_VAULT + MX_EMPR_FISCAL | ❌ falta cert prod | ✅ | ❌ |
 | 🇺🇸 EEUU       | (UBL std · sin regulador) | 🧪 listo | externo al monorepo | ❌ | ❌ | N/A | ? | ❌ |
@@ -337,6 +337,7 @@ curl https://openfinance-bo-qa.zymplo.com/auth/dev/info
 | **F10.1** | **Cadena C** · cross-country catálogos vendoreados (espejo Brasil nativo) MX+BO+CL | 2026-05-07 | ✅ #627 #628 #629 |
 | **F11** | Cierre paridad 100% · CL audit endpoint + BR structural validator | 2026-05-07 | ✅ #631 #632 |
 | **F12** | 🇧🇷 BR Open Finance stack completo · zymplo-api proxy + langgraph bot tools + mobile widget Belvo OFDA + core webhook HISTORICAL_UPDATE | 2026-05-07 | ✅ #635 #636 #638 #639 |
+| **F13** | 🇧🇷 BR NFS-e Phase 1 · A1 ZMP migrations + B1 drafts mobile + B2 setup mobile | 2026-05-07 | ✅ #641 (A1 aplicado en dbautdesa02 · sin PR · DBA op directo) |
 
 ### Orden de migración masiva sugerido (Fase 5)
 
