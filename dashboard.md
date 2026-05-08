@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-08 (tarde · post-cierre Cat C QA) · 13 países · 4 con E2E facturación confirmado · 4 con OF bancaria sandbox-validado · **9/10 servicios Cat C QA healthy** · CR facturación bloqueada por clone literal de Perú (rename + rewrite MH-CR pendiente).
+> **Última actualización:** 2026-05-08 (noche · Prometeo E2E real 4 países: UY/PE/EC/AR · multi-provider Oracle ZMP_OF_LINK validado · PR #709 fix paths Prometeo)
 
 ## Convención
 
@@ -25,11 +25,11 @@
 | 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
 | 🇵🇾 **Paraguay** | ✅ E2E (DNIT externo) | ⏸️ pausado | ❌ pendiente | externo (sin monorepo) |
 | 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | ❌ pendiente | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
-| 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
+| 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
 | 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
-| 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox | 🟡 scaffold (#678 + #679) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
-| 🇵🇪 **Perú** | 🟡 sin cert prueba | 🟡 Belvo PE | ❌ pendiente | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
-| 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy | 🟡 Prometeo UY | ❌ pendiente | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
+| 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox **E2E real 2026-05-08** | 🟡 scaffold (#678 + #679) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
+| 🇵🇪 **Perú** | 🟡 sin cert prueba | ✅ Prometeo PE **E2E real 2026-05-08** | ❌ pendiente | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
+| 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy | ✅ Prometeo UY **E2E real 2026-05-08** | ❌ pendiente | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
 | 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
 | 🇺🇸 **EEUU** | 🟡 UBL · FE-US QA healthy | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) |
 | 🇪🇸 **España** | 🧪 sin cert | 🧪 sandbox | ❌ pendiente | externo |
