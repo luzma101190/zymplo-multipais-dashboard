@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-08 · 13 países · 4 con E2E facturación confirmado · 4 con OF bancaria sandbox-validado.
+> **Última actualización:** 2026-05-08 (tarde · post-cierre Cat C QA) · 13 países · 4 con E2E facturación confirmado · 4 con OF bancaria sandbox-validado · **9/10 servicios Cat C QA healthy** · CR facturación bloqueada por clone literal de Perú (rename + rewrite MH-CR pendiente).
 
 ## Convención
 
@@ -18,21 +18,21 @@
 
 ## 📊 Snapshot ejecutivo
 
-| País | Facturación | Open Finance | API docs (QA) |
-|---|---|---|---|
-| 🇧🇷 **Brasil** | ✅ E2E confirmado | ✅ Belvo OFDA | [facturacion-br-qa](https://facturacion-br-qa.zymplo.com/api-docs/) · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) |
-| 🇲🇽 **México** | ✅ E2E confirmado | ✅ Belvo sandbox | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
-| 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
-| 🇵🇾 **Paraguay** | ✅ E2E (DNIT externo) | ⏸️ pausado | externo (sin monorepo) |
-| 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
-| 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
-| 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
-| 🇪🇨 **Ecuador** | 🟡 sin cert prueba | ✅ Prometeo sandbox | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
-| 🇵🇪 **Perú** | 🟡 sin cert prueba | 🟡 Belvo PE | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
-| 🇺🇾 **Uruguay** | 🧪 sin cert prueba | 🟡 Prometeo UY | [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
-| 🇨🇷 **Costa Rica** | ⏳ en proceso | 🟡 sandbox | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
-| 🇺🇸 **EEUU** | 🧪 UBL externo | ⏳ Akoya | externo |
-| 🇪🇸 **España** | 🧪 sin cert | 🧪 sandbox | externo |
+| País | Facturación | Open Finance | App + WhatsApp | API docs (QA) |
+|---|---|---|---|---|
+| 🇧🇷 **Brasil** | ✅ E2E confirmado | ✅ Belvo OFDA | ✅ App · ✅ WA | [facturacion-br-qa](https://facturacion-br-qa.zymplo.com/api-docs/) · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) |
+| 🇲🇽 **México** | ✅ E2E confirmado | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
+| 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
+| 🇵🇾 **Paraguay** | ✅ E2E (DNIT externo) | ⏸️ pausado | ❌ pendiente | externo (sin monorepo) |
+| 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | ❌ pendiente | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
+| 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
+| 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
+| 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox | 🟡 scaffold (#678 + #679) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
+| 🇵🇪 **Perú** | 🟡 sin cert prueba | 🟡 Belvo PE | ❌ pendiente | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
+| 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy | 🟡 Prometeo UY | ❌ pendiente | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
+| 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
+| 🇺🇸 **EEUU** | 🟡 UBL · FE-US QA healthy | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) |
+| 🇪🇸 **España** | 🧪 sin cert | 🧪 sandbox | ❌ pendiente | externo |
 
 ---
 
@@ -49,11 +49,13 @@
 
 ## 🇲🇽 México
 
-- **Facturación**: ✅ E2E sandbox · **Facturama PAC provee certificado de prueba** + cert real del cliente (CSD gratis emitido por SAT) · firmado+timbrado validado en Facturama sandbox
-- **API docs**: https://facturacion-mx-qa.zymplo.com/api-docs/
-- **Sample E2E**: pendiente (aplicar [PATTERN-PUBLIC-VIEW.md](PATTERN-PUBLIC-VIEW.md) sobre `zymplo-cfdi`)
+- **Facturación**: ✅ E2E COMPLETO sandbox · emisión + persistencia normalizada + visualización + PDF binario, todo via API · validado 2026-05-08 con UUID `46b60ce9-74a8-454a-96dd-7273032a2081` (total $23,200 MXN · 2 items · status AUTORIZADO)
+- **Persistencia**: ✅ Oracle ZMP · `MX_CFDI_HISTORICO` (CFDI completo) + `MX_CFDI_ITEM` (items normalizados, post-migration `2026-05-06_mexico_cfdi_item.sql`)
+- **PDF formato oficial**: ✅ CFDI 4.0 binario · `application/pdf` · render server-side con pdfkit + QR de validación SAT (`https://verificacfdi.facturaelectronica.sat.gob.mx`) · endpoint `/cfdi/{uuid}/pdf?inline=true` (PR #700 cierra deuda Facturama-prod-PDF para sandbox)
+- **API docs**: https://facturacion-mx-qa.zymplo.com/api-docs/ · 38 paths · incluye `/cfdi/preview`, `/cfdi/validate`, `/cfdi/lote/*`, `/cfdi/draft/*` (PR #698 cerró gap Swagger)
+- **Sample E2E (clickthrough)**: [CFDI 46b60ce9... · HTML](https://facturacion-mx-qa.zymplo.com/cfdi/46b60ce9-74a8-454a-96dd-7273032a2081/preview.html) · [PDF formato CFDI 4.0](https://facturacion-mx-qa.zymplo.com/cfdi/46b60ce9-74a8-454a-96dd-7273032a2081/pdf?inline=true) (clickthrough QA público · ver [PATTERN-PUBLIC-VIEW.md](PATTERN-PUBLIC-VIEW.md))
 - **Open Finance**: ✅ Belvo sandbox · cubre MX (BBVA · Banamex · Santander · HSBC · Banorte) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/)
-- **Para PROD**: (1) cert SAT del cliente final (CSD productivo · gratis · trámite cliente) · (2) plan Facturama productivo (cobra por timbre) · (3) plan Belvo prod negociado
+- **Para PROD**: (1) cert SAT del cliente final (CSD productivo · gratis · trámite cliente) · (2) plan Facturama productivo (cobra por timbre · sandbox actual usa mock-pac · sellos placeholder) · (3) plan Belvo prod negociado
 
 ---
 
@@ -105,10 +107,10 @@
 
 ## 🇪🇨 Ecuador
 
-- **Facturación**: 🟡 NO pudimos probar end-to-end · **no tenemos cert prueba** (mismo bloqueante que CL/PE/UY/CR · cert real BCE ~30 USD del cliente). Backend QA-ready (zymplo-sri F0-F4 · 33 tests verdes · 11 tablas EC_SRI_*)
+- **Facturación**: 🟡 NO pudimos probar end-to-end · **no tenemos cert prueba** (mismo bloqueante que CL/PE/UY/CR · cert real BCE ~30 USD del cliente). Backend QA-ready (zymplo-sri F0-F4 · 33 tests verdes · 11 tablas EC_SRI_*) · **container QA healthy en mock-mode DB** (DevOps activó 2026-05-08 · pendiente creds Oracle ZMP del owner)
 - **API docs**: https://facturacion-ec-qa.zymplo.com/api-docs/
 - **Open Finance**: ✅ Prometeo sandbox cubre EC (Pichincha · Intermatico · 5 providers) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/)
-- **Para PROD**: (1) cert BCE del cliente final (~30 USD) · (2) deploy facturación QA público · (3) plan Prometeo prod
+- **Para PROD**: (1) cert BCE del cliente final (~30 USD) · (2) creds Oracle ZMP en QA (sale del mock-mode) · (3) plan Prometeo prod
 
 ---
 
@@ -123,25 +125,26 @@
 
 ## 🇺🇾 Uruguay
 
-- **Facturación**: 🧪 código DGI funcionando en repo origen · sin cert prueba · sin migrar al monorepo
-- **API docs**: facturación externa · OF en [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/)
-- **Open Finance**: ✅ Prometeo sandbox cubre UY · thin en monorepo (#593) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/)
-- **Para PROD**: (1) cert DGI del cliente · (2) migrar zymplo-dgi al monorepo · (3) plan Prometeo prod
+- **Facturación**: 🟡 código DGI/CFE en repo origen · sin cert prueba · **container `facturacion-uy-qa` healthy** (DevOps · postgres compartido `postgres-multipais-qa` · owner Orlando) · pendiente migración facturación al monorepo + Oracle ZMP
+- **API docs**: [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/)
+- **Open Finance**: ✅ Prometeo sandbox cubre UY · thin en monorepo (#593)
+- **Para PROD**: (1) cert DGI del cliente · (2) migrar zymplo-dgi al monorepo + Oracle ZMP (hoy postgres compartido) · (3) plan Prometeo prod
 
 ---
 
 ## 🇨🇷 Costa Rica
 
-- **Facturación**: ⏳ en proceso (Hacienda · zymplo-hacienda iniciado en monorepo) · sin cert prueba todavía
-- **API docs**: facturación TBD · Open Banking en [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com)
-- **Open Finance**: 🟡 sandbox disponible · servicio thin operativo en QA
-- **Para PROD**: (1) cert real Hacienda del cliente · (2) terminar implementación zymplo-hacienda
+- **Facturación**: 🚧 **BLOQUEADO por código** · `costarica/zymplo-hacienda/` es un clone literal de `facturacion-peru` (package.json `"name": "facturacion-peru"`, src con endpoints SUNAT, .env.example con `SUNAT_BETA_BILLSERVICE`) · DevOps dejó `facturacion-cr-qa` retornando 503 maintenance hasta que owner haga rename + reescritura adapter MH-CR. **Pendiente**: (1) rename package + .env stub MH-CR, (2) reemplazar integraciones SUNAT por API Hacienda CR (XML + firma según MH).
+- **API docs**: facturación bloqueada (503) · Open Banking en [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com)
+- **Open Finance**: ✅ container `openbanking-cr-qa` healthy (DevOps fixó HEALTHCHECK 2026-05-08 · puerto 3003 `/api/health`) · pero el container heredó respuestas con `"service": "openbanking-peru"` · **deuda dev** para owner CR
+- **Para PROD**: (1) **owner asignado para destrabe código** (rename + adapter MH-CR · ~1-2 sprints), (2) cert real Hacienda del cliente, (3) limpieza referencias `openbanking-peru` en respuestas OF
 
 ---
 
 ## 🇺🇸 EEUU
 
-- **Facturación**: 🧪 UBL standard funciona en repo origen · no envía a regulador (US no tiene factura electrónica obligatoria) · sin migrar al monorepo
+- **Facturación**: 🟡 UBL Fastify · **container `facturacion-us-qa` healthy** (DevOps · postgres compartido `postgres-multipais-qa` · healthcheck `/healthz` · owner Andrea) · no envía a regulador (US no tiene factura electrónica obligatoria) · pendiente migración fe-us al monorepo + Oracle ZMP si aplica
+- **API docs**: [facturacion-us-qa](https://facturacion-us-qa.zymplo.com)
 - **Open Finance**: ⏳ Akoya en proceso (sandbox disponible · cubre EEUU)
 - **Para PROD**: caso de uso distinto · facturación es opcional · OF requiere acuerdo Akoya
 
@@ -159,6 +162,7 @@
 
 | Prioridad | Acción | Países afectados |
 |---|---|---|
+| **Alta** | **Asignar owner CR-Hacienda** · rename `facturacion-peru` → `facturacion-costarica` + reescribir adapter SUNAT → MH-CR (XML + firma según MH) · destraba `facturacion-cr-qa` (hoy 503 maintenance) | 1 país (CR) |
 | **Alta** | Replicar modelo BR (cliente colaborador presta cert) en CL · EC · PE · UY · CR · ES | 6 países desbloqueables |
 | **Alta** | Negociar plan Belvo productivo (cubre MX · BR · CL · CO · PE en un solo contrato) | 5 países |
 | **Media** | Negociar plan Prometeo productivo (cubre AR · UY · PY · EC) | 4 países |
