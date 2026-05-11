@@ -61,9 +61,12 @@
 
 ## 🇧🇴 Bolivia
 
-- **Facturación**: ✅ E2E confirmado · **certificado ADSIB de prueba conseguido** · CUF persistido en Oracle ZMP · audit log verificado 2026-05-07
+- **Facturación**: ✅ E2E estructural confirmado · **certificado ADSIB de prueba conseguido** · CUF persistido en Oracle ZMP · audit log verificado 2026-05-07 · emit 2026-05-11 con KUDE oficial SIN renderizado
+- **PDF formato oficial**: ✅ KUDE binario · `application/pdf` · render server-side con pdfkit + QR de validación SIN (`https://siat.impuestos.gob.bo/consulta/QR`) + Ley 453 · endpoint `/factura/{cuf}/pdf`
 - **API docs**: https://facturacion-bo-qa.zymplo.com/api-docs/
-- **Sample E2E**: pendiente (aplicar [PATTERN-PUBLIC-VIEW.md](PATTERN-PUBLIC-VIEW.md) sobre `zymplo-siat`)
+- **Sample E2E (clickthrough)**: [CUF 0001023...3A302C3 · HTML](https://facturacion-bo-qa.zymplo.com/factura/00010234567892026051118153898000011101000000000400003ED663F1DC0DEEAC3A302C3/preview.html) · [PDF formato KUDE](https://facturacion-bo-qa.zymplo.com/factura/00010234567892026051118153898000011101000000000400003ED663F1DC0DEEAC3A302C3/pdf?inline=true) (clickthrough QA público · ver [PATTERN-PUBLIC-VIEW.md](PATTERN-PUBLIC-VIEW.md))
+- **Estado envío al SIN**: ⚠️ `siatResponse=(mock)` · estructura XML firmada + CUF + CUFD + QR oficial SIN OK · pero **no llegó al endpoint real** `pilotosiat.impuestos.gob.bo`. Causa: `isMockMode()` ([bolivia/zymplo-siat/src/adapters/siat/SiatClient.js:26](bolivia/zymplo-siat/src/adapters/siat/SiatClient.js#L26)) requiere `SIAT_MODE='sandbox'` ✓ **AND** `SIAT_TOKEN_DELEGADO` no-vacío ❌. Hoy está vacío.
+- **Bloqueo para E2E real real**: trámite externo del contribuyente ante SIN piloto · delegar facultades de emisión a Zymplo en el portal `pilotosiat.impuestos.gob.bo` · output del trámite es el `SIAT_TOKEN_DELEGADO` que se pega en Doppler. Sin gestión en curso al 2026-05-11. Mismo código emite real una vez conseguido el token · cero cambios de código.
 - **Open Finance**: ❌ **NO disponible** · ASFI no abrió Open Banking · ningún aggregator LatAm cubre Bolivia (Belvo · Prometeo · Pluggy · Salt Edge · todos verificados sin cobertura). La empresa BO usa solo facturación.
 - **Para PROD**: cert ADSIB del cliente final (trámite cliente con ADSIB) + deploy prod
 
