@@ -24,7 +24,7 @@
 | 🇲🇽 **México** | ✅ E2E confirmado | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
 | 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
 | 🇵🇾 **Paraguay** | ✅ E2E (DNIT externo) | ⏸️ pausado | ❌ pendiente | externo (sin monorepo) |
-| 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | ❌ pendiente | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
+| 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | 🟡 scaffold F0 (#752 bot + #753 app) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
 | 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
 | 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
 | 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox **E2E real 2026-05-08** | 🟡 scaffold (#678 + #679) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
@@ -83,10 +83,12 @@
 
 ## 🇨🇴 Colombia
 
-- **Facturación**: 🟡 DIAN ofrece sandbox público (no requiere cert real) · **probado en sandbox sin costo** · zymplo-dian alineado al monorepo (#665 · UBL 2.1 + CUFE SHA-384 · 11 tablas CO_DIAN_*)
+- **Facturación**: 🟡 DIAN ofrece sandbox público (no requiere cert real) · **probado en sandbox sin costo** · zymplo-dian alineado al monorepo (#665 · UBL 2.1 + CUFE SHA-384 · 11 tablas CO_DIAN_*) · **deploy QA destrabado 2026-05-11** (#746 deploy.sh drift fix · #747 Dockerfile vestigial COPY fix) · v0.2.0-zymplo-aligned live en facturacion-co-qa
 - **API docs**: https://facturacion-co-qa.zymplo.com/api-docs/
+- **Público-view pattern**: ✅ aplicado #748 · `DIAN_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF desde dashboard (pendiente flag en `.env` runtime nfe-s)
+- **App + WhatsApp F0 MVP (2026-05-11)**: PaisCodi=32 + FISCAL_COUNTRIES update (#751) · `dian_client.py` + `dian_tools.py` bot WhatsApp (#752) · screens `dian-co-emit` + `dian-co-history` mobile (#753) · NC/ND, drafts, detail/setup pendientes F2+
 - **Open Finance**: 🟡 Belvo CO en monorepo · falta deploy QA público · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/)
-- **Para PROD**: (1) cert real Camerfirma o Andes SCD del cliente · (2) deploy OF QA + smoke e2e
+- **Para PROD**: (1) cert real Camerfirma o Andes SCD del cliente · (2) deploy OF QA + smoke e2e · (3) primer emit real para sample E2E clickthrough · (4) screens F2+ (NC/ND, drafts, detail)
 
 ---
 
