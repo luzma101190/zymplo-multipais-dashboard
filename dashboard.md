@@ -24,7 +24,7 @@
 | 🇲🇽 **México** | ✅ E2E confirmado | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
 | 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
 | 🇵🇾 **Paraguay** | ✅ E2E (DNIT externo) | ⏸️ pausado | ❌ pendiente | externo (sin monorepo) |
-| 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | 🟡 scaffold F0 (#752 bot + #753 app) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
+| 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | ✅ App · ✅ WA (#752 bot + #753 app + #748 público-view) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
 | 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
 | 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
 | 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
