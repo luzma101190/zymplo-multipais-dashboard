@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-08 (noche · Prometeo E2E real 4 países: UY/PE/EC/AR · multi-provider Oracle ZMP_OF_LINK validado · PR #709 fix paths Prometeo)
+> **Última actualización:** 2026-05-12 · 7 países integrados a app+WhatsApp (BR/MX/BO/CL/CO/EC/UY) · Perú backend PDF + bot scaffolded #763/764 · pendiente v2 proxy backend team
 
 ## Convención
 
