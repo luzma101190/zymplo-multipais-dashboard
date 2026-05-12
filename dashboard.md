@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-12 · **Colombia + Ecuador E2E completo en sandbox** · 2 facturas reales emitidas con Oracle persist + PDFs RIDE/DIAN típicos · samples CO [PDF](samples/colombia/factura-1-co-SETP5.pdf)/[XML](samples/colombia/factura-1-co-SETP5.xml) + EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf)/[XML](samples/ecuador/factura-1-ec-001-001-000000001.xml)
+> **Última actualización:** 2026-05-12 · **CO + EC E2E sandbox completo · CL E2E estructural** (cert dummy) · 3 documentos fiscales emitidos con Oracle persist · samples CO [PDF](samples/colombia/factura-1-co-SETP5.pdf)/[XML](samples/colombia/factura-1-co-SETP5.xml) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf)/[XML](samples/ecuador/factura-1-ec-001-001-000000001.xml) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf)/[XML](samples/chile/dte-33-cl-folio-1.xml)
 
 ## Convención
 
@@ -26,7 +26,7 @@
 | 🇵🇾 **Paraguay** | ✅ E2E (DNIT externo) | ⏸️ pausado | ❌ pendiente | externo (sin monorepo) |
 | 🇨🇴 **Colombia** | ✅ **E2E sandbox** | 🟡 Belvo CO | ✅ App · ✅ WA (#752 bot + #753 app + #748 público-view) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) · [PDF](samples/colombia/factura-1-co-SETP5.pdf) |
 | 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
-| 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
+| 🇨🇱 **Chile** | 🟡 **E2E estructural** (cert dummy) | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) · [PDF](samples/chile/dte-33-cl-folio-1.pdf) |
 | 🇪🇨 **Ecuador** | ✅ **E2E sandbox** | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) · [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) |
 | 🇵🇪 **Perú** | 🟡 sin cert prueba · PDF service #763 | ✅ Prometeo PE **E2E real 2026-05-08** | ✅ App · ✅ WA (#764 bot + #767 v2 proxy + #768 mobile + #763 PDF+público-view) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
 | 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy · PDF service #758 | ✅ Prometeo UY **E2E real 2026-05-08** | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
@@ -109,10 +109,14 @@
 
 ## 🇨🇱 Chile
 
-- **Facturación**: 🟡 NO pudimos probar end-to-end · **no tenemos cert prueba y para tramitarlo se requiere RUT chileno** (replicar modelo Brasil: cliente colaborador con RUT que nos preste cert). Backend QA-ready (DTE F0-F4 · audit endpoint · catálogos vendoreados · ~25 USD E-CertChile)
+- **Facturación**: 🟡 **E2E ESTRUCTURAL completo 2026-05-12** (cert+CAF DUMMY · NO firmó+envió SII real) · DTE 33 Factura emitida con TED + XMLDSig + persistencia Oracle + PDF Res. Ex. 80/2014 con PDF417 timbre. Backend QA-ready (DTE F0-F4 · 11 tablas CL_DTE_*)
+- **E2E validado (estructural · 2026-05-12)**: DTE id=81 · folio 1 · neto 100k + IVA 19% · total $119.000 CLP · Estado FIRMADO (no enviado a SII porque cert auto-signed)
+  - PR #799 fix(cl): expose devMessage cuando SII_AMBIENTE != produccion
+- **⚠️ Caveat crítico**: cert PFX auto-firmado + CAF generado localmente · SII rechazaría la firma del CAF y la cadena de trust del cert. PDF y XML estructuralmente SII-compliant pero NO válidos fiscalmente
+- **Sample E2E**: [dte-33-cl-folio-1.pdf](samples/chile/dte-33-cl-folio-1.pdf) · [dte-33-cl-folio-1.xml](samples/chile/dte-33-cl-folio-1.xml)
 - **API docs**: https://facturacion-cl-qa.zymplo.com/api-docs/
 - **Open Finance**: ✅ Belvo sandbox cubre CL (BancoEstado · BCI · etc) · 5 links E2E validados en VM · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/)
-- **Para PROD**: (1) **cliente chileno colaborador** que nos preste cert SII (modelo BR) · O · (2) gestionar RUT corporativo Zymplo Chile · (3) cert E-CertChile (~25 USD) · (4) plan Belvo prod (mismo del MX/BR)
+- **Para PROD real**: (1) **cliente chileno colaborador** que nos preste cert SII (modelo BR) · O · (2) gestionar RUT corporativo Zymplo Chile · (3) cert E-CertChile (~25 USD) + CAFs reales del SII · (4) plan Belvo prod (mismo del MX/BR)
 
 ---
 
