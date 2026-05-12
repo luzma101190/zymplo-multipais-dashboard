@@ -29,7 +29,7 @@
 | 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
 | 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
 | 🇵🇪 **Perú** | 🟡 sin cert prueba | ✅ Prometeo PE **E2E real 2026-05-08** | ❌ pendiente | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
-| 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy | ✅ Prometeo UY **E2E real 2026-05-08** | ❌ pendiente | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
+| 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy · PDF service #758 | ✅ Prometeo UY **E2E real 2026-05-08** | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
 | 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
 | 🇺🇸 **EEUU** | 🟡 UBL · FE-US QA healthy | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) |
 | 🇪🇸 **España** | 🧪 sin cert | 🧪 sandbox | ❌ pendiente | externo |
@@ -132,10 +132,13 @@
 
 ## 🇺🇾 Uruguay
 
-- **Facturación**: 🟡 código DGI/CFE en repo origen · sin cert prueba · **container `facturacion-uy-qa` healthy** (DevOps · postgres compartido `postgres-multipais-qa` · owner Orlando) · pendiente migración facturación al monorepo + Oracle ZMP
+- **Facturación**: 🟡 código DGI/CFE en monorepo (`uruguay/zymplo-cfe`) · sin cert prueba · **container `facturacion-uy-qa` healthy** (DevOps · postgres compartido `postgres-multipais-qa` · owner pendiente post-Orlando) · pendiente migración postgres → Oracle ZMP
+- **PDF formato oficial**: ✅ PdfCfeService #758 · pdfkit + qrcode · QR DGI RG 145/2018 · cubre 14 tipos CFE (101 e-Ticket · 111 e-Factura · 121 Exp · 131 e-Remito · 141 e-Resguardo · 181 e-Boleta) · Ley Defensa Consumidor 17.250 · watermark "PENDIENTE DGI" cuando sin autorización
+- **Público-view pattern**: ✅ aplicado #758 · `CFE_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF+XML desde dashboard (pendiente flag en `.env` runtime nfe-s)
 - **API docs**: [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/)
+- **App + WhatsApp F0 (2026-05-12)**: PaisCodi=27 ya canónico · scaffolding mobile #760 (`cfe-uy-emit.tsx` + `cfe-uy-history.tsx` · tipoCfe 101/111 + tax codes 1-4 + moneda UYU/USD) · bot WhatsApp #759 (`cfe_tools.py` + `cfe_client.py` + registry) · NC/ND, e-Remito/Exp/Resguardo/Boleta, drafts, detail F2+
 - **Open Finance**: ✅ Prometeo sandbox cubre UY · thin en monorepo (#593)
-- **Para PROD**: (1) cert DGI del cliente · (2) migrar zymplo-dgi al monorepo + Oracle ZMP (hoy postgres compartido) · (3) plan Prometeo prod
+- **Para PROD**: (1) cert DGI del cliente · (2) migrar postgres → Oracle ZMP · (3) owner post-Orlando · (4) plan Prometeo prod
 
 ---
 
