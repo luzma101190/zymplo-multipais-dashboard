@@ -27,7 +27,7 @@
 | 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | 🟡 scaffold F0 (#752 bot + #753 app) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
 | 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
 | 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
-| 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox **E2E real 2026-05-08** | 🟡 scaffold (#678 + #679) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
+| 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
 | 🇵🇪 **Perú** | 🟡 sin cert prueba | ✅ Prometeo PE **E2E real 2026-05-08** | ❌ pendiente | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
 | 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy | ✅ Prometeo UY **E2E real 2026-05-08** | ❌ pendiente | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
 | 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
@@ -114,6 +114,8 @@
 
 - **Facturación**: 🟡 NO pudimos probar end-to-end · **no tenemos cert prueba** (mismo bloqueante que CL/PE/UY/CR · cert real BCE ~30 USD del cliente). Backend QA-ready (zymplo-sri F0-F4 · 33 tests verdes · 11 tablas EC_SRI_*) · **container QA healthy en mock-mode DB** (DevOps activó 2026-05-08 · pendiente creds Oracle ZMP del owner)
 - **API docs**: https://facturacion-ec-qa.zymplo.com/api-docs/
+- **Público-view pattern**: ✅ aplicado #749 · `SRI_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF desde dashboard (pendiente flag en `.env` runtime + Oracle wireup)
+- **App + WhatsApp F0 (2026-05-11)**: PaisCodi=31 ya canónico · scaffolding mobile #678/#679 (`sri-emit.tsx` + `sri-history.tsx` ya existían) · **bot WhatsApp agregado #755** (`sri_tools.py` + registry · client ya existía 228 lines) · NC/ND, retenciones, guías, liquidaciones F2+
 - **Open Finance**: ✅ Prometeo sandbox cubre EC (Pichincha · Intermatico · 5 providers) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/)
 - **Para PROD**: (1) cert BCE del cliente final (~30 USD) · (2) creds Oracle ZMP en QA (sale del mock-mode) · (3) plan Prometeo prod
 
