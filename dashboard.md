@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-12 · **8 países full app+WhatsApp** (BR/MX/BO/CL/CO/EC/UY/PE) · Perú cerrado con backend PDF #763 + bot #764 + v2 proxy #767 + mobile #768
+> **Última actualización:** 2026-05-12 · **8 países full app+WhatsApp** (BR/MX/BO/CL/CO/EC/UY/PE) · Uruguay PDF rewrite al layout DGI oficial #772 + sample CFE #1 E2E en repo · Perú cerrado full
 
 ## Convención
 
@@ -141,8 +141,9 @@
 ## 🇺🇾 Uruguay
 
 - **Facturación**: 🟡 código DGI/CFE en monorepo (`uruguay/zymplo-cfe`) · sin cert prueba · **container `facturacion-uy-qa` healthy** (DevOps · postgres compartido `postgres-multipais-qa` · owner pendiente post-Orlando) · pendiente migración postgres → Oracle ZMP
-- **PDF formato oficial**: ✅ PdfCfeService #758 · pdfkit + qrcode · QR DGI RG 145/2018 · cubre 14 tipos CFE (101 e-Ticket · 111 e-Factura · 121 Exp · 131 e-Remito · 141 e-Resguardo · 181 e-Boleta) · Ley Defensa Consumidor 17.250 · watermark "PENDIENTE DGI" cuando sin autorización
-- **Público-view pattern**: ✅ aplicado #758 · `CFE_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF+XML desde dashboard (pendiente flag en `.env` runtime nfe-s)
+- **PDF formato oficial**: ✅ PdfCfeService #758 + rewrite #772 al layout DGI oficial · pdfkit + qrcode · QR DGI RG 145/2018 · cubre 14 tipos CFE (101 e-Ticket · 111 e-Factura · 121 Exp · 131 e-Remito · 141 e-Resguardo · 181 e-Boleta) · 3 cols header (emisor / caja CFE / QR) + tabla 7 cols zebra + caja totales DGI por tasa (Mín 10% + Bás 22% + No Gravado + Exento) · Ley Defensa Consumidor 17.250 · watermark "PENDIENTE DGI" cuando sin autorización
+- **Sample E2E (2026-05-12)**: CFE #1 emitido · serie A-1 · tipo 101 e-Ticket · $1.650 UYU (1500 base + 150 IVA Mín 10%) · estado ACCEPTED mock · RUT emisor 213245680017 "ZYMPLO E2E TEST SRL" · [📄 PDF DGI layout · 7.4 KB](samples/uruguay/cfe-1-uy-eTicket-A1.pdf) · [📋 XML eTck v1.43](samples/uruguay/cfe-1-uy-eTicket-A1.xml)
+- **Público-view pattern**: ✅ aplicado #758 · `CFE_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF+XML desde dashboard (⏳ pendiente flag en `.env` runtime nfe-s · cuando active permite URL pública del PDF en lugar del sample en repo)
 - **API docs**: [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/)
 - **App + WhatsApp F0 (2026-05-12)**: PaisCodi=27 ya canónico · scaffolding mobile #760 (`cfe-uy-emit.tsx` + `cfe-uy-history.tsx` · tipoCfe 101/111 + tax codes 1-4 + moneda UYU/USD) · bot WhatsApp #759 (`cfe_tools.py` + `cfe_client.py` + registry) · NC/ND, e-Remito/Exp/Resguardo/Boleta, drafts, detail F2+
 - **Open Finance**: ✅ Prometeo sandbox cubre UY · thin en monorepo (#593)
