@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-12 · 7 países integrados a app+WhatsApp (BR/MX/BO/CL/CO/EC/UY) · Perú backend PDF + bot scaffolded #763/764 · pendiente v2 proxy backend team
+> **Última actualización:** 2026-05-12 · **8 países full app+WhatsApp** (BR/MX/BO/CL/CO/EC/UY/PE) · Perú cerrado con backend PDF #763 + bot #764 + v2 proxy #767 + mobile #768
 
 ## Convención
 
@@ -28,7 +28,7 @@
 | 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
 | 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
 | 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
-| 🇵🇪 **Perú** | 🟡 sin cert prueba · PDF service #763 | ✅ Prometeo PE **E2E real 2026-05-08** | 🟡 bot #764 (mobile screens F2 post-v2-proxy) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
+| 🇵🇪 **Perú** | 🟡 sin cert prueba · PDF service #763 | ✅ Prometeo PE **E2E real 2026-05-08** | ✅ App · ✅ WA (#764 bot + #767 v2 proxy + #768 mobile + #763 PDF+público-view) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) |
 | 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy · PDF service #758 | ✅ Prometeo UY **E2E real 2026-05-08** | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
 | 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
 | 🇺🇸 **EEUU** | 🟡 UBL · FE-US QA healthy | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) |
@@ -127,10 +127,12 @@
 - **PDF formato oficial**: ✅ PdfFacturaService #763 · pdfkit + qrcode · QR SUNAT RTF 097-2012 · cubre 4 tipos doc (01 Factura · 03 Boleta · 07 NC · 08 ND) · IGV 18% · watermark "PENDIENTE SUNAT" cuando sin sunat_codigo_respuesta='0'
 - **Público-view pattern**: ✅ aplicado #763 · `SUNAT_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF+XML+CDR desde dashboard
 - **API docs**: peru/zymplo-sunat en monorepo · OF en [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/)
-- **App + WhatsApp (2026-05-12)**:
-  - PaisCodi=33 ya canónico · sumado a FISCAL_COUNTRIES (#764)
-  - Bot WhatsApp #764 (`sunat_tools.py` + `sunat_client.py` + registry · ⚠️ apunta a v2 proxy pendiente)
-  - **Mobile screens F2** · pendiente · necesita primero (1) v2 proxy `/api/v2/sunat-pe/*` en zymplo-api (backend team · paralelo a cfe-uy/dian-co) · (2) hook `useSunatPe.ts` (depende de proxy)
+- **App + WhatsApp F0 completo (2026-05-12)**:
+  - PaisCodi=33 canónico · en FISCAL_COUNTRIES (#764)
+  - Bot WhatsApp #764 · `sunat_tools.py` + `sunat_client.py` + registry
+  - v2 proxy hexagonal #767 · `zymplo-api/src/modules/sunat-pe/` (12 archivos TS · paralelo a cfe-uy/sri-ec/dian-co · endpoints `/api/v2/sunat-pe/facturas[/:id[/xml]]`)
+  - Mobile #768 · hook `useSunatPe.ts` + screens `sunat-pe-emit.tsx` + `sunat-pe-history.tsx`
+  - NC/ND (07/08), drafts, detail/setup, anulaciones, ICBPER quedan F2+
 - **Open Finance**: 🟡 Belvo PE en monorepo · falta deploy QA + smoke e2e
 - **Para PROD**: (1) cert SUNAT del cliente · (2) v2 proxy + mobile hook + screens (F2) · (3) deploy QA público · (4) plan Belvo prod
 
