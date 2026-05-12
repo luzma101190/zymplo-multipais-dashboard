@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-12 · **8 países full app+WhatsApp** (BR/MX/BO/CL/CO/EC/UY/PE) · Uruguay PDF rewrite al layout DGI oficial #772 + sample CFE #1 E2E en repo · Perú cerrado full
+> **Última actualización:** 2026-05-12 · **Colombia E2E completo en sandbox** · factura SETP5 emitida con Oracle persist + PDF layout DIAN típico (PRs #784/#785/#786/#788/#790) · sample [PDF](samples/colombia/factura-1-co-SETP5.pdf)+[XML](samples/colombia/factura-1-co-SETP5.xml) en repo
 
 ## Convención
 
@@ -24,7 +24,7 @@
 | 🇲🇽 **México** | ✅ E2E confirmado | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
 | 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
 | 🇵🇾 **Paraguay** | ✅ E2E (DNIT externo) | ⏸️ pausado | ❌ pendiente | externo (sin monorepo) |
-| 🇨🇴 **Colombia** | 🟡 sandbox DIAN | 🟡 Belvo CO | ✅ App · ✅ WA (#752 bot + #753 app + #748 público-view) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
+| 🇨🇴 **Colombia** | ✅ **E2E sandbox** | 🟡 Belvo CO | ✅ App · ✅ WA (#752 bot + #753 app + #748 público-view) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) · [PDF](samples/colombia/factura-1-co-SETP5.pdf) |
 | 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
 | 🇨🇱 **Chile** | 🟡 sin cert prueba | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
 | 🇪🇨 **Ecuador** | 🟡 sin cert · QA mock-mode healthy | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) |
@@ -83,12 +83,18 @@
 
 ## 🇨🇴 Colombia
 
-- **Facturación**: 🟡 DIAN ofrece sandbox público (no requiere cert real) · **probado en sandbox sin costo** · zymplo-dian alineado al monorepo (#665 · UBL 2.1 + CUFE SHA-384 · 11 tablas CO_DIAN_*) · **deploy QA destrabado 2026-05-11** (#746 deploy.sh drift fix · #747 Dockerfile vestigial COPY fix) · v0.2.0-zymplo-aligned live en facturacion-co-qa
+- **Facturación**: ✅ **E2E completo en sandbox 2026-05-12** · zymplo-dian alineado al monorepo (#665 · UBL 2.1 + CUFE SHA-384 · 11 tablas CO_DIAN_*) · live en facturacion-co-qa
+- **E2E validado (2026-05-12 · 4 PRs)**: factura SETP5 · Oracle persiste HIS_ID=5 · CUFE c2c7d503... · IVA 19% · total $119.000 COP
+  - PR #784 fix shape impuesto (tipo/porcentaje vs codigo/tarifa)
+  - PR #785 fix tx visibility (findById post-commit)
+  - PR #786 wire generarPdf entrypoint
+  - PR #788 + #790 layout DIAN típico (tabla widths, watermark, CUFE compacto)
+- **Sample E2E**: [factura-1-co-SETP5.pdf](samples/colombia/factura-1-co-SETP5.pdf) · [factura-1-co-SETP5.xml](samples/colombia/factura-1-co-SETP5.xml)
 - **API docs**: https://facturacion-co-qa.zymplo.com/api-docs/
-- **Público-view pattern**: ✅ aplicado #748 · `DIAN_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF desde dashboard (pendiente flag en `.env` runtime nfe-s)
-- **App + WhatsApp F0 MVP (2026-05-11)**: PaisCodi=32 + FISCAL_COUNTRIES update (#751) · `dian_client.py` + `dian_tools.py` bot WhatsApp (#752) · screens `dian-co-emit` + `dian-co-history` mobile (#753) · NC/ND, drafts, detail/setup pendientes F2+
+- **Público-view pattern**: ✅ aplicado #748 · `DIAN_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF desde dashboard
+- **App + WhatsApp F0 MVP**: PaisCodi=32 + FISCAL_COUNTRIES update (#751) · `dian_client.py` + `dian_tools.py` bot WhatsApp (#752) · screens `dian-co-emit` + `dian-co-history` mobile (#753) · NC/ND, drafts, detail/setup pendientes F2+
 - **Open Finance**: 🟡 Belvo CO en monorepo · falta deploy QA público · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/)
-- **Para PROD**: (1) cert real Camerfirma o Andes SCD del cliente · (2) deploy OF QA + smoke e2e · (3) primer emit real para sample E2E clickthrough · (4) screens F2+ (NC/ND, drafts, detail)
+- **Para PROD**: (1) cert real Camerfirma o Andes SCD del cliente · (2) deploy OF QA + smoke e2e · (3) primer emit real (estructural ya validado) · (4) screens F2+ (NC/ND, drafts, detail)
 
 ---
 
