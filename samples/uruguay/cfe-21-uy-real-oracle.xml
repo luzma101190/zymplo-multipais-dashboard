@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><eTck version="1.43"><Encabezado><IdDoc><TipoCFE>101</TipoCFE><Serie>A</Serie><Nro>1</Nro><FchEmis>2026-05-13</FchEmis><FmaVenta>1</FmaVenta></IdDoc><Emisor><RUCEmisor>213540089545</RUCEmisor><RznSoc>ZYMPLO E2E URUGUAY ORACLE SAS</RznSoc><CdgDGISucur>1</CdgDGISucur><DomFiscal>18 de Julio 1234</DomFiscal><Ciudad>Montevideo</Ciudad><Departamento>MONTEVIDEO</Departamento></Emisor><Totales><TpoMoneda>UYU</TpoMoneda><TpoCambio>1.000</TpoCambio><MntNoGrv>0.00</MntNoGrv><MntNetoIvaTasaMin>1000.00</MntNetoIvaTasaMin><MntNetoIVATasaBasica>0.00</MntNetoIVATasaBasica><IVATasaMin>10</IVATasaMin><IVATasaBasica>22</IVATasaBasica><MntIVATasaMin>100.00</MntIVATasaMin><MntIVATasaBasica>0.00</MntIVATasaBasica><MntTotal>1100.00</MntTotal><CantLinDet>1</CantLinDet><MontoNF>0.00</MontoNF><MntPagar>1100.00</MntPagar></Totales></Encabezado><Detalle><Item><NroLinDet>1</NroLinDet><IndFact>2</IndFact><NomItem>Servicio E2E Oracle real</NomItem><Cantidad>1</Cantidad><UniMed>UN</UniMed><PrecioUnitario>1000.00</PrecioUnitario><DescuentoPct>0.00</DescuentoPct><MontoItem>1100.00</MontoItem></Item></Detalle><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="mock-sig">
+  <ds:SignedInfo>
+    <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+    <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+    <ds:Reference URI="">
+      <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+      <ds:DigestValue>fuIatAf9awwogHy0azyFnVwn0nKE/I20FY+Xjp+TWm8=</ds:DigestValue>
+    </ds:Reference>
+  </ds:SignedInfo>
+  <ds:SignatureValue>MOCK_SIGNATURE_NO_DGI_VALID</ds:SignatureValue>
+</ds:Signature></eTck>

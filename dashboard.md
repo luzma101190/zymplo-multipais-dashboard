@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-13 · **CO + EC E2E sandbox completo · CL + PE E2E estructural** (cert dummy) · 4 documentos fiscales emitidos · samples CO [PDF](samples/colombia/factura-1-co-SETP5.pdf)/[XML](samples/colombia/factura-1-co-SETP5.xml) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf)/[XML](samples/ecuador/factura-1-ec-001-001-000000001.xml) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf)/[XML](samples/chile/dte-33-cl-folio-1.xml) · PE [PDF](samples/peru/factura-01-pe-F001-00000001.pdf)/[XML](samples/peru/factura-01-pe-F001-00000001.xml)
+> **Última actualización:** 2026-05-13 · **CO + EC sandbox · CL + PE estructural · UY E2E con Oracle real (APIs + sqlcl verify)** · 5 países con sample fiscal · CO [PDF](samples/colombia/factura-1-co-SETP5.pdf) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf) · PE [PDF](samples/peru/factura-01-pe-F001-00000001.pdf) · UY [PDF Oracle real](samples/uruguay/cfe-21-uy-real-oracle.pdf)
 
 ## Convención
 
@@ -29,7 +29,7 @@
 | 🇨🇱 **Chile** | 🟡 **E2E estructural** (cert dummy) | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) · [PDF](samples/chile/dte-33-cl-folio-1.pdf) |
 | 🇪🇨 **Ecuador** | ✅ **E2E sandbox** | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) · [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) |
 | 🇵🇪 **Perú** | 🟡 **E2E estructural** (cert dummy) | ✅ Prometeo PE **E2E real 2026-05-08** | ✅ App · ✅ WA (#764 bot + #767 v2 proxy + #768 mobile + #763 PDF+público-view) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) · [PDF](samples/peru/factura-01-pe-F001-00000001.pdf) |
-| 🇺🇾 **Uruguay** | 🟡 sin cert · CFE QA healthy · PDF service #758 | ✅ Prometeo UY **E2E real 2026-05-08** | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
+| 🇺🇾 **Uruguay** | ✅ **E2E mock + Oracle real 2026-05-13** | ✅ Prometeo UY **E2E real 2026-05-08** | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) · [PDF](samples/uruguay/cfe-21-uy-real-oracle.pdf) |
 | 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
 | 🇺🇸 **EEUU** | 🟡 UBL · FE-US QA healthy | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) |
 | 🇪🇸 **España** | 🧪 sin cert | 🧪 sandbox | ❌ pendiente | externo |
@@ -161,14 +161,16 @@
 
 ## 🇺🇾 Uruguay
 
-- **Facturación**: 🟡 código DGI/CFE en monorepo (`uruguay/zymplo-cfe`) · sin cert prueba · **container `facturacion-uy-qa` healthy** (DevOps · postgres compartido `postgres-multipais-qa` · owner pendiente post-Orlando) · pendiente migración postgres → Oracle ZMP
+- **Facturación**: ✅ **E2E con Oracle real validado 2026-05-13** · 7 pasos vía REST APIs · persistencia confirmada en cada paso con sqlcl (`ZMP_FISC_EMISOR` · `ZMP_FISC_USUARIO` · `UY_CFE_HISTORICO` · `UY_CFE_DETALLE`). Service corrió en Oracle migrations VM (thick mode + Instant Client + libnnz) contra `dbautdesa02_high` · provider mock (sin DGI real)
+- **E2E real verificado (2026-05-13)**: CFE id=21 · tipo 101 e-Ticket · RUT 213540089545 · UYU 1100 (1000 base + 100 IVA Mín 10%) · estado ACCEPTED · `<eTck v1.43>` + XMLDSig mock
 - **PDF formato oficial**: ✅ PdfCfeService #758 + rewrite #772 al layout DGI oficial · pdfkit + qrcode · QR DGI RG 145/2018 · cubre 14 tipos CFE (101 e-Ticket · 111 e-Factura · 121 Exp · 131 e-Remito · 141 e-Resguardo · 181 e-Boleta) · 3 cols header (emisor / caja CFE / QR) + tabla 7 cols zebra + caja totales DGI por tasa (Mín 10% + Bás 22% + No Gravado + Exento) · Ley Defensa Consumidor 17.250 · watermark "PENDIENTE DGI" cuando sin autorización
-- **Sample E2E (2026-05-12)**: CFE #1 emitido · serie A-1 · tipo 101 e-Ticket · $1.650 UYU (1500 base + 150 IVA Mín 10%) · estado ACCEPTED mock · RUT emisor 213245680017 "ZYMPLO E2E TEST SRL" · [📄 PDF DGI layout · 7.4 KB](samples/uruguay/cfe-1-uy-eTicket-A1.pdf) · [📋 XML eTck v1.43](samples/uruguay/cfe-1-uy-eTicket-A1.xml)
+- **Sample E2E (2026-05-12 in-memory)**: CFE #1 · serie A-1 · tipo 101 e-Ticket · $1.650 UYU · [PDF](samples/uruguay/cfe-1-uy-eTicket-A1.pdf) · [XML](samples/uruguay/cfe-1-uy-eTicket-A1.xml)
+- **Sample E2E (2026-05-13 Oracle real)**: CFE #21 · serie A-1 · tipo 101 e-Ticket · $1.100 UYU · persistencia verificada · [📄 PDF DGI layout](samples/uruguay/cfe-21-uy-real-oracle.pdf) · [📋 XML eTck v1.43](samples/uruguay/cfe-21-uy-real-oracle.xml)
 - **Público-view pattern**: ✅ aplicado #758 · `CFE_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF+XML desde dashboard (⏳ pendiente flag en `.env` runtime nfe-s · cuando active permite URL pública del PDF en lugar del sample en repo)
 - **API docs**: [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/)
 - **App + WhatsApp F0 (2026-05-12)**: PaisCodi=27 ya canónico · scaffolding mobile #760 (`cfe-uy-emit.tsx` + `cfe-uy-history.tsx` · tipoCfe 101/111 + tax codes 1-4 + moneda UYU/USD) · bot WhatsApp #759 (`cfe_tools.py` + `cfe_client.py` + registry) · NC/ND, e-Remito/Exp/Resguardo/Boleta, drafts, detail F2+
 - **Open Finance**: ✅ Prometeo sandbox cubre UY · thin en monorepo (#593)
-- **Para PROD**: (1) cert DGI del cliente · (2) migrar postgres → Oracle ZMP · (3) owner post-Orlando · (4) plan Prometeo prod
+- **Para PROD**: (1) cert DGI del cliente real · (2) crear user `ZMP_UY_QA` + grants (DevOps lo está coordinando, ver PR #789 Layer A) · (3) container QA correr en thick mode con LD_LIBRARY_PATH+libnnz para que el pool conecte real (ya validado en Oracle migrations VM) · (4) plan Prometeo prod
 
 ---
 
