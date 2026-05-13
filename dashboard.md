@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-13 · **CO + EC sandbox · CL + PE estructural · UY E2E con Oracle real (APIs + sqlcl verify)** · 5 países con sample fiscal · CO [PDF](samples/colombia/factura-1-co-SETP5.pdf) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf) · PE [PDF](samples/peru/factura-01-pe-F001-00000001.pdf) · UY [PDF Oracle real](samples/uruguay/cfe-21-uy-real-oracle.pdf)
+> **Última actualización:** 2026-05-13 · **CO + EC sandbox · CL estructural · UY E2E con Oracle real (APIs + sqlcl verify)** · **🚨 PE NO finalizado · no alineado a Oracle (sólo SQLite)** · 4 países con E2E con persistencia Oracle real · CO [PDF](samples/colombia/factura-1-co-SETP5.pdf) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf) · UY [PDF Oracle real](samples/uruguay/cfe-21-uy-real-oracle.pdf) · PE [preview SQLite](samples/peru/factura-01-pe-F001-00000001.pdf)
 
 ## Convención
 
@@ -28,7 +28,7 @@
 | 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
 | 🇨🇱 **Chile** | 🟡 **E2E estructural** (cert dummy) | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) · [PDF](samples/chile/dte-33-cl-folio-1.pdf) |
 | 🇪🇨 **Ecuador** | ✅ **E2E sandbox** | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) · [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) |
-| 🇵🇪 **Perú** | 🟡 **E2E estructural** (cert dummy) | ✅ Prometeo PE **E2E real 2026-05-08** | ✅ App · ✅ WA (#764 bot + #767 v2 proxy + #768 mobile + #763 PDF+público-view) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) · [PDF](samples/peru/factura-01-pe-F001-00000001.pdf) |
+| 🇵🇪 **Perú** | ❌ **NO alineado a Oracle ZMP** · E2E NO finalizado · usa SQLite | ✅ Prometeo PE **E2E real 2026-05-08** | ✅ App · ✅ WA (#764 bot + #767 v2 proxy + #768 mobile + #763 PDF+público-view) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) · [PDF preview](samples/peru/factura-01-pe-F001-00000001.pdf) |
 | 🇺🇾 **Uruguay** | ✅ **E2E mock + Oracle real 2026-05-13** | ✅ Prometeo UY **E2E real 2026-05-08** | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) · [PDF](samples/uruguay/cfe-21-uy-real-oracle.pdf) |
 | 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
 | 🇺🇸 **EEUU** | 🟡 UBL · FE-US QA healthy | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) |
@@ -140,11 +140,17 @@
 
 ## 🇵🇪 Perú
 
-- **Facturación**: 🟡 **E2E ESTRUCTURAL completo 2026-05-13** (cert+CAF DUMMY · NO firmó+envió SUNAT real) · Factura 01 F001-00000001 emitida con UBL 2.1 + XMLDSig + persistencia SQLite + PDF SUNAT 097-2012 con QR canónico. SUNAT beta recibió XML pero rechazó firma del cert auto-signed (esperado)
-- **E2E validado (estructural · 2026-05-13)**: docId=1 · neto S/. 100.00 + IGV 18% · total S/. 118.00 · hash SHA-1 calculado · monto en letras "CIENTO DIECIOCHO Y 00/100 SOLES"
-  - PR #809 feat(pe/sunat) PDF formato oficial SUNAT 097-2012 · empresa data + tabla detalle + breakdown subtotal/IGV + monto en letras + cleanup columnas
-- **⚠️ Caveat crítico**: cert PFX auto-firmado · SUNAT al validar firma rechaza ("Unsupported Signature signer format"). PDF y XML estructuralmente SUNAT-compliant pero NO válidos fiscalmente
-- **Sample E2E**: [factura-01-pe-F001-00000001.pdf](samples/peru/factura-01-pe-F001-00000001.pdf) · [factura-01-pe-F001-00000001.xml](samples/peru/factura-01-pe-F001-00000001.xml)
+- **Facturación**: ❌ **E2E NO FINALIZADO** · servicio `peru/zymplo-sunat` **NO está alineado a Oracle ZMP** (usa `better-sqlite3` local · no `oracledb`). El sample que generé el 2026-05-13 persistió en SQLite local, NO en Oracle ZMP. **Pendiente migración Postgres-style → Oracle ZMP** (mismo trabajo que España PR #811 + issue #816)
+- **Lo que falta para alinear** (replicar pattern UY/CO/EC/CL/US):
+  1. Agregar `oracledb` a `package.json` (hoy solo `better-sqlite3`)
+  2. Crear `src/db/connection.js` Oracle pool con thick/thin mode
+  3. Reescribir `src/empresas/repository.js` + `documentos-repo.js` SQLite → oracledb
+  4. SQL migration: crear `ZMP.PE_SUNAT_HISTORICO` + `PE_SUNAT_DETALLE` + etc. (8 tablas país-específicas como las otras)
+  5. Reusar `ZMP_FISC_*` cross-país (operadores · emisores · usuarios · cert vault)
+- **Preview estructural (2026-05-13 · sin Oracle)**: Factura 01 F001-00000001 con UBL 2.1 + XMLDSig + PDF SUNAT 097-2012 · persistencia SOLO en SQLite efímero · SUNAT beta rechazó firma del cert dummy (esperado)
+  - PR #809 feat(pe/sunat) PDF formato oficial SUNAT 097-2012 (independiente de Oracle)
+- **⚠️ Caveats**: (1) servicio NO persiste en Oracle ZMP, sólo SQLite (2) cert PFX auto-firmado · NO válido fiscalmente
+- **Sample preview** (NO es E2E con persistencia real): [factura-01-pe-F001-00000001.pdf](samples/peru/factura-01-pe-F001-00000001.pdf) · [factura-01-pe-F001-00000001.xml](samples/peru/factura-01-pe-F001-00000001.xml)
 - **PDF formato oficial**: ✅ PdfFacturaService #763 + #809 · pdfkit + qrcode · QR SUNAT RTF 097-2012 · cubre 4 tipos doc (01 Factura · 03 Boleta · 07 NC · 08 ND) · IGV 18% · watermark "PENDIENTE SUNAT" cuando sin sunat_codigo_respuesta='0' · tabla detalle items · monto en letras
 - **Público-view pattern**: ✅ aplicado #763 · `SUNAT_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF+XML+CDR desde dashboard
 - **API docs**: peru/zymplo-sunat en monorepo · OF en [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/)
@@ -155,7 +161,7 @@
   - Mobile #768 · hook `useSunatPe.ts` + screens `sunat-pe-emit.tsx` + `sunat-pe-history.tsx`
   - NC/ND (07/08), drafts, detail/setup, anulaciones, ICBPER quedan F2+
 - **Open Finance**: 🟡 Belvo PE en monorepo · falta deploy QA + smoke e2e
-- **Para PROD real**: (1) cert SUNAT del cliente final (estructural ya validado) · (2) v2 proxy + mobile hook + screens (F2) · (3) deploy QA público · (4) plan Belvo prod
+- **Para PROD**: (1) **ALINEAR A ORACLE ZMP** (5 items arriba · BLOQUEANTE para que sea verdadero E2E con persistencia, no solo preview) · (2) cert SUNAT del cliente final · (3) v2 proxy + mobile hook + screens (F2) · (4) deploy QA público · (5) plan Belvo prod
 
 ---
 
