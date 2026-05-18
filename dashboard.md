@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-13 · **CO + EC sandbox · CL estructural · UY E2E con Oracle real (APIs + sqlcl verify)** · **🚨 PE NO finalizado · no alineado a Oracle (sólo SQLite)** · 4 países con E2E con persistencia Oracle real · CO [PDF](samples/colombia/factura-1-co-SETP5.pdf) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf) · UY [PDF Oracle real](samples/uruguay/cfe-21-uy-real-oracle.pdf) · PE [preview SQLite](samples/peru/factura-01-pe-F001-00000001.pdf)
+> **Última actualización:** 2026-05-18 · **CO + EC sandbox · CL estructural · UY + USA E2E con Oracle real (APIs + sqlcl verify)** · **🚨 PE NO finalizado · no alineado a Oracle (sólo SQLite)** · 5 países con E2E con persistencia Oracle real · CO [PDF](samples/colombia/factura-1-co-SETP5.pdf) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf) · UY [PDF Oracle real](samples/uruguay/cfe-21-uy-real-oracle.pdf) · USA [PDF Oracle real](samples/usa/invoice-000001-acme-corp.pdf) · PE [preview SQLite](samples/peru/factura-01-pe-F001-00000001.pdf)
 
 ## Convención
 
@@ -31,7 +31,7 @@
 | 🇵🇪 **Perú** | ❌ **NO alineado a Oracle ZMP** · E2E NO finalizado · usa SQLite | ✅ Prometeo PE **E2E real 2026-05-08** | ✅ App · ✅ WA (#764 bot + #767 v2 proxy + #768 mobile + #763 PDF+público-view) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) · [PDF preview](samples/peru/factura-01-pe-F001-00000001.pdf) |
 | 🇺🇾 **Uruguay** | ✅ **E2E mock + Oracle real 2026-05-13** | ✅ Prometeo UY **E2E real 2026-05-08** | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) · [PDF](samples/uruguay/cfe-21-uy-real-oracle.pdf) |
 | 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
-| 🇺🇸 **EEUU** | 🟡 UBL · FE-US QA healthy | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) |
+| 🇺🇸 **EEUU** | ✅ **E2E con Oracle real 2026-05-18** | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) · [PDF](samples/usa/invoice-000001-acme-corp.pdf) |
 | 🇪🇸 **España** | 🧪 sin cert | 🧪 sandbox | ❌ pendiente | externo |
 
 ---
@@ -191,10 +191,15 @@
 
 ## 🇺🇸 EEUU
 
-- **Facturación**: 🟡 UBL Fastify · **container `facturacion-us-qa` healthy** (DevOps · postgres compartido `postgres-multipais-qa` · healthcheck `/healthz` · owner Andrea) · no envía a regulador (US no tiene factura electrónica obligatoria) · pendiente migración fe-us al monorepo + Oracle ZMP si aplica
-- **API docs**: [facturacion-us-qa](https://facturacion-us-qa.zymplo.com)
+- **Facturación**: ✅ **E2E con Oracle real validado 2026-05-18** · 7 pasos vía REST APIs (login → onboarding → buyer → invoice → PDF/UBL) · persistencia confirmada con sqlcl en cada paso (`ZMP_FISC_OPERADOR` · `ZMP_FISC_EMISOR` · `ZMP_FISC_USUARIO` · `US_FE_BUYER` · `US_FE_INVOICE` · `US_FE_INVOICE_LINE`). Service corre en nfe-s con thick mode + Instant Client (vars + bug volumes :!override fixeados DevOps 2026-05-14)
+- **E2E real verificado (2026-05-18)**: Invoice `000001` · ACME CORP buyer · 2 líneas (CONS-001 x $1500 + LIC-PRO x $5000) · subtotal $8000 · tax NY 8.53% via state_lookup = $682.40 · **total $8682.40 USD** · status EMITTED
+- **PDF + UBL**: ✅ pdfkit + Puppeteer/Nunjucks template (`invoice.html`) · **UBL 2.1 PEPPOL BIS Billing 3.0** + **EN 16931 compliant** (`urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0`)
+- **Sample E2E (Oracle real)**: [`invoice-000001-acme-corp.pdf`](samples/usa/invoice-000001-acme-corp.pdf) (77.5KB) · [`invoice-000001-acme-corp.xml`](samples/usa/invoice-000001-acme-corp.xml) (5.5KB UBL)
+- **API docs**: [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) · OpenAPI v0.1.0 · 18 endpoints REST
+- **Tax intelligence**: state_lookup tabla `US_FE_STATE_TAX` con NY/CA/TX/etc. precargados (state_rate + local_avg)
 - **Open Finance**: ⏳ Akoya en proceso (sandbox disponible · cubre EEUU)
-- **Para PROD**: caso de uso distinto · facturación es opcional · OF requiere acuerdo Akoya
+- **Marco regulatorio**: USA **NO tiene mandato federal** de formato PDF para B2B invoices (a diferencia de SAT/DIAN/DGI/SII). Standards de facto: PEPPOL BIS 3.0 (que generamos en UBL) + IRS bookkeeping + state sales tax. El PDF cumple convenciones B2B profesionales sin "compliance" vinculante
+- **Para PROD**: (1) cert para PEPPOL gateway si se quiere certificar PEPPOL network · (2) Akoya prod para OF · (3) opcional: rotar logo/branding del PDF · facturación funcional ya
 
 ---
 
