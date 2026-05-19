@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fe:Facturae xmlns:fe="http://www.facturae.es/Facturae/2014/v3.2.2/Facturae">
+  <FileHeader>
+    <SchemaVersion>3.2.2</SchemaVersion>
+    <Modality>I</Modality>
+    <InvoiceIssuerType>EM</InvoiceIssuerType>
+    <Batch>
+      <BatchIdentifier>A28000370QA31</BatchIdentifier>
+      <InvoicesCount>1</InvoicesCount>
+      <TotalInvoicesAmount>
+        <TotalAmount>1936.00</TotalAmount>
+      </TotalInvoicesAmount>
+      <TotalOutstandingAmount>
+        <TotalAmount>1936.00</TotalAmount>
+      </TotalOutstandingAmount>
+      <TotalExecutableAmount>
+        <TotalAmount>1936.00</TotalAmount>
+      </TotalExecutableAmount>
+      <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
+    </Batch>
+  </FileHeader>
+  <Parties>
+    <SellerParty>
+      <TaxIdentification>
+        <PersonTypeCode>J</PersonTypeCode>
+        <ResidenceTypeCode>R</ResidenceTypeCode>
+        <TaxIdentificationNumber>A28000370</TaxIdentificationNumber>
+      </TaxIdentification>
+      <LegalEntity>
+        <CorporateName>Zymplo E2E España SA</CorporateName>
+        <AddressInSpain>
+          <Address>N/A</Address>
+          <PostCode>00000</PostCode>
+          <Town>N/A</Town>
+          <Province>N/A</Province>
+          <CountryCode>ESP</CountryCode>
+        </AddressInSpain>
+      </LegalEntity>
+    </SellerParty>
+    <BuyerParty>
+      <TaxIdentification>
+        <PersonTypeCode>F</PersonTypeCode>
+        <ResidenceTypeCode>R</ResidenceTypeCode>
+        <TaxIdentificationNumber>B12345674</TaxIdentificationNumber>
+      </TaxIdentification>
+      <LegalEntity>
+        <CorporateName>Cliente Pruebas E2E SL</CorporateName>
+        <AddressInSpain>
+          <Address>Calle Gran Vía 28</Address>
+          <PostCode>28013</PostCode>
+          <Town>Madrid</Town>
+          <Province>Madrid</Province>
+          <CountryCode>ESP</CountryCode>
+        </AddressInSpain>
+      </LegalEntity>
+    </BuyerParty>
+  </Parties>
+  <Invoices>
+    <Invoice>
+      <InvoiceHeader>
+        <InvoiceNumber>1</InvoiceNumber>
+        <InvoiceSeriesCode>QA3</InvoiceSeriesCode>
+        <InvoiceDocumentType>FC</InvoiceDocumentType>
+        <InvoiceClass>OR</InvoiceClass>
+      </InvoiceHeader>
+      <InvoiceIssueData>
+        <IssueDate>2026-05-19</IssueDate>
+        <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
+        <TaxCurrencyCode>EUR</TaxCurrencyCode>
+        <LanguageName>es</LanguageName>
+      </InvoiceIssueData>
+      <TaxesOutputs>
+        
+        <Tax>
+          <TaxTypeCode>01</TaxTypeCode>
+          <TaxRate>21.00</TaxRate>
+          <TaxableBase><TotalAmount>1600.00</TotalAmount></TaxableBase>
+          <TaxAmount><TotalAmount>336.00</TotalAmount></TaxAmount>
+        </Tax>
+        
+      </TaxesOutputs>
+      <InvoiceTotals>
+        <TotalGrossAmount>1600.00</TotalGrossAmount>
+        <TotalGeneralDiscounts>0.00</TotalGeneralDiscounts>
+        <TotalGrossAmountBeforeTaxes>1600.00</TotalGrossAmountBeforeTaxes>
+        <TotalTaxOutputs>336.00</TotalTaxOutputs>
+        <TotalTaxesWithheld>0.00</TotalTaxesWithheld>
+        <InvoiceTotal>1936.00</InvoiceTotal>
+        <TotalOutstandingAmount>1936.00</TotalOutstandingAmount>
+        <TotalExecutableAmount>1936.00</TotalExecutableAmount>
+      </InvoiceTotals>
+      <Items>
+        
+        <InvoiceLine>
+          <ItemDescription>Consultoria Zymplo · validacion deploy ES QA publico</ItemDescription>
+          <Quantity>4.0000</Quantity>
+          <UnitOfMeasure>01</UnitOfMeasure>
+          <UnitPriceWithoutTax>250.0000</UnitPriceWithoutTax>
+          <TotalCost>1000.00</TotalCost>
+          <GrossAmount>1000.00</GrossAmount>
+          <TaxesOutputs>
+            <Tax>
+              <TaxTypeCode>01</TaxTypeCode>
+              <TaxRate>21.00</TaxRate>
+              <TaxableBase><TotalAmount>1000.00</TotalAmount></TaxableBase>
+              <TaxAmount><TotalAmount>210.00</TotalAmount></TaxAmount>
+            </Tax>
+          </TaxesOutputs>
+        </InvoiceLine>
+        
+        <InvoiceLine>
+          <ItemDescription>Soporte 24x7 Q2 2026</ItemDescription>
+          <Quantity>1.0000</Quantity>
+          <UnitOfMeasure>01</UnitOfMeasure>
+          <UnitPriceWithoutTax>600.0000</UnitPriceWithoutTax>
+          <TotalCost>600.00</TotalCost>
+          <GrossAmount>600.00</GrossAmount>
+          <TaxesOutputs>
+            <Tax>
+              <TaxTypeCode>01</TaxTypeCode>
+              <TaxRate>21.00</TaxRate>
+              <TaxableBase><TotalAmount>600.00</TotalAmount></TaxableBase>
+              <TaxAmount><TotalAmount>126.00</TotalAmount></TaxAmount>
+            </Tax>
+          </TaxesOutputs>
+        </InvoiceLine>
+        
+      </Items>
+    </Invoice>
+  </Invoices>
+</fe:Facturae>

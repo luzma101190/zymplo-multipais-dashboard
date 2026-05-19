@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+  <meta charset="UTF-8">
+  <title>E2E/2</title>
+  <style>/* Factura electrónica España · estilo PDF es-ES (RD 1007/2023) */
+* { box-sizing: border-box; }
+body { font-family: 'Helvetica', 'Arial', sans-serif; font-size: 11px; color: #222; margin: 0; padding: 0; }
+.factura { padding: 0; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #009;  padding-bottom: 12px; }
+.header .titulo { font-size: 22px; font-weight: bold; color: #009; }
+.header .numero { font-size: 13px; text-align: right; }
+.header .numero .label { color: #666; font-size: 9px; text-transform: uppercase; }
+.partes { display: flex; gap: 18px; margin-top: 16px; }
+.parte { flex: 1; border: 1px solid #ddd; padding: 10px; border-radius: 4px; }
+.parte h3 { margin: 0 0 6px 0; font-size: 9px; text-transform: uppercase; color: #666; letter-spacing: 0.5px; }
+.parte .razon { font-weight: bold; font-size: 12px; margin-bottom: 3px; }
+.parte .nif { color: #444; }
+.lineas { width: 100%; border-collapse: collapse; margin-top: 18px; }
+.lineas th, .lineas td { padding: 6px 8px; border-bottom: 1px solid #eee; }
+.lineas th { background: #f3f3f9; color: #222; font-size: 9px; text-transform: uppercase; text-align: left; }
+.lineas td.num, .lineas th.num { text-align: right; }
+.totales { width: 50%; margin-left: auto; margin-top: 18px; }
+.totales tr td { padding: 4px 8px; border-bottom: 1px solid #eee; }
+.totales tr.total td { font-weight: bold; font-size: 13px; border-top: 2px solid #009; border-bottom: none; }
+.totales td.num { text-align: right; }
+.iva-breakdown { margin-top: 12px; font-size: 9px; color: #555; }
+.iva-breakdown table { border-collapse: collapse; width: 100%; }
+.iva-breakdown td { padding: 3px 6px; border-bottom: 1px dashed #ccc; }
+.footer { margin-top: 28px; border-top: 1px solid #ccc; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; }
+.qr { width: 110px; height: 110px; }
+.qr img { width: 100%; height: 100%; }
+.verifactu-info { font-size: 8px; color: #666; }
+.verifactu-info .hash { font-family: 'Courier', monospace; word-break: break-all; }
+.aeat-info { text-align: right; font-size: 9px; color: #555; }
+.rectificativa-badge { display: inline-block; background: #d93;  color: #fff; padding: 2px 8px; border-radius: 3px; font-size: 9px; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="factura">
+
+  <div class="header">
+    <div>
+      <div class="titulo">Factura</div>
+      <div class="aeat-info">Zymplo E2E España SA</div>
+    </div>
+    <div class="numero">
+      <div class="label">Serie / Número</div>
+      <div><strong>E2E/2</strong></div>
+      <div class="label" style="margin-top:8px">Fecha emisión</div>
+      <div>19/05/2026</div>
+    </div>
+  </div>
+
+  <div class="partes">
+    <div class="parte">
+      <h3>Emisor</h3>
+      <div class="razon">Zymplo E2E España SA</div>
+      <div class="nif">NIF: A28000370</div>
+      <div></div>
+      <div>  ()</div>
+    </div>
+    <div class="parte">
+      <h3>Cliente</h3>
+      <div class="razon">Cliente Pruebas E2E SL</div>
+      <div class="nif">CIF: B12345674</div>
+      <div>Calle Gran Vía 28</div>
+      <div>28013 Madrid (Madrid)</div>
+    </div>
+  </div>
+
+  <table class="lineas">
+    <thead>
+      <tr>
+        <th>#</th><th>Descripción</th><th class="num">Cant.</th><th class="num">Precio</th>
+        <th class="num">Base</th><th class="num">IVA %</th><th class="num">IVA €</th><th class="num">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>1</td>
+        <td>Servicio consultoría Zymplo · Mayo 2026</td>
+        <td class="num">10,0000</td>
+        <td class="num">150,0000</td>
+        <td class="num">1.500,00</td>
+        <td class="num">21%</td>
+        <td class="num">315,00</td>
+        <td class="num">1.815,00</td>
+      </tr>
+      
+      <tr>
+        <td>2</td>
+        <td>Libros técnicos · catálogo Zymplo</td>
+        <td class="num">5,0000</td>
+        <td class="num">40,0000</td>
+        <td class="num">200,00</td>
+        <td class="num">4%</td>
+        <td class="num">8,00</td>
+        <td class="num">208,00</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <table class="totales">
+    <tr><td>Base imponible</td><td class="num">1.700,00</td></tr>
+    
+    <tr><td>IVA total</td><td class="num">323,00</td></tr>
+    
+    
+    <tr class="total"><td>TOTAL</td><td class="num">2.023,00 €</td></tr>
+  </table>
+
+  <div class="iva-breakdown">
+    <table>
+      <tr>
+        <th>IVA tipo</th><th>Base</th><th>%</th><th>Cuota</th>
+      </tr>
+      
+      <tr>
+        <td>Tipo 21%</td>
+        <td>1.500,00</td>
+        <td>21,00%</td>
+        <td>315,00</td>
+      </tr>
+      
+      <tr>
+        <td>Tipo 4%</td>
+        <td>200,00</td>
+        <td>4,00%</td>
+        <td>8,00</td>
+      </tr>
+      
+    </table>
+  </div>
+
+  <div class="footer">
+    
+    <div class="qr"><img src="data:image/png;base64,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" alt="QR Verifactu"></div>
+    
+    <div class="verifactu-info">
+      
+      <div><strong>Verifactu (RD 1007/2023)</strong></div>
+      <div class="hash">Hash: 792c39d6a50d429af28f1924b9ebf3d3591f634002ae801ff94435f78e05ba3e</div>
+      <div style="margin-top:4px">Validar: https://prewww2.aeat.es/wlpl/TIKE-CONT/ValidarQR?nif=A28000370&amp;numserie=E2E%2F2&amp;fecha=19-05-2026&amp;importe=2023.00</div>
+      
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fe:Facturae xmlns:fe="http://www.facturae.es/Facturae/2014/v3.2.2/Facturae">
+  <FileHeader>
+    <SchemaVersion>3.2.2</SchemaVersion>
+    <Modality>I</Modality>
+    <InvoiceIssuerType>EM</InvoiceIssuerType>
+    <Batch>
+      <BatchIdentifier>A28000370E2E2</BatchIdentifier>
+      <InvoicesCount>1</InvoicesCount>
+      <TotalInvoicesAmount>
+        <TotalAmount>2023.00</TotalAmount>
+      </TotalInvoicesAmount>
+      <TotalOutstandingAmount>
+        <TotalAmount>2023.00</TotalAmount>
+      </TotalOutstandingAmount>
+      <TotalExecutableAmount>
+        <TotalAmount>2023.00</TotalAmount>
+      </TotalExecutableAmount>
+      <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
+    </Batch>
+  </FileHeader>
+  <Parties>
+    <SellerParty>
+      <TaxIdentification>
+        <PersonTypeCode>J</PersonTypeCode>
+        <ResidenceTypeCode>R</ResidenceTypeCode>
+        <TaxIdentificationNumber>A28000370</TaxIdentificationNumber>
+      </TaxIdentification>
+      <LegalEntity>
+        <CorporateName>Zymplo E2E España SA</CorporateName>
+        <AddressInSpain>
+          <Address>N/A</Address>
+          <PostCode>00000</PostCode>
+          <Town>N/A</Town>
+          <Province>N/A</Province>
+          <CountryCode>ESP</CountryCode>
+        </AddressInSpain>
+      </LegalEntity>
+    </SellerParty>
+    <BuyerParty>
+      <TaxIdentification>
+        <PersonTypeCode>F</PersonTypeCode>
+        <ResidenceTypeCode>R</ResidenceTypeCode>
+        <TaxIdentificationNumber>B12345674</TaxIdentificationNumber>
+      </TaxIdentification>
+      <LegalEntity>
+        <CorporateName>Cliente Pruebas E2E SL</CorporateName>
+        <AddressInSpain>
+          <Address>Calle Gran Vía 28</Address>
+          <PostCode>28013</PostCode>
+          <Town>Madrid</Town>
+          <Province>Madrid</Province>
+          <CountryCode>ESP</CountryCode>
+        </AddressInSpain>
+      </LegalEntity>
+    </BuyerParty>
+  </Parties>
+  <Invoices>
+    <Invoice>
+      <InvoiceHeader>
+        <InvoiceNumber>2</InvoiceNumber>
+        <InvoiceSeriesCode>E2E</InvoiceSeriesCode>
+        <InvoiceDocumentType>FC</InvoiceDocumentType>
+        <InvoiceClass>OR</InvoiceClass>
+      </InvoiceHeader>
+      <InvoiceIssueData>
+        <IssueDate>2026-05-19</IssueDate>
+        <InvoiceCurrencyCode>EUR</InvoiceCurrencyCode>
+        <TaxCurrencyCode>EUR</TaxCurrencyCode>
+        <LanguageName>es</LanguageName>
+      </InvoiceIssueData>
+      <TaxesOutputs>
+        
+        <Tax>
+          <TaxTypeCode>01</TaxTypeCode>
+          <TaxRate>21.00</TaxRate>
+          <TaxableBase><TotalAmount>1500.00</TotalAmount></TaxableBase>
+          <TaxAmount><TotalAmount>315.00</TotalAmount></TaxAmount>
+        </Tax>
+        
+        <Tax>
+          <TaxTypeCode>01</TaxTypeCode>
+          <TaxRate>4.00</TaxRate>
+          <TaxableBase><TotalAmount>200.00</TotalAmount></TaxableBase>
+          <TaxAmount><TotalAmount>8.00</TotalAmount></TaxAmount>
+        </Tax>
+        
+      </TaxesOutputs>
+      <InvoiceTotals>
+        <TotalGrossAmount>1700.00</TotalGrossAmount>
+        <TotalGeneralDiscounts>0.00</TotalGeneralDiscounts>
+        <TotalGrossAmountBeforeTaxes>1700.00</TotalGrossAmountBeforeTaxes>
+        <TotalTaxOutputs>323.00</TotalTaxOutputs>
+        <TotalTaxesWithheld>0.00</TotalTaxesWithheld>
+        <InvoiceTotal>2023.00</InvoiceTotal>
+        <TotalOutstandingAmount>2023.00</TotalOutstandingAmount>
+        <TotalExecutableAmount>2023.00</TotalExecutableAmount>
+      </InvoiceTotals>
+      <Items>
+        
+        <InvoiceLine>
+          <ItemDescription>Servicio consultoría Zymplo · Mayo 2026</ItemDescription>
+          <Quantity>10.0000</Quantity>
+          <UnitOfMeasure>01</UnitOfMeasure>
+          <UnitPriceWithoutTax>150.0000</UnitPriceWithoutTax>
+          <TotalCost>1500.00</TotalCost>
+          <GrossAmount>1500.00</GrossAmount>
+          <TaxesOutputs>
+            <Tax>
+              <TaxTypeCode>01</TaxTypeCode>
+              <TaxRate>21.00</TaxRate>
+              <TaxableBase><TotalAmount>1500.00</TotalAmount></TaxableBase>
+              <TaxAmount><TotalAmount>315.00</TotalAmount></TaxAmount>
+            </Tax>
+          </TaxesOutputs>
+        </InvoiceLine>
+        
+        <InvoiceLine>
+          <ItemDescription>Libros técnicos · catálogo Zymplo</ItemDescription>
+          <Quantity>5.0000</Quantity>
+          <UnitOfMeasure>01</UnitOfMeasure>
+          <UnitPriceWithoutTax>40.0000</UnitPriceWithoutTax>
+          <TotalCost>200.00</TotalCost>
+          <GrossAmount>200.00</GrossAmount>
+          <TaxesOutputs>
+            <Tax>
+              <TaxTypeCode>01</TaxTypeCode>
+              <TaxRate>4.00</TaxRate>
+              <TaxableBase><TotalAmount>200.00</TotalAmount></TaxableBase>
+              <TaxAmount><TotalAmount>8.00</TotalAmount></TaxAmount>
+            </Tax>
+          </TaxesOutputs>
+        </InvoiceLine>
+        
+      </Items>
+    </Invoice>
+  </Invoices>
+</fe:Facturae>
