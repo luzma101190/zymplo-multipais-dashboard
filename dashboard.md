@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-18 · **CO + EC sandbox · CL estructural · UY + USA E2E con Oracle real (APIs + sqlcl verify)** · **🚨 PE NO finalizado · no alineado a Oracle (sólo SQLite)** · 5 países con E2E con persistencia Oracle real · CO [PDF](samples/colombia/factura-1-co-SETP5.pdf) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf) · UY [PDF Oracle real](samples/uruguay/cfe-21-uy-real-oracle.pdf) · USA [PDF Oracle real](samples/usa/invoice-000001-acme-corp.pdf) · PE [preview SQLite](samples/peru/factura-01-pe-F001-00000001.pdf)
+> **Última actualización:** 2026-05-19 · **Encadenado OF multipaís cerrado**: PE #861 + UY #862 + mobile screens BO/CL/CO/EC #863 mergeados · OF integration pattern (proxy + mobile hook + bot dispatcher) ahora completo en 11 países (MX/BO/CL/BR/EC/AR/CO/UY/PE/USA + ES sin OF) · **Pendiente DevOps**: activar `OPENFINANCE_{CL,CO,UY,PE}_ENABLED=true` + tokens en runtime · **🚨 PE facturación NO finalizado · no alineado a Oracle (sólo SQLite)** · 5 países con E2E con persistencia Oracle real · CO [PDF](samples/colombia/factura-1-co-SETP5.pdf) · EC [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) · CL [PDF](samples/chile/dte-33-cl-folio-1.pdf) · UY [PDF Oracle real](samples/uruguay/cfe-21-uy-real-oracle.pdf) · USA [PDF Oracle real](samples/usa/invoice-000001-acme-corp.pdf) · PE [preview SQLite](samples/peru/factura-01-pe-F001-00000001.pdf)
 
 ## Convención
 
@@ -24,15 +24,15 @@
 | 🇲🇽 **México** | ✅ E2E confirmado | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
 | 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
 | 🇵🇾 **Paraguay** | ✅ E2E (DNIT externo) | ⏸️ pausado | ❌ pendiente | externo (sin monorepo) |
-| 🇨🇴 **Colombia** | ✅ **E2E sandbox** | 🟡 Belvo CO | ✅ App · ✅ WA (#752 bot + #753 app + #748 público-view) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) · [PDF](samples/colombia/factura-1-co-SETP5.pdf) |
-| 🇦🇷 **Argentina** | 🧪 AFIP sandbox | ✅ Prometeo sandbox **E2E real 2026-05-08** | ❌ pendiente | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) |
-| 🇨🇱 **Chile** | 🟡 **E2E estructural** (cert dummy) | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) · [PDF](samples/chile/dte-33-cl-folio-1.pdf) |
-| 🇪🇨 **Ecuador** | ✅ **E2E sandbox** | ✅ Prometeo sandbox **E2E real 2026-05-08** | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) · [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) |
-| 🇵🇪 **Perú** | ❌ **NO alineado a Oracle ZMP** · E2E NO finalizado · usa SQLite | ✅ Prometeo PE **E2E real 2026-05-08** | ✅ App · ✅ WA (#764 bot + #767 v2 proxy + #768 mobile + #763 PDF+público-view) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) · [PDF preview](samples/peru/factura-01-pe-F001-00000001.pdf) |
-| 🇺🇾 **Uruguay** | ✅ **E2E mock + Oracle real 2026-05-13** | ✅ Prometeo UY **E2E real 2026-05-08** | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) · [PDF](samples/uruguay/cfe-21-uy-real-oracle.pdf) |
+| 🇨🇴 **Colombia** | ✅ **E2E sandbox** (DIAN) | 🟡 Belvo CO · proxy listo (#847) · runtime pendiente DevOps env vars | ✅ App · ✅ WA (#752 DIAN + #848 OF hook + #847 OF proxy) | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) · [PDF](samples/colombia/factura-1-co-SETP5.pdf) |
+| 🇦🇷 **Argentina** | 🧪 AFIP sandbox (legacy externo · sin migrar) | ✅ Prometeo sandbox **E2E real 2026-05-08** · proxy + activado QA 2026-05-18 | ✅ App · ✅ WA (PR #846 hook + #845 proxy + #858 screens · DevOps activó `OPENFINANCE_AR_ENABLED=true`) | [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) · [runbook](argentina/zymplo-openfinance-ar/docs/RUNBOOK.md) · [smoke E2E](argentina/zymplo-openfinance-ar/scripts/smoke-e2e-qa.sh) |
+| 🇨🇱 **Chile** | 🟡 **E2E estructural** (cert dummy) | ✅ Belvo sandbox · OF mobile screens dedicadas (#863) · runtime pendiente DevOps env vars | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) · [PDF](samples/chile/dte-33-cl-folio-1.pdf) |
+| 🇪🇨 **Ecuador** | ✅ **E2E sandbox** | ✅ Prometeo sandbox **E2E real 2026-05-08** · OF mobile screens dedicadas (#863) | ✅ App · ✅ WA (#755 bot · scaffold #678/#679/#749 público-view) | [facturacion-ec-qa](https://facturacion-ec-qa.zymplo.com/api-docs/) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/) · [PDF](samples/ecuador/factura-1-ec-001-001-000000001.pdf) |
+| 🇵🇪 **Perú** | ❌ **NO alineado a Oracle ZMP** · E2E NO finalizado · usa SQLite | ✅ Prometeo PE **E2E real 2026-05-08** · OF proxy + mobile hook + bot dispatcher (#861) · runtime pendiente DevOps env vars | ✅ App · ✅ WA (#764 bot + #767 v2 proxy + #768 mobile + #763 PDF+público-view + #861 OF integration) | [openfinance-pe-qa](https://openfinance-pe-qa.zymplo.com/api-docs/) · [PDF preview](samples/peru/factura-01-pe-F001-00000001.pdf) |
+| 🇺🇾 **Uruguay** | ✅ **E2E mock + Oracle real 2026-05-13** | ✅ Prometeo UY **E2E real 2026-05-08** · OF proxy + mobile hook + bot dispatcher (#862) · runtime pendiente DevOps env vars | ✅ App · ✅ WA (#759 bot + #760 app + #758 PDF+público-view + #862 OF integration) | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) · [PDF](samples/uruguay/cfe-21-uy-real-oracle.pdf) |
 | 🇨🇷 **Costa Rica** | 🚧 código clone de Perú · pendiente owner | ✅ OF QA healthy | ❌ pendiente | [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com) |
-| 🇺🇸 **EEUU** | ✅ **E2E con Oracle real 2026-05-18** | ⏳ Akoya | ❌ pendiente | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) · [PDF](samples/usa/invoice-000001-acme-corp.pdf) |
-| 🇪🇸 **España** | 🧪 sin cert | 🧪 sandbox | ❌ pendiente | externo |
+| 🇺🇸 **EEUU** | ✅ **E2E con Oracle real 2026-05-18** | 🟡 Akoya sandbox · service healthy · ZMP DB password reset pendiente DBA | ✅ App · ✅ WA (PR #835 hook + #844 proxy + 6 tools) | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) · [openfinance-us-qa](https://openfinance-us-qa.zymplo.com/healthz) · [PDF](samples/usa/invoice-000001-acme-corp.pdf) |
+| 🇪🇸 **España** | 🟡 **AEAT port mergeado #843** · F0-F3 completo · 81 tests · 11 tablas ES_FE_* en Oracle · cert AEAT pendiente Jesús | ❌ no aplica (no aggregator EU integrado) | ✅ App · ✅ WA (PR #843 mobile hook + #849 bot tools + workflow + mount proxy) | externo + en monorepo `espana/zymplo-aeat/` · service deploy pendiente DevOps env runtime |
 
 ---
 
@@ -67,7 +67,7 @@
 - **Sample E2E (clickthrough)**: [CUF 0001023...3A302C3 · HTML](https://facturacion-bo-qa.zymplo.com/factura/00010234567892026051118153898000011101000000000400003ED663F1DC0DEEAC3A302C3/preview.html) · [PDF formato KUDE](https://facturacion-bo-qa.zymplo.com/factura/00010234567892026051118153898000011101000000000400003ED663F1DC0DEEAC3A302C3/pdf?inline=true) (clickthrough QA público · ver [PATTERN-PUBLIC-VIEW.md](PATTERN-PUBLIC-VIEW.md))
 - **Estado envío al SIN**: ⚠️ `siatResponse=(mock)` · estructura XML firmada + CUF + CUFD + QR oficial SIN OK · pero **no llegó al endpoint real** `pilotosiat.impuestos.gob.bo`. Causa: `isMockMode()` ([bolivia/zymplo-siat/src/adapters/siat/SiatClient.js:26](bolivia/zymplo-siat/src/adapters/siat/SiatClient.js#L26)) requiere `SIAT_MODE='sandbox'` ✓ **AND** `SIAT_TOKEN_DELEGADO` no-vacío ❌. Hoy está vacío.
 - **Bloqueo para E2E real real**: trámite externo del contribuyente ante SIN piloto · delegar facultades de emisión a Zymplo en el portal `pilotosiat.impuestos.gob.bo` · output del trámite es el `SIAT_TOKEN_DELEGADO` que se pega en Doppler. Sin gestión en curso al 2026-05-11. Mismo código emite real una vez conseguido el token · cero cambios de código.
-- **Open Finance**: ❌ **NO disponible** · ASFI no abrió Open Banking · ningún aggregator LatAm cubre Bolivia (Belvo · Prometeo · Pluggy · Salt Edge · todos verificados sin cobertura). La empresa BO usa solo facturación.
+- **Open Finance**: ❌ **NO disponible regulatoriamente** · ASFI no abrió Open Banking · ningún aggregator LatAm cubre Bolivia (Belvo · Prometeo · Pluggy · Salt Edge · todos verificados sin cobertura). La empresa BO usa solo facturación. **Nota**: el código tiene proxy `openfinance-bo` + mobile screens (#863 · `of-bo-link` + `of-bo-account` con `prometeoRef`) listos para activarse cuando/si ASFI abra el marco. Hoy quedan dormidos.
 - **Para PROD**: cert ADSIB del cliente final (trámite cliente con ADSIB) + deploy prod
 
 ---
@@ -93,7 +93,7 @@
 - **API docs**: https://facturacion-co-qa.zymplo.com/api-docs/
 - **Público-view pattern**: ✅ aplicado #748 · `DIAN_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF desde dashboard
 - **App + WhatsApp F0 MVP**: PaisCodi=32 + FISCAL_COUNTRIES update (#751) · `dian_client.py` + `dian_tools.py` bot WhatsApp (#752) · screens `dian-co-emit` + `dian-co-history` mobile (#753) · NC/ND, drafts, detail/setup pendientes F2+
-- **Open Finance**: 🟡 Belvo CO en monorepo · falta deploy QA público · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/)
+- **Open Finance**: 🟡 Belvo CO en monorepo · OF mobile screens dedicadas (#863 · `of-co-link` + `of-co-account` con `belvoTxId`) · falta deploy QA público · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/)
 - **Para PROD**: (1) cert real Camerfirma o Andes SCD del cliente · (2) deploy OF QA + smoke e2e · (3) primer emit real (estructural ya validado) · (4) screens F2+ (NC/ND, drafts, detail)
 
 ---
@@ -115,7 +115,7 @@
 - **⚠️ Caveat crítico**: cert PFX auto-firmado + CAF generado localmente · SII rechazaría la firma del CAF y la cadena de trust del cert. PDF y XML estructuralmente SII-compliant pero NO válidos fiscalmente
 - **Sample E2E**: [dte-33-cl-folio-1.pdf](samples/chile/dte-33-cl-folio-1.pdf) · [dte-33-cl-folio-1.xml](samples/chile/dte-33-cl-folio-1.xml)
 - **API docs**: https://facturacion-cl-qa.zymplo.com/api-docs/
-- **Open Finance**: ✅ Belvo sandbox cubre CL (BancoEstado · BCI · etc) · 5 links E2E validados en VM · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/)
+- **Open Finance**: ✅ Belvo sandbox cubre CL (BancoEstado · BCI · etc) · 5 links E2E validados en VM · OF mobile screens dedicadas (#863 · `of-cl-link` + `of-cl-account` con `belvoTxId`) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/)
 - **Para PROD real**: (1) **cliente chileno colaborador** que nos preste cert SII (modelo BR) · O · (2) gestionar RUT corporativo Zymplo Chile · (3) cert E-CertChile (~25 USD) + CAFs reales del SII · (4) plan Belvo prod (mismo del MX/BR)
 
 ---
@@ -133,7 +133,7 @@
 - **API docs**: https://facturacion-ec-qa.zymplo.com/api-docs/
 - **Público-view pattern**: ✅ aplicado #749 + #795 · `SRI_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF
 - **App + WhatsApp F0**: PaisCodi=31 ya canónico · scaffolding mobile #678/#679 · bot WhatsApp #755 (`sri_tools.py` + registry) · NC/ND, retenciones, guías, liquidaciones F2+
-- **Open Finance**: ✅ Prometeo sandbox cubre EC (Pichincha · Intermatico · 5 providers) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/)
+- **Open Finance**: ✅ Prometeo sandbox cubre EC (Pichincha · Intermatico · 5 providers) · OF mobile screens dedicadas (#863 · `of-ec-link` + `of-ec-account` con `prometeoTxId`) · [openfinance-ec-qa](https://openfinance-ec-qa.zymplo.com/api-docs/)
 - **Para PROD**: (1) cert BCE del cliente final (~30 USD · estructural ya validado) · (2) plan Prometeo prod
 
 ---
@@ -160,7 +160,7 @@
   - v2 proxy hexagonal #767 · `zymplo-api/src/modules/sunat-pe/` (12 archivos TS · paralelo a cfe-uy/sri-ec/dian-co · endpoints `/api/v2/sunat-pe/facturas[/:id[/xml]]`)
   - Mobile #768 · hook `useSunatPe.ts` + screens `sunat-pe-emit.tsx` + `sunat-pe-history.tsx`
   - NC/ND (07/08), drafts, detail/setup, anulaciones, ICBPER quedan F2+
-- **Open Finance**: 🟡 Belvo PE en monorepo · falta deploy QA + smoke e2e
+- **Open Finance**: 🟡 Prometeo PE en monorepo · **integration pattern completo (#861)**: proxy v2 `openfinance-pe` (hexagonal · feature flag `OPENFINANCE_PE_ENABLED`) + mobile hook `useOpenFinancePe.ts` + bot dispatcher `openfinance_client.py` + `openfinance_tools.py` (PaisCodi.PERU=33) · falta DevOps activar env vars + smoke E2E
 - **Para PROD**: (1) **ALINEAR A ORACLE ZMP** (5 items arriba · BLOQUEANTE para que sea verdadero E2E con persistencia, no solo preview) · (2) cert SUNAT del cliente final · (3) v2 proxy + mobile hook + screens (F2) · (4) deploy QA público · (5) plan Belvo prod
 
 ---
@@ -175,7 +175,7 @@
 - **Público-view pattern**: ✅ aplicado #758 · `CFE_PUBLIC_VIEW_ENABLED=true` activa clickthrough HTML+PDF+XML desde dashboard (⏳ pendiente flag en `.env` runtime nfe-s · cuando active permite URL pública del PDF en lugar del sample en repo)
 - **API docs**: [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/)
 - **App + WhatsApp F0 (2026-05-12)**: PaisCodi=27 ya canónico · scaffolding mobile #760 (`cfe-uy-emit.tsx` + `cfe-uy-history.tsx` · tipoCfe 101/111 + tax codes 1-4 + moneda UYU/USD) · bot WhatsApp #759 (`cfe_tools.py` + `cfe_client.py` + registry) · NC/ND, e-Remito/Exp/Resguardo/Boleta, drafts, detail F2+
-- **Open Finance**: ✅ Prometeo sandbox cubre UY · thin en monorepo (#593)
+- **Open Finance**: ✅ Prometeo sandbox cubre UY · thin en monorepo (#593) · **integration pattern completo (#862)**: proxy v2 `openfinance-uy` (hexagonal · feature flag `OPENFINANCE_UY_ENABLED`) + mobile hook `useOpenFinanceUy.ts` + bot dispatcher (PaisCodi.URUGUAY=27 en `_COUNTRY_TO_PROXY_PATH` + tools) · falta DevOps activar env vars + smoke E2E
 - **Para PROD**: (1) cert DGI del cliente real · (2) crear user `ZMP_UY_QA` + grants (DevOps lo está coordinando, ver PR #789 Layer A) · (3) container QA correr en thick mode con LD_LIBRARY_PATH+libnnz para que el pool conecte real (ya validado en Oracle migrations VM) · (4) plan Prometeo prod
 
 ---
@@ -197,17 +197,29 @@
 - **Sample E2E (Oracle real)**: [`invoice-000001-acme-corp.pdf`](samples/usa/invoice-000001-acme-corp.pdf) (77.5KB) · [`invoice-000001-acme-corp.xml`](samples/usa/invoice-000001-acme-corp.xml) (5.5KB UBL)
 - **API docs**: [facturacion-us-qa](https://facturacion-us-qa.zymplo.com) · OpenAPI v0.1.0 · 18 endpoints REST
 - **Tax intelligence**: state_lookup tabla `US_FE_STATE_TAX` con NY/CA/TX/etc. precargados (state_rate + local_avg)
-- **Open Finance**: ⏳ Akoya en proceso (sandbox disponible · cubre EEUU)
+- **Open Finance**: 🟡 **deployed Akoya sandbox 2026-05-18** · service [openfinance-us-qa](https://openfinance-us-qa.zymplo.com) healthy (`/healthz` 200, provider Akoya/Mikomo healthy via /admin/provider-health). Smoke E2E pendiente · esperando DBA reset password user ZMP en `dbautdesa02` (DevOps diagnosticó NJS-505 + ORA-01017 hoy 2026-05-18 · fix Dockerfile LD_LIBRARY_PATH /lib en PR #850 · faltan creds correctas)
+- **Stack OF**: FDX v6.5 · Akoya adapter (sandbox provider Mikomo) · service Fastify oracledb thick mode · puerto 3074 host / 8000 container · subdomain Cloudflare proxied
+- **Schema Oracle**: 7 tablas país-específicas `ZMP.US_OF_*` (TENANT/END_USER/INSTITUTION/SYNC_RUN/OAUTH_STATE/TENANT_API_KEY/AUDIT_LOG · migración aplicada 2026-05-18) + reuso tablas compartidas `ZMP.ZMP_OF_LINK` / `_CRED_VAULT` / `_ACCOUNT` (mismas que Belvo/Prometeo cross-país)
+- **Mobile + WhatsApp integration**: ✅ PR #835 + #844 + #850 · `useOpenFinanceUs.ts` (8 hooks React Query) + bot tools `fe_us_tools.py` (3 read) + `openfinance_us_tools.py` (3 read · `erp_consultar_saldo_us` · `erp_listar_bancos_conectados_us` · `erp_listar_movimientos_us`) · country gate `paisCodi=9` · brand voice inglés
+- **Smoke E2E script**: `usa/zymplo-openfinance-us/scripts/smoke-e2e-qa.sh` · 11 pasos API + Oracle verify · pendiente correr verde post-DBA reset
 - **Marco regulatorio**: USA **NO tiene mandato federal** de formato PDF para B2B invoices (a diferencia de SAT/DIAN/DGI/SII). Standards de facto: PEPPOL BIS 3.0 (que generamos en UBL) + IRS bookkeeping + state sales tax. El PDF cumple convenciones B2B profesionales sin "compliance" vinculante
-- **Para PROD**: (1) cert para PEPPOL gateway si se quiere certificar PEPPOL network · (2) Akoya prod para OF · (3) opcional: rotar logo/branding del PDF · facturación funcional ya
+- **Para PROD**: (1) cert para PEPPOL gateway si se quiere certificar PEPPOL network · (2) Akoya prod creds (negociar plan) · (3) opcional: rotar logo/branding del PDF · facturación funcional ya
 
 ---
 
 ## 🇪🇸 España
 
-- **Facturación**: 🧪 código AEAT funcionando en repo origen · cert pendiente vía Jesús (gestión interna)
-- **Open Finance**: 🧪 sandbox disponible
-- **Para PROD**: (1) cert AEAT del cliente · (2) migrar al monorepo · (3) deploy QA
+- **Facturación**: 🟡 **AEAT port mergeado 2026-05-18 (#843)** · F0-F3 completo en `espana/zymplo-aeat/` · 192 archivos · +10,176 LOC · 81 tests verdes (65 Jest + 16 vitest hex) · 11 tablas `ZMP.ES_FE_*` aplicadas en `dbautdesa02_high` · paisCodi=5 ES habilitado en SKN.COME_PAIS
+- **Stack**: Facturae v3.2.2 + XAdES-EPES (firma local) · adapters para SII real-time + Verifactu hash chain + FACe (AAPP públicas) + PEPPOL Spain (red.es) · IVA 21/10/4/0 + zero-rate exenciones
+- **Runbook cert AEAT handoff** (Jesús → DevOps): [docs/RUNBOOK-cert-AEAT-handoff.md](espana/zymplo-aeat/docs/RUNBOOK-cert-AEAT-handoff.md) · pasos 1-7 desde gestión FNMT hasta validación E2E real
+- **Smoke E2E script**: [espana/zymplo-aeat/scripts/smoke-e2e-qa.sh](espana/zymplo-aeat/scripts/smoke-e2e-qa.sh) · 12 pasos API + Oracle persistence
+- **Mobile screens dedicadas**: [aeat-list](zymplo-mobile/app/(tabs)/aeat-list/index.tsx) + [aeat-detail](zymplo-mobile/app/(tabs)/aeat-detail/[id].tsx) · gate `paisCodi=5`
+- **Workflow + bot WA**: ✅ PR #849 · `deploy-qa-espana-aeat-selfhosted.yml` + bot tools `aeat_tools.py` (3 read · `erp_listar_facturas_es` · `erp_buscar_factura_es` · `erp_listar_facturas_pendientes_es`) + mount `fe-es` proxy en `/datos/fe-es/*` (Luz pattern ORDS-canonical · gated por `FE_ES_ENABLED`) · `FEATURE_COUNTRIES.fiscal` incluye ESPAÑA
+- **Mobile**: ✅ `useFeEs.ts` (Martín #843)
+- **Open Finance**: ❌ **no aplica** · ningún aggregator de la EU integrado en el monorepo (Tink confusión inicial DevOps · descartada · ver respuesta 2026-05-18 a checklist)
+- **Estado runtime QA**: pendiente DevOps · template en `servers/nfe-s/facturacion-es-qa/` listo (commit infra 243ae48) · faltan (1) cert AEAT real (Jesús · gestión externa) · (2) activar `FE_ES_ENABLED=true` en zymplo-api `.env` · (3) confirmar DB user TMP_CLAUDE provisional aceptable
+- **Subdomain target**: `facturacion-es-qa.zymplo.com` (Cloudflare proxied + wildcard cert)
+- **Para PROD**: (1) cert AEAT productivo del cliente · (2) `BILLING_QA_APP` user dedicado post-cert · (3) deploy prod con FE_ES_PROVIDER real (SII + Verifactu + FACe activos)
 
 ---
 
@@ -215,12 +227,15 @@
 
 | Prioridad | Acción | Países afectados |
 |---|---|---|
+| **Alta** | **DevOps · DBA reset password ZMP** en `dbautdesa02` · destraba smoke E2E USA OF (ORA-01017) | USA |
+| **Alta** | **DevOps · cargar env vars + activar flags** `OPENFINANCE_{CL,CO,UY,PE,AR}_ENABLED=true` + `FE_ES_ENABLED=true` + `OPENFINANCE_US_*` (post-ZMP password) + `OPENFINANCE_<XX>_SERVICE_AUTH_TOKEN` por país en zymplo-api `.env` runtime | USA · AR · CO · CL · UY · PE · ES |
+| **Alta** | **Cert AEAT productivo España** (Jesús · gestión externa) · prerequisite para `BILLING_QA_APP` user dedicado y para emitir contra SII real | ES |
 | **Alta** | **Asignar owner CR-Hacienda** · rename `facturacion-peru` → `facturacion-costarica` + reescribir adapter SUNAT → MH-CR (XML + firma según MH) · destraba `facturacion-cr-qa` (hoy 503 maintenance) | 1 país (CR) |
-| **Alta** | Replicar modelo BR (cliente colaborador presta cert) en CL · EC · PE · UY · CR · ES | 6 países desbloqueables |
+| **Alta** | Replicar modelo BR (cliente colaborador presta cert) en CL · EC · PE · UY · CR | 5 países desbloqueables |
 | **Alta** | Negociar plan Belvo productivo (cubre MX · BR · CL · CO · PE en un solo contrato) | 5 países |
 | **Media** | Negociar plan Prometeo productivo (cubre AR · UY · PY · EC) | 4 países |
-| **Media** | DevOps · activar feature flags `OPENFINANCE_*_ENABLED` en zymplo-api proxy | EC · AR · UY · PE · CO |
-| **Baja** | Migrar facturación AR/PY/UY/PE/EEUU/ES al monorepo (orden Wave 5) | 6 países |
+| **Media** | Migrar facturación AR/PY/UY/PE al monorepo (orden Wave 5 · ES + USA ya completos) | 4 países |
+| **Baja** | Perú facturación · refactor SQLite → Oracle ZMP (mismo patrón que USA OF #832) | 1 país (PE) |
 
 ---
 
@@ -231,7 +246,7 @@
 | **Belvo** | MX · CO · CL · PE · BR · EC*  | BO · PY · UY · AR plenamente | ✅ core en monorepo |
 | **Prometeo** | AR · UY · PY · EC · CL* · PE* | BO · MX · BR | ✅ core en monorepo |
 | **Pluggy** | BR (alternativa) | resto LatAm | 🟡 scaffold (#667-#669) · no activado |
-| **Akoya** | EEUU | resto | ❌ futuro |
+| **Akoya** | EEUU | resto | 🟡 core deployed sandbox 2026-05-18 · runtime smoke pendiente DBA |
 | **Kushkipagos** | EC (alternativa) | resto | ❌ futuro |
 
 `*` cobertura parcial · prefer Prometeo o Belvo según país
@@ -244,9 +259,9 @@
 
 | Componente | Estado |
 |---|---|
-| `zymplo-api` proxy multi-país (cross-país gateway) | ✅ MX · BR · BO · CL · EC modules wired |
-| `zymplo-mobile` (Expo) | ✅ MX/BO/CL/BR feature parity · EC hook scaffold (#678) |
-| `zymplo-langgraph` (WhatsApp bot) | ✅ MX/BO/CL/BR + EC dispatch (#679) |
+| `zymplo-api` proxy multi-país (cross-país gateway) | ✅ MX · BR · BO · CL · EC · AR · CO · UY · PE · USA · ES modules wired (post #845/#847/#860/#861/#862 OF + #844/#843 FE) |
+| `zymplo-mobile` (Expo) | ✅ MX/BO/CL/BR/EC/AR/CO/UY/PE/USA/ES hooks · OF screens dedicadas BO/CL/CO/EC (#863) + AR/USA/ES previas |
+| `zymplo-langgraph` (WhatsApp bot) | ✅ MX/BO/CL/BR/EC/AR/CO/UY/PE/USA/ES dispatch · `openfinance_client.py` + `openfinance_tools.py` cubren 9 países OF + `_COUNTRY_INFO` registry |
 | Service core `zymplo-openfinance-belvo` | ✅ deployed `nfe-s:3010` |
 | Service core `zymplo-openfinance-prometeo` | ✅ deployed `nfe-s:3011` |
 | Tablas Oracle ZMP genéricas (audit · OF · idempotency) | ✅ aplicadas |
