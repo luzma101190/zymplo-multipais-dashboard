@@ -20,7 +20,7 @@
 
 | País | Facturación | Open Finance | App + WhatsApp | API docs (QA) |
 |---|---|---|---|---|
-| 🇧🇷 **Brasil** | ✅ E2E confirmado | ✅ Belvo OFDA (activo) · ✅ Pluggy CORE QA LIVE 2026-05-20 (Víctor #934 · `openfinance-pluggy-qa.zymplo.com` · phase=F2-wired · db=connected · pendiente creds Pluggy sandbox real) | ✅ App · ✅ WA | [facturacion-br-qa](https://facturacion-br-qa.zymplo.com/api-docs/) · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) · [openfinance-pluggy-qa](https://openfinance-pluggy-qa.zymplo.com/health) |
+| 🇧🇷 **Brasil** | ✅ E2E confirmado | ✅ Belvo OFDA (activo) · ✅ **Pluggy SDK SANDBOX CONECTADO END-TO-END 2026-05-20** (Víctor + Luz · `openfinance-pluggy-qa.zymplo.com` · LINK_ID=121 · externalId UUID Pluggy real `1fc61a20-1cc0-457b-ab9e-feca463e4833` persistido en ZMP_OF_LINK · connector 2 Pluggy Bank · creds sandbox `user-good/password-good`) | ✅ App · ✅ WA | [facturacion-br-qa](https://facturacion-br-qa.zymplo.com/api-docs/) · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) · [openfinance-pluggy-qa](https://openfinance-pluggy-qa.zymplo.com/health) |
 | 🇲🇽 **México** | ✅ E2E confirmado | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
 | 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
 | 🇵🇾 **Paraguay** | ✅ E2E SIFEN externo (`sifen-qa.alarmas.com.py` · Alarmas/WaterSystem · SET directo · XML + KuDE PDF) | ⏸️ pausado | ✅ App · ✅ WA (#918 mergeado 2026-05-20 · thin proxy `/api/v2/sifen-py/*` + bot tools `sifen_py_tools.py` 6 tools + mobile screens `sifen-py-emit`/`-history`) | [facturacion-py-qa](https://sifen-qa.alarmas.com.py/docs/api-reference/) |
@@ -280,7 +280,7 @@
 |---|---|---|---|
 | **Belvo** | MX · CO · CL · PE · BR · EC*  | BO · PY · UY · AR plenamente | ✅ core en monorepo |
 | **Prometeo** | AR · UY · PY · EC · CL* · PE* | BO · MX · BR | ✅ core en monorepo |
-| **Pluggy** | BR (alternativa a Belvo) | resto LatAm | ✅ **CORE QA LIVE 2026-05-20** · `openfinance-pluggy-qa.zymplo.com` (Víctor PR #934 deploy + container `zymplo-openfinance-pluggy-qa` healthy en nfe-s :3012) · DB Oracle ZMP connected · pendiente: creds Pluggy sandbox real (placeholder hoy) + thin BR `pluggy-br` :3013 + zymplo-api flag |
+| **Pluggy** | BR (alternativa a Belvo) | resto LatAm | ✅ **SDK SANDBOX CONECTADO END-TO-END 2026-05-20** · LINK_ID=121 con UUID Pluggy real persistido en ZMP_OF_LINK · connector 2 Pluggy Bank · cadena completa: zymplo-api proxy → service core → Pluggy SDK real → catálogo sandbox · pendiente: thin BR :3013 deploy + sync accounts post-webhook |
 | **Akoya** | EEUU | resto | 🟡 core deployed sandbox 2026-05-18 · runtime smoke pendiente DBA |
 | **Kushkipagos** | EC (alternativa) | resto | ❌ futuro |
 
