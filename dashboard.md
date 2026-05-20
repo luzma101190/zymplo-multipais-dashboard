@@ -20,7 +20,7 @@
 
 | País | Facturación | Open Finance | App + WhatsApp | API docs (QA) |
 |---|---|---|---|---|
-| 🇧🇷 **Brasil** | ✅ E2E confirmado | ✅ Belvo OFDA | ✅ App · ✅ WA | [facturacion-br-qa](https://facturacion-br-qa.zymplo.com/api-docs/) · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) |
+| 🇧🇷 **Brasil** | ✅ E2E confirmado | ✅ Belvo OFDA (activo) · 🟡 Pluggy F3-bridge-ready (#928+#932 · esperando DevOps deploy para switchear) | ✅ App · ✅ WA | [facturacion-br-qa](https://facturacion-br-qa.zymplo.com/api-docs/) · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) |
 | 🇲🇽 **México** | ✅ E2E confirmado | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
 | 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
 | 🇵🇾 **Paraguay** | ✅ E2E SIFEN externo (`sifen-qa.alarmas.com.py` · Alarmas/WaterSystem · SET directo · XML + KuDE PDF) | ⏸️ pausado | ✅ App · ✅ WA (#918 mergeado 2026-05-20 · thin proxy `/api/v2/sifen-py/*` + bot tools `sifen_py_tools.py` 6 tools + mobile screens `sifen-py-emit`/`-history`) | [facturacion-py-qa](https://sifen-qa.alarmas.com.py/docs/api-reference/) |
@@ -42,8 +42,10 @@
 - **API docs**: https://facturacion-br-qa.zymplo.com/api-docs/
 - **Endpoints visualización**: XML raw · HTML standalone (con QR) · PDF A4 (con QR · DANFSe oficial NT 008/2026) · todos por `docu_codi`
 - **Sample E2E**: [doc 170 · HTML](https://facturacion-br-qa.zymplo.com/api/v1/nfse/170/visualizacao) · [PDF oficial](https://facturacion-br-qa.zymplo.com/api/v1/nfse/170/pdf?inline=true) (clickthrough QA público · ver [PATTERN-PUBLIC-VIEW.md](PATTERN-PUBLIC-VIEW.md))
-- **Open Finance**: ✅ Belvo OFDA sandbox · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) · widget mobile cerrado
-- **Para PROD**: (1) cert ICP-Brasil del cliente final · (2) **adesão CNC NFS-e** en la Prefeitura Fortaleza (trámite del cliente · típicamente bloqueante) · (3) plan Belvo prod negociado
+- **Open Finance (Belvo - activo)**: ✅ Belvo OFDA sandbox · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) · widget mobile cerrado
+- **Open Finance (Pluggy - alternativa lista)**: 🟡 **F2-wired + F3 legacy bridge + B proxy extended** post-#928 (`zymplo-openfinance-pluggy` service core funcional con auth/country/tenant middleware mirror Belvo) + #932 (legacy aliases `/cuentas` + `/connect-token` + `/save-item` + PIX 501 stubs) + flag bot dispatch `OF_BR_PROVIDER=pluggy|belvo` (default belvo) + thin forwarder `/api/v2/pluggy-br/{links,balance,accounts,transactions}` paridad con openfinance-br. 64/64 tests verdes. Cadena: Mobile `usePluggy.ts` → zymplo-api `/api/v2/pluggy-br/*` (#668) → service core post-#928. **Estado:** esperando DevOps deploy del container + flippeo de `OPENFINANCE_PLUGGY_BR_ENABLED=true` para destrabar end-to-end. PIX queda 501 hasta F4+ (requiere scopes Pluggy adicionales + compliance review). **Switch Belvo→Pluggy** ahora es 1 env var `OF_BR_PROVIDER=pluggy` en zymplo-langgraph runtime · bot dispatcher detecta y cambia el path proxy
+- **⚠️ Split-brain actual:** Mobile screen `app/(tabs)/profile/open-finance.tsx` ya usa `usePluggy.ts` que llama `/pluggy/*` (path legacy ORDS · históricamente backed por PL/SQL Pluggy). Bot WhatsApp dispatcher (`openfinance_client.py`) hoy va a Belvo (`openfinance-br` proxy). Cuando se haga el switch con `OF_BR_PROVIDER=pluggy`, AMBOS apuntan al mismo backend Pluggy unificado. **Deuda F4b** · refactorear `usePluggy.ts` mobile hook de `/pluggy/*` → `/api/v2/pluggy-br/*` para sacar el último vínculo a ORDS PL/SQL
+- **Para PROD**: (1) cert ICP-Brasil del cliente final · (2) **adesão CNC NFS-e** en la Prefeitura Fortaleza (trámite del cliente · típicamente bloqueante) · (3) plan Belvo prod negociado · (4) opcional: switch Belvo→Pluggy si cliente decide (depende de DevOps deploy + 1-line change en bot dispatch)
 
 ---
 
@@ -278,7 +280,7 @@
 |---|---|---|---|
 | **Belvo** | MX · CO · CL · PE · BR · EC*  | BO · PY · UY · AR plenamente | ✅ core en monorepo |
 | **Prometeo** | AR · UY · PY · EC · CL* · PE* | BO · MX · BR | ✅ core en monorepo |
-| **Pluggy** | BR (alternativa) | resto LatAm | 🟡 scaffold (#667-#669) · no activado |
+| **Pluggy** | BR (alternativa a Belvo) | resto LatAm | 🟡 F2-wired (#928) + F3 legacy bridge (#932) · service core listo · esperando DevOps deploy + flag flip · 64/64 tests verdes |
 | **Akoya** | EEUU | resto | 🟡 core deployed sandbox 2026-05-18 · runtime smoke pendiente DBA |
 | **Kushkipagos** | EC (alternativa) | resto | ❌ futuro |
 
