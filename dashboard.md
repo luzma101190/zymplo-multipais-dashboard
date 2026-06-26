@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-05-20
+> **Última actualización:** 2026-06-26
 
 ## Convención
 
@@ -20,10 +20,10 @@
 
 | País | Facturación · Sandbox | Facturación · Producción (E2E) | Open Finance | App + WhatsApp | API docs (QA) |
 |---|---|---|---|---|---|
-| 🇧🇷 **Brasil** | ✅ E2E confirmado | ❌ pendiente | ✅ Belvo OFDA · ✅ Pluggy sandbox | ✅ App · ✅ WA | [facturacion-br-qa](https://facturacion-br-qa.zymplo.com/api-docs/) · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) · [openfinance-pluggy-qa](https://openfinance-pluggy-qa.zymplo.com/health) |
+| 🇧🇷 **Brasil** | ✅ E2E confirmado | 🟡 En proceso | ✅ Belvo OFDA · ✅ Pluggy sandbox | ✅ App · ✅ WA | [facturacion-br-qa](https://facturacion-br-qa.zymplo.com/api-docs/) · [openfinance-br-qa](https://openfinance-br-qa.zymplo.com/api-docs/) · [openfinance-pluggy-qa](https://openfinance-pluggy-qa.zymplo.com/health) |
 | 🇲🇽 **México** | ✅ E2E confirmado | ❌ pendiente | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-mx-qa](https://facturacion-mx-qa.zymplo.com/api-docs/) · [openfinance-mx-qa](https://openfinance-mx-qa.zymplo.com/api-docs/) |
 | 🇧🇴 **Bolivia** | ✅ E2E confirmado | ❌ pendiente | ❌ no aplica (ASFI) | ✅ App · ✅ WA | [facturacion-bo-qa](https://facturacion-bo-qa.zymplo.com/api-docs/) |
-| 🇵🇾 **Paraguay** | ✅ E2E SIFEN (externo) | 🟡 En curso | ⏸️ pausado | ✅ App · ✅ WA | [facturacion-py-qa](https://sifen-qa.alarmas.com.py/docs/api-reference/) |
+| 🇵🇾 **Paraguay** | ✅ E2E SIFEN | ✅ E2E producción | ⏸️ pausado | ✅ App · ✅ WA | [facturacion-py-qa](https://sifen-qa.alarmas.com.py/docs/api-reference/) |
 | 🇨🇴 **Colombia** | ✅ E2E sandbox (DIAN) | ❌ pendiente | 🟡 Belvo sandbox | ✅ App · ✅ WA | [facturacion-co-qa](https://facturacion-co-qa.zymplo.com/api-docs/) · [openfinance-co-qa](https://openfinance-co-qa.zymplo.com/api-docs/) |
 | 🇦🇷 **Argentina** | ✅ E2E Oracle real (AFIP · cert pendiente) | ❌ pendiente | ✅ Prometeo sandbox | ✅ App · ✅ WA | [facturacion-ar-qa](https://facturacion-ar-qa.zymplo.com/api-docs/) · [openfinance-ar-qa](https://openfinance-ar-qa.zymplo.com/api-docs/) · [PDF AFIP oficial](samples/argentina/ar-arca-factura-A-4-cae-88015788975331-rg1415.pdf) |
 | 🇨🇱 **Chile** | 🟡 E2E estructural (cert dummy) | ❌ pendiente | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cl-qa](https://facturacion-cl-qa.zymplo.com/api-docs/) · [openfinance-cl-qa](https://openfinance-cl-qa.zymplo.com/api-docs/) |
