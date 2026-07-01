@@ -2,7 +2,7 @@
 
 > **Vista ejecutiva** del estado de facturación electrónica + Open Finance bancaria por país. Para detalle técnico (PRs, migrations, paridad estructural) ver `git log MULTIPAIS-DASHBOARD.md` · historial commits archivado.
 >
-> **Última actualización:** 2026-06-26
+> **Última actualización:** 2026-06-30
 
 ## Convención
 
@@ -32,4 +32,4 @@
 | 🇺🇾 **Uruguay** | ✅ E2E mock + Oracle real | ❌ pendiente | ✅ Prometeo sandbox | ✅ App · ✅ WA | [facturacion-uy-qa](https://facturacion-uy-qa.zymplo.com/api-docs/) · [openfinance-uy-qa](https://openfinance-uy-qa.zymplo.com/api-docs/) |
 | 🇨🇷 **Costa Rica** | ✅ E2E estructural Oracle real (Hacienda · cert pendiente) | ❌ pendiente | ✅ Belvo sandbox | ✅ App · ✅ WA | [facturacion-cr-qa](https://facturacion-cr-qa.zymplo.com/docs/) · [openbanking-cr-qa](https://openbanking-cr-qa.zymplo.com/api-docs/) |
 | 🇺🇸 **EEUU** | ✅ E2E Oracle real | ❌ pendiente | ✅ Akoya sandbox | ✅ App · ✅ WA | [facturacion-us-qa](https://facturacion-us-qa.zymplo.com/api-docs/) · [openfinance-us-qa](https://openfinance-us-qa.zymplo.com/docs) |
-| 🇪🇸 **España** | ✅ E2E QA público (cert AEAT pendiente) | ❌ pendiente | ✅ Tink sandbox | ✅ App · ✅ WA | [facturacion-es-qa](https://facturacion-es-qa.zymplo.com/api-docs/) · [openfinance-es-qa](https://openfinance-es-qa.zymplo.com/api-docs/) |
+| 🇪🇸 **España** | 🟡 En proceso · Verifactu real en QA (esquema **ESFE** dedicado + ambiente + X-API-Key) · app self-service sube cert · falta cert AEAT para round-trip homologación | ❌ pendiente | ✅ Tink sandbox | ✅ App · ✅ WA | [facturacion-es-qa](https://facturacion-es-qa.zymplo.com/api-docs/) · [openfinance-es-qa](https://openfinance-es-qa.zymplo.com/api-docs/) |
