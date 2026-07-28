@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Zymplo vs Jota.ai vs Meuassessor · Análisis competitivo</title>
+<style>
+  :root {
+    --bg: #0F0F0F;
+    --surface: #171B1A;
+    --surface-2: #1E2422;
+    --line: #2A3230;
+    --text: #F5F7F6;
+    --muted: #9DA8A5;
+    --accent: #14B8A6;
+    --accent-soft: rgba(20, 184, 166, 0.12);
+    --warn: #F0A63C;
+    --warn-soft: rgba(240, 166, 60, 0.12);
+    --bad: #F0566B;
+    --bad-soft: rgba(240, 86, 107, 0.12);
+    --shadow: 0 1px 2px rgba(0,0,0,.4);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #F6F9F8;
+      --surface: #FFFFFF;
+      --surface-2: #EEF4F2;
+      --line: #D8E2DF;
+      --text: #14201D;
+      --muted: #5B6B67;
+      --accent: #0E9384;
+      --accent-soft: rgba(14, 147, 132, 0.10);
+      --warn: #B26A05;
+      --warn-soft: rgba(178, 106, 5, 0.10);
+      --bad: #C22E44;
+      --bad-soft: rgba(194, 46, 68, 0.08);
+      --shadow: 0 1px 3px rgba(20,32,29,.08);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F0F0F; --surface: #171B1A; --surface-2: #1E2422; --line: #2A3230;
+    --text: #F5F7F6; --muted: #9DA8A5; --accent: #14B8A6; --accent-soft: rgba(20,184,166,.12);
+    --warn: #F0A63C; --warn-soft: rgba(240,166,60,.12); --bad: #F0566B; --bad-soft: rgba(240,86,107,.12);
+    --shadow: 0 1px 2px rgba(0,0,0,.4);
+  }
+  :root[data-theme="light"] {
+    --bg: #F6F9F8; --surface: #FFFFFF; --surface-2: #EEF4F2; --line: #D8E2DF;
+    --text: #14201D; --muted: #5B6B67; --accent: #0E9384; --accent-soft: rgba(14,147,132,.10);
+    --warn: #B26A05; --warn-soft: rgba(178,106,5,.10); --bad: #C22E44; --bad-soft: rgba(194,46,68,.08);
+    --shadow: 0 1px 3px rgba(20,32,29,.08);
+  }
+
+  html { background: var(--bg); }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 48px 24px 96px; }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 12px;
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 44px); font-weight: 800; letter-spacing: -0.02em;
+    line-height: 1.12; margin: 0 0 10px; text-wrap: balance;
+  }
+  .sub { color: var(--muted); font-size: 16px; max-width: 62ch; margin: 0; }
+  .meta {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px; color: var(--muted); letter-spacing: .04em;
+  }
+  .meta span::before { content: "· "; color: var(--accent); }
+
+  section { margin-top: 64px; }
+  h2 {
+    font-size: 22px; font-weight: 750; letter-spacing: -0.01em; margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  .h2-note { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
+  h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px; }
+  p { max-width: 68ch; }
+  strong { font-weight: 650; }
+
+  /* Thesis cards */
+  .thesis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 760px) { .thesis { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 20px 20px 18px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .card.zymplo { border-color: var(--accent); }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .card-name { font-size: 17px; font-weight: 750; letter-spacing: -0.01em; }
+  .pill {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .pill.low  { color: var(--accent); background: var(--accent-soft); }
+  .pill.high { color: var(--bad); background: var(--bad-soft); }
+  .pill.self { color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent); }
+  .card-tag { font-size: 13px; color: var(--accent); font-weight: 650; margin: 0; }
+  .card p { font-size: 13.5px; color: var(--muted); margin: 0; }
+  .card .figures {
+    margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11.5px; color: var(--muted); line-height: 1.7;
+  }
+  .card .figures b { color: var(--text); font-weight: 600; }
+
+  /* Callout */
+  .callout {
+    margin-top: 20px; padding: 16px 20px; border-radius: 10px;
+    background: var(--accent-soft); border: 1px solid var(--accent);
+    font-size: 15px; max-width: none;
+  }
+
+  /* Matrix table */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: var(--shadow); }
+  table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 13.5px; }
+  thead th {
+    text-align: left; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+    padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2);
+    position: sticky; top: 0;
+  }
+  thead th.zy { color: var(--accent); }
+  tbody td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { font-weight: 650; white-space: nowrap; }
+  td .note { display: block; color: var(--muted); font-size: 12px; font-weight: 400; margin-top: 2px; }
+  .chip {
+    display: inline-block; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 600; letter-spacing: .05em;
+    padding: 2px 8px; border-radius: 5px; white-space: nowrap;
+  }
+  .chip.yes  { color: var(--accent); background: var(--accent-soft); }
+  .chip.no   { color: var(--bad); background: var(--bad-soft); }
+  .chip.part { color: var(--warn); background: var(--warn-soft); }
+  .legend {
+    display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px;
+    font-size: 12.5px; color: var(--muted);
+  }
+
+  /* Competitor deep dives */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+  @media (max-width: 760px) { .duo { grid-template-columns: 1fr; } }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .panel h4 {
+    margin: 0 0 10px; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+  }
+  .panel h4.win { color: var(--accent); }
+  .panel h4.gap { color: var(--bad); }
+  .panel ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .panel li { font-size: 13.5px; }
+  .panel li .sub-note { color: var(--muted); font-size: 12.5px; }
+
+  /* Positioning quote */
+  .quote {
+    margin: 28px 0 0; padding: 26px 30px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    font-size: clamp(17px, 2.4vw, 21px); font-weight: 650; letter-spacing: -0.01em;
+    line-height: 1.45; text-wrap: balance; box-shadow: var(--shadow);
+  }
+  .quote em { color: var(--accent); font-style: normal; }
+
+  /* Priorities */
+  .prio { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+  .prio-item {
+    display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 18px; box-shadow: var(--shadow);
+  }
+  .prio-n {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 18px; font-weight: 700; color: var(--accent); padding-top: 1px;
+  }
+  .prio-item h3 { margin-bottom: 2px; }
+  .prio-item p { margin: 0; font-size: 13.5px; color: var(--muted); max-width: none; }
+
+  footer {
+    margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--muted);
+  }
+  footer p { max-width: none; margin: 6px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover, a:focus-visible { text-decoration: underline; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Análisis competitivo · Zymplo</p>
+    <h1>Zymplo vs Jota.ai vs Meuassessor</h1>
+    <p class="sub">Tres productos peleando por el mismo usuario —el autónomo/MEI brasileño— y por la misma interfaz: un asistente de IA en WhatsApp. Cada uno con un centro de gravedad distinto.</p>
+    <div class="meta">
+      <span>28 · julio · 2026</span>
+      <span>Fuentes: sitios oficiales, prensa, Reclame Aqui y código del monorepo Zymplo</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>La tesis de cada uno</h2>
+    <p class="h2-note">Qué es realmente cada producto, más allá del pitch.</p>
+    <div class="thesis">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-name">Meuassessor</span>
+          <span class="pill low">Amenaza baja</span>
+        </div>
+        <p class="card-tag">Organización personal por WhatsApp</p>
+        <p>Finanzas personales + agenda + drive con "asesores IA" con nombre propio (Theo, Martin, Sofi, Luna). B2C masivo del grupo de Felipe Titto, venta vía Hotmart. Nada fiscal, nada B2B.</p>
+        <div class="figures">
+          <b>+150k</b> usuarios (auto-declarado)<br>
+          <b>R$ 29,90</b>/mes · plan único<br>
+          Reclame Aqui <b>6,2</b> · 293 quejas
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-name">Jota.ai</span>
+          <span class="pill high">Amenaza alta</span>
+        </div>
+        <p class="card-tag">Banco conversacional para el MEI</p>
+        <p>Cuenta PJ propia que rinde 100% CDI, PIX y boletos gratis, tap-to-pay por voz (Fala Tap). Fundador ex-PagBank, Serie A de R$ 150M liderada por Haun Ventures. Sin nota fiscal ni DAS.</p>
+        <div class="figures">
+          <b>~300k</b> clientes · TPV <b>R$ 3,5 bi</b><br>
+          <b>Gratis</b> · monetiza adquirencia<br>
+          Reclame Aqui <b>8,08</b> · valuation ~US$ 185M
+        </div>
+      </div>
+      <div class="card zymplo">
+        <div class="card-head">
+          <span class="card-name">Zymplo</span>
+          <span class="pill self">Nosotros</span>
+        </div>
+        <p class="card-tag">El negocio entero es una conversa</p>
+        <p>Gestión completa: fiscal + cobros + CRM + agenda + marketing, por WhatsApp y app con gamificación. El único de los tres que emite nota fiscal, gestiona DAS y juega multi-país (12 países).</p>
+        <div class="figures">
+          <b>12</b> países con emisión fiscal<br>
+          App <b>Duo 1.0.23</b> en stores (piloto)<br>
+          Pricing: paywall en código, <b>apagado</b>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>El eje fiscal es el foso de Zymplo.</strong> Ni Meuassessor ni Jota emiten nota fiscal ni resuelven el DAS — y para el MEI son obligación, no nice-to-have. Jota gana en banking; Meuassessor en marketing de influencer; ninguno puede formalizar al usuario.
+    </div>
+  </section>
+
+  <section>
+    <h2>Matriz de capacidades</h2>
+    <p class="h2-note">Lo de Zymplo está verificado contra el código del monorepo, no contra el pitch.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimensión</th>
+            <th>Meuassessor</th>
+            <th>Jota.ai</th>
+            <th class="zy">Zymplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Público</td>
+            <td>B2C personal<span class="note">autónomos, familias</span></td>
+            <td>MEI/ME/EPP<span class="note">exige CNPJ activo</span></td>
+            <td>MEI/autónomos<span class="note">multi-país</span></td>
+          </tr>
+          <tr>
+            <td>Nota fiscal (NFS-e)</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">BR live + 11 países más</span></td>
+          </tr>
+          <tr>
+            <td>DAS / obligaciones MEI</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip no">No</span><span class="note">solo contenido de blog</span></td>
+            <td><span class="chip part">Parcial</span><span class="note">en el bot; ausente en la app</span></td>
+          </tr>
+          <tr>
+            <td>Cuenta bancaria propia</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">PJ · rinde 100% CDI</span></td>
+            <td><span class="chip no">No</span><span class="note">PIX + Mercado Pago + Open Finance</span></td>
+          </tr>
+          <tr>
+            <td>Cobros</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">QR PIX, boletos, Fala Tap (voz+NFC)</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">links MP, QR PIX, recurrentes, recibos PDF</span></td>
+          </tr>
+          <tr>
+            <td>Pago de boletos</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">ilimitado gratis</span></td>
+            <td><span class="chip part">Flag</span><span class="note">implementado, apagado</span></td>
+          </tr>
+          <tr>
+            <td>Open Finance</td>
+            <td><span class="chip yes">Sí</span><span class="note">114+ bancos</span></td>
+            <td><span class="chip yes">Sí</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">Belvo/Prometeo/Pluggy · por país</span></td>
+          </tr>
+          <tr>
+            <td>CRM / clientes / leads</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip part">Parcial</span><span class="note">CRUD live; kanban de leads aún mock</span></td>
+          </tr>
+          <tr>
+            <td>Contratos con firma</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">DocuSeal / ZapSign</span></td>
+          </tr>
+          <tr>
+            <td>Agenda + Google Calendar</td>
+            <td><span class="chip yes">Sí</span><span class="note">bidireccional + Meet + actas</span></td>
+            <td><span class="chip part">Parcial</span><span class="note">lembretes</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">+ Meet + actas por audio (flag)</span></td>
+          </tr>
+          <tr>
+            <td>Marketing / contenido IA</td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip no">No</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">texto/imagen/voz/email + vitrine</span></td>
+          </tr>
+          <tr>
+            <td>Multimodal (audio / foto)</td>
+            <td><span class="chip yes">Sí</span><span class="note">core del pitch</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">foto del boleto → pago</span></td>
+            <td><span class="chip part">Parcial</span><span class="note">foto recibo→gasto live; TTS apagado</span></td>
+          </tr>
+          <tr>
+            <td>App móvil</td>
+            <td><span class="chip no">No</span><span class="note">"coming soon" · clones truchos en stores</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">desde fines 2025 · necesaria para NFC</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">Duo 1.0.23 · iOS sometida 27-jul</span></td>
+          </tr>
+          <tr>
+            <td>Multi-país</td>
+            <td><span class="chip no">No</span><span class="note">solo Brasil</span></td>
+            <td><span class="chip no">No</span><span class="note">solo Brasil, solo BRL</span></td>
+            <td><span class="chip yes">Sí</span><span class="note">12 países con track fiscal</span></td>
+          </tr>
+          <tr>
+            <td>Precio</td>
+            <td>R$ 29,90/mes<span class="note">plan único · vía Hotmart</span></td>
+            <td>Gratis<span class="note">monetiza adquirencia 0,73–4,99%</span></td>
+            <td>Sin decidir<span class="note">paywall completo en código, kill switch OFF</span></td>
+          </tr>
+          <tr>
+            <td>Tracción</td>
+            <td>+150k usuarios<span class="note">auto-declarado · RA 6,2</span></td>
+            <td>~300k clientes<span class="note">TPV R$ 3,5 bi · RA 8,08</span></td>
+            <td>Piloto</td>
+          </tr>
+          <tr>
+            <td>Funding</td>
+            <td>Capital propio<span class="note">holding Tittanium (Felipe Titto)</span></td>
+            <td>US$ 8,9M seed + R$ 150M Serie A<span class="note">MAYA · Haun Ventures</span></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><span class="chip yes">Sí</span> disponible</span>
+      <span><span class="chip part">Parcial / Flag</span> existe pero incompleto o apagado</span>
+      <span><span class="chip no">No</span> no lo hace</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Meuassessor — amenaza baja en producto, alta en narrativa</h2>
+    <p>Es software de organización personal disfrazado de "equipo de asesores": registro de gastos por audio/texto/foto, Open Finance con 114+ bancos, agenda con Google Calendar y Meet, gestión de proyectos y un "drive inteligente". Sin app oficial (solo "coming soon"; las apps en las stores son clones oportunistas de terceros), calidad cuestionada en Reclame Aqui (6,2 con quejas de propaganda engañosa), venta por Hotmart — motor de growth de lanzamiento e influencer más que SaaS.</p>
+    <p>Pero valida dos apuestas que Zymplo ya hizo: <strong>(1)</strong> el autónomo brasileño paga ~R$ 30/mes por un asistente en WhatsApp, y <strong>(2)</strong> la <em>persona-ficación</em> de la IA —asesores con nombre y rol— vende. Es exactamente el territorio de Zy y la mascota.</p>
+  </section>
+
+  <section>
+    <h2>Jota.ai — el competidor real</h2>
+    <p>Fundado por Davi Holanda (ex-PagBank, cofundador de Bankly), lanzado en enero 2025, ~300 mil clientes y TPV anualizado de R$ 3,5 bi a junio 2026. Su modelo "todo gratis + adquirencia" es brutal contra cualquier suscripción: para el usuario, Jota es un banco que no cobra nada. Con la Serie A viene "Jota 2.0": IA proactiva con categorización automática, monitoreo e insights.</p>
+    <div class="duo">
+      <div class="panel">
+        <h4 class="win">Donde Jota gana y Zymplo no puede competir</h4>
+        <ul>
+          <li>Cuenta PJ remunerada al 100% del CDI, sin IOF</li>
+          <li>Tap-to-pay por voz sin maquininha (Fala Tap)</li>
+          <li>Tasas de adquirencia agresivas (débito desde 0,73%)</li>
+          <li>PIX y boletos ilimitados gratis</li>
+          <li>R$ 150M de capital para quemar en distribución</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4 class="gap">Donde Jota no juega</h4>
+        <ul>
+          <li>Nota fiscal (NF-e/NFS-e) — ninguna mención en producto</li>
+          <li>DAS y obligaciones MEI — solo contenido de blog</li>
+          <li>CRM, presupuestos, contratos, marketing</li>
+          <li>El informal sin CNPJ queda afuera del core</li>
+          <li>Solo Brasil, solo BRL — cero juego multi-país</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top: 18px;">Su tesis es <em>"el dinero es una conversa"</em>. La de Zymplo es más amplia — <em>el negocio entero es una conversa</em> — pero exige que la amplitud funcione de verdad.</p>
+  </section>
+
+  <section>
+    <h2>Zymplo — dónde está parado según el código</h2>
+    <p class="h2-note">Verificado contra el monorepo (app Expo + bot LangGraph), no contra el roadmap.</p>
+    <div class="duo">
+      <div class="panel">
+        <h4 class="win">Fortalezas reales y únicas</h4>
+        <ul>
+          <li><strong>Emisión fiscal multi-país</strong> — 12 países con pantallas y tools del bot; BR/MX/BO live en el entry point único, el resto por pantallas propias. Nadie más lo tiene.</li>
+          <li><strong>DAS MEI en el bot</strong> — calcular, historial, guía de pago, registrar pago, recordatorio automático.</li>
+          <li><strong>Amplitud del bot Zy</strong> — ~40 familias de tools: ERP, cobros MP, recibos, CRM, calendar, Drive, contratos, presupuestos PDF, marketing, stock, coaching, memoria con ChromaDB, guardrails LGPD.</li>
+          <li><strong>App real en stores + gamificación Duolingo</strong> — más tiempo real bot↔app vía Socket.io. Ninguno de los dos tiene esa combinación.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4 class="gap">Gaps que la comparación deja expuestos</h4>
+        <ul>
+          <li><strong>DAS no existe en la app</strong> — cero pantallas, cero i18n. El gancho #1 del MEI hoy es exclusivo de WhatsApp. <span class="sub-note">El gap más barato de cerrar con mayor impacto.</span></li>
+          <li><strong>emit-nfse sigue siendo scaffold</strong> (backlog L9) — la pieza que diferencia a Zymplo de Jota es la menos pulida en la app.</li>
+          <li><strong>~80 flags del bot en default OFF</strong> — la superficie real que ve el usuario depende del .env de producción, no del código.</li>
+          <li><strong>Leads/inbox mock, alertas de Zy solo en demo</strong> — lo que se ve en presentaciones no es lo que ve el usuario real.</li>
+          <li><strong>Monetización sin decidir</strong> — paywall completo pero apagado; Jota está educando al mercado en "esto debe ser gratis".</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Posicionamiento sugerido</h2>
+    <blockquote class="quote">
+      Jota te guarda la plata. Meuassessor te ordena la vida. <em>Zymplo te hace formal y te consigue clientes</em>: nota fiscal + DAS + cobros + CRM + marketing, por WhatsApp y app — en 12 países, no solo Brasil.
+    </blockquote>
+    <div class="prio">
+      <div class="prio-item">
+        <span class="prio-n">1</span>
+        <div>
+          <h3>DAS en la app</h3>
+          <p>El bot ya lo hace todo (calcular, guía, registrar, recordar). Falta la pantalla. Es el diferenciador más visible frente a ambos competidores y el más barato de shippear.</p>
+        </div>
+      </div>
+      <div class="prio-item">
+        <span class="prio-n">2</span>
+        <div>
+          <h3>Terminar emit-nfse</h3>
+          <p>Catálogo NBS, validación CNPJ/CPF del tomador, histórico y cancelación. La emisión fiscal es el foso — no puede ser un scaffold.</p>
+        </div>
+      </div>
+      <div class="prio-item">
+        <span class="prio-n">3</span>
+        <div>
+          <h3>Definir y encender el set mínimo de flags</h3>
+          <p>Decidir qué promete Zymplo públicamente y que ese set esté ON y estable. Contra el "gratis y simple" de Jota, un producto percibido chico pierde aunque el código sea enorme.</p>
+        </div>
+      </div>
+      <div class="prio-item">
+        <span class="prio-n">4</span>
+        <div>
+          <h3>Decidir pricing antes de que el mercado lo decida</h3>
+          <p>Meuassessor prueba que R$ 29,90/mes se paga; Jota prueba que gratis funciona si monetizás la transacción. Zymplo ya tiene un take rate implícito en los links de Mercado Pago — el híbrido es viable.</p>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top: 24px;">El multi-país es el seguro estratégico: si Jota gana Brasil con capital de VC, Zymplo tiene 11 mercados donde Jota ni siquiera puede abrir una cuenta.</p>
+  </section>
+
+  <footer>
+    <p><strong>Fuentes principales.</strong> Meuassessor: <a href="https://meuassessor.com/" rel="noopener">meuassessor.com</a>, Reclame Aqui, reviews (cursoavaliado.com.br), checkout Hotmart. Jota: <a href="https://jota.ai/" rel="noopener">jota.ai</a>, Brazil Journal, Exame, Finsiders, Startups.com.br, Reclame Aqui, blog.jota.ai. Zymplo: código del monorepo (zymplo-mobile, zymplo-langgraph) al 28-07-2026, rama feat/zymplo-duo-pilot.</p>
+    <p>Las cifras de tracción de Meuassessor son auto-declaradas en su landing y no están auditadas. Los datos de Jota provienen de prensa (rondas anunciadas públicamente).</p>
+  </footer>
+</div>
+
+</body>
+</html>
